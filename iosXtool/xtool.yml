@@ -1,0 +1,15 @@
+version: 1
+bundleID: app.fukaha
+product: Fukaha
+infoPath: Fukaha-Info.plist
+iconPath: ../iosApp/Fukaha/Assets.xcassets/AppIcon.appiconset/fukaha-icon-1024.png
+entitlementsPath: ../iosApp/Fukaha/Fukaha.entitlements
+extensions:
+  - product: FukahaShare
+    bundleID: app.fukaha.share
+    infoPath: FukahaShare-Info.plist
+    entitlementsPath: ../iosShareExtension/FukahaShare.entitlements
+  - product: FukahaAction
+    bundleID: app.fukaha.action
+    infoPath: FukahaAction-Info.plist
+    entitlementsPath: ../iosActionExtension/FukahaAction.entitlements

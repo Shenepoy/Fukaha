@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 import SwiftUI
 import Shared
 
+@objc(FukahaShareViewController)
 class ShareViewController: UIViewController {
     private struct SharedItemCandidate {
         let provider: NSItemProvider
