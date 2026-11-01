@@ -82,7 +82,7 @@ jobs:
     timeout-minutes: 30
     environment:
       name: testing-web
-      url: https://fukaha-shenepoy-testing.web.app
+      url: https://test.fukaha.shenepoy.com
     env:
       ORG_GRADLE_PROJECT_testingBuild: ${{ needs.version.outputs.build }}
     steps:
@@ -115,7 +115,7 @@ jobs:
           chmod 600 "$GOOGLE_APPLICATION_CREDENTIALS"
           python3 scripts/ci/testing_hosting.py
           npx --yes firebase-tools@15.18.0 deploy --only hosting --config firebase.testing.json --project fukaha-shenepoy --non-interactive
-          echo 'Web testing: https://fukaha-shenepoy-testing.web.app' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Web testing: https://test.fukaha.shenepoy.com' >> "$GITHUB_STEP_SUMMARY"
 
   ios:
     if: github.repository == 'Shenepoy/iOS-Setup'

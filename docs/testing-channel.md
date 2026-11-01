@@ -18,7 +18,7 @@ announcing that all platforms are available.
 | Platform | Destination | Identity |
 | --- | --- | --- |
 | Android | Download APK from the public Testing run's artifacts | `app.fukaha.testing`, launcher label **Fukaha Testing** |
-| Web | https://fukaha-shenepoy-testing.web.app | Separate PWA, storage, service worker, testing banner and version |
+| Web | https://test.fukaha.shenepoy.com | Separate PWA, storage, service worker, testing banner and version |
 | iOS | TestFlight, through the private repository | Existing `com.shenepoy.fukaha` app and extensions |
 
 Android testing installs alongside production, uses the existing release signing
@@ -53,6 +53,20 @@ separate Firebase Hosting site in project `fukaha-shenepoy`, with no search inde
 Production `firebase.json` is never rewritten: `testing_hosting.py` creates an
 ignored `firebase.testing.json` selecting only the testing site. Both sites share
 hosting header rules; their browser storage is isolated by origin.
+
+## Custom testing domain
+
+`test.fukaha.shenepoy.com` is attached to Firebase Hosting site
+`fukaha-shenepoy-testing`. In the `shenepoy.com` DNS zone, configure:
+
+| Type | Host | Value | TTL |
+| --- | --- | --- | --- |
+| CNAME | `test.fukaha` | `fukaha-shenepoy-testing.web.app` | Automatic |
+
+Firebase provisions HTTPS after the DNS record is verified. The Firebase-provided
+URL remains an alias; use the custom domain for testing so preferences remain on
+one origin. Preferences saved on the earlier `web.app` origin do not transfer
+automatically to the custom domain.
 
 ## Credentials
 
