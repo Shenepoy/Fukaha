@@ -1,5 +1,8 @@
 package app.fukaha
 
+import io.ktor.http.URLProtocol
+import io.ktor.http.Url
+
 enum class ShareAction {
     Ask,
     Clean,
@@ -91,7 +94,7 @@ data class FukahaSettings(
     val skippedUpdateVersion: String = "",
     val lastUpdateCheckEpochMs: Long = 0L,
 ) {
-    /** True when a non-blank http(s) Cobalt instance URL is configured. */
+    /** Native transports require HTTPS; reject unusable or credential-bearing endpoints. */
     val hasValidCobaltBaseUrl: Boolean
         get() = isValidCobaltBaseUrl(cobaltBaseUrl)
 
@@ -123,9 +126,14 @@ data class FukahaSettings(
 
         fun isValidCobaltBaseUrl(url: String): Boolean {
             val trimmed = url.trim()
-            if (trimmed.isEmpty()) return false
-            return trimmed.startsWith("http://", ignoreCase = true) ||
-                trimmed.startsWith("https://", ignoreCase = true)
+            if (!trimmed.startsWith("https://", ignoreCase = true)) return false
+            if (trimmed.substringAfter("://").substringBefore('/').isBlank() || trimmed.any { it.isWhitespace() }) return false
+            return runCatching {
+                val parsed = Url(trimmed)
+                parsed.protocol == URLProtocol.HTTPS && parsed.host.isNotBlank() &&
+                    parsed.user.isNullOrEmpty() && parsed.password.isNullOrEmpty() &&
+                    parsed.parameters.isEmpty() && parsed.fragment.isEmpty()
+            }.getOrDefault(false)
         }
 
         fun isLegacyPublicCobaltBaseUrl(url: String): Boolean {
@@ -133,4 +141,29 @@ data class FukahaSettings(
             return normalized.equals(LEGACY_PUBLIC_COBALT_BASE_URL, ignoreCase = true)
         }
     }
+}
+
+/** Apply just the fields edited by a UI snapshot to the latest persisted state. */
+fun FukahaSettings.applyChangesFrom(before: FukahaSettings, after: FukahaSettings): FukahaSettings {
+    fun <T> changed(old: T, next: T, current: T): T = if (old != next) next else current
+    val fixers = preferredFixers.toMutableMap()
+    (before.preferredFixers.keys + after.preferredFixers.keys).forEach { key ->
+        if (before.preferredFixers[key] != after.preferredFixers[key]) {
+            after.preferredFixers[key]?.let { fixers[key] = it } ?: fixers.remove(key)
+        }
+    }
+    return copy(
+        defaultAction = changed(before.defaultAction, after.defaultAction, defaultAction),
+        preferredFixers = fixers,
+        cobaltBaseUrl = changed(before.cobaltBaseUrl, after.cobaltBaseUrl, cobaltBaseUrl),
+        cobaltApiKey = changed(before.cobaltApiKey, after.cobaltApiKey, cobaltApiKey),
+        resolveShortLinks = changed(before.resolveShortLinks, after.resolveShortLinks, resolveShortLinks),
+        language = changed(before.language, after.language, language),
+        theme = changed(before.theme, after.theme, theme),
+        deleteCacheAfterShare = changed(before.deleteCacheAfterShare, after.deleteCacheAfterShare, deleteCacheAfterShare),
+        onboardingCompleted = changed(before.onboardingCompleted, after.onboardingCompleted, onboardingCompleted),
+        checkUpdatesOnLaunch = changed(before.checkUpdatesOnLaunch, after.checkUpdatesOnLaunch, checkUpdatesOnLaunch),
+        skippedUpdateVersion = changed(before.skippedUpdateVersion, after.skippedUpdateVersion, skippedUpdateVersion),
+        lastUpdateCheckEpochMs = changed(before.lastUpdateCheckEpochMs, after.lastUpdateCheckEpochMs, lastUpdateCheckEpochMs),
+    )
 }

@@ -7,8 +7,8 @@ options:
   defaultConfig: Debug
 settings:
   base:
-    MARKETING_VERSION: 26.09.0
-    CURRENT_PROJECT_VERSION: 15
+    MARKETING_VERSION: 26.10.0
+    CURRENT_PROJECT_VERSION: 16
     SWIFT_VERSION: "5.0"
     IPHONEOS_DEPLOYMENT_TARGET: 16.0
     ENABLE_USER_SCRIPT_SANDBOXING: NO
@@ -30,7 +30,7 @@ targets:
       - path: ../iosShareExtension/FukahaShareScreen.swift
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: app.fukaha
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha
         PRODUCT_NAME: Fukaha
         INFOPLIST_FILE: Fukaha/Info.plist
         GENERATE_INFOPLIST_FILE: YES
@@ -38,6 +38,8 @@ targets:
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
         CODE_SIGN_ENTITLEMENTS: Fukaha/Fukaha.entitlements
+        PROVISIONING_PROFILE_SPECIFIER: $(FUKAHA_APP_PROFILE)
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         TARGETED_DEVICE_FAMILY: "1,2"
         LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/Frameworks
         ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: YES
@@ -64,6 +66,10 @@ targets:
     sources:
       - path: ../iosShareExtension
       - path: Fukaha/FukahaDesign.swift
+      - path: Fukaha/FukahaMediaCache.swift
+      - path: Fukaha/FukahaSettingsSnapshot.swift
+      - path: Fukaha/FukahaSourcePreferences.swift
+      - path: Fukaha/PrivacyInfo.xcprivacy
     preBuildScripts:
       - name: Compile Kotlin Framework
         basedOnDependencyAnalysis: false
@@ -76,12 +82,15 @@ targets:
           ./gradlew :shared:embedAndSignAppleFrameworkForXcode
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: app.fukaha.share
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.share
         PRODUCT_NAME: FukahaShare
         INFOPLIST_FILE: ../iosShareExtension/Info.plist
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: Fukaha
         CODE_SIGN_ENTITLEMENTS: ../iosShareExtension/FukahaShare.entitlements
+        PROVISIONING_PROFILE_SPECIFIER: $(FUKAHA_SHARE_PROFILE)
+        APPLICATION_EXTENSION_API_ONLY: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
         SKIP_INSTALL: YES
         LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks
   FukahaAction:
@@ -91,6 +100,10 @@ targets:
       - path: ../iosShareExtension/ShareViewController.swift
       - path: ../iosShareExtension/FukahaShareScreen.swift
       - path: Fukaha/FukahaDesign.swift
+      - path: Fukaha/FukahaMediaCache.swift
+      - path: Fukaha/FukahaSettingsSnapshot.swift
+      - path: Fukaha/FukahaSourcePreferences.swift
+      - path: Fukaha/PrivacyInfo.xcprivacy
     preBuildScripts:
       - name: Compile Kotlin Framework
         basedOnDependencyAnalysis: false
@@ -103,12 +116,15 @@ targets:
           ./gradlew :shared:embedAndSignAppleFrameworkForXcode
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: app.fukaha.action
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.action
         PRODUCT_NAME: FukahaAction
         INFOPLIST_FILE: ../iosActionExtension/Info.plist
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: "Clean with Fukaha"
         CODE_SIGN_ENTITLEMENTS: ../iosActionExtension/FukahaAction.entitlements
+        PROVISIONING_PROFILE_SPECIFIER: $(FUKAHA_ACTION_PROFILE)
+        APPLICATION_EXTENSION_API_ONLY: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
         SKIP_INSTALL: YES
         LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks
 schemes:

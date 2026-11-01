@@ -1,0 +1,14 @@
+Please test:
+- Share a link from Safari and another app into Fukaha. Check the cleaned and embed links.
+- Choose a different source, close Fukaha, and confirm the choice is used on the next share.
+- Refresh source checks from the source list and picker. Check progress, status labels, and the saved last-checked time after restarting. Your selected source should not change.
+- Try a check without a network connection, then retry online. Previous successful results should be retained after an unsuccessful run.
+- Star sources and use Reorder to change their rank. Check that favorites and order survive restarting, stay separate per platform, and do not change the selected source.
+- Try Ask each time, Clean link, and Embed link as default actions.
+- Cancel the system share sheet, then choose another action.
+- Check English/Arabic layouts, light/dark themes, larger text, and iPad sharing.
+- If you have your own HTTPS Cobalt server, try downloading a small media file and clearing its cache.
+
+Known limits: third-party preview services can be unavailable. A responding host does not guarantee every post will have a preview. iOS does not yet include per-link preview verification. Media downloading is disabled until a valid server is configured; large downloads may exceed extension memory limits.
+
+Please include the iPhone/iPad model, iOS version, steps to reproduce, and a screenshot with feedback. Avoid including private links or API keys.

@@ -111,6 +111,16 @@ fi
     exit 1
 }
 
+# Fail before replacing generated sources when the Swift-facing ABI is obsolete.
+framework_header="$(find "$framework_source" -path '*/Headers/Shared.h' -print -quit)"
+if [ -z "$framework_header" ] ||
+   ! grep -Fq 'preferredFixers:onResult:' "$framework_header" ||
+   ! grep -Fq 'selectedFixer(platformKey:preferredHost:)' "$framework_header"; then
+    echo "Shared.xcframework is incompatible with the current Swift sources." >&2
+    echo "Rebuild the iOS Shared Framework from this source revision on macOS, then prepare again." >&2
+    exit 1
+fi
+
 # Stage the source before replacing the prepared copy. This also makes a
 # no-argument refresh safe when the source is already .xtool-input/.
 staged_framework="$temp_dir/Shared.xcframework"
@@ -134,6 +144,9 @@ for extension in FukahaShare FukahaAction; do
     cp "$ROOT"/iosShareExtension/ShareViewController.swift "$SOURCE_ROOT/$extension/"
     cp "$ROOT"/iosShareExtension/FukahaShareScreen.swift "$SOURCE_ROOT/$extension/"
     cp "$ROOT"/iosApp/Fukaha/FukahaDesign.swift "$SOURCE_ROOT/$extension/"
+    cp "$ROOT"/iosApp/Fukaha/FukahaMediaCache.swift "$SOURCE_ROOT/$extension/"
+    cp "$ROOT"/iosApp/Fukaha/FukahaSettingsSnapshot.swift "$SOURCE_ROOT/$extension/"
+    cp "$ROOT"/iosApp/Fukaha/FukahaSourcePreferences.swift "$SOURCE_ROOT/$extension/"
 done
 
 echo "Prepared $FRAMEWORK_DEST"

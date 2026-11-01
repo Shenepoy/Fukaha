@@ -1,21 +1,38 @@
 package app.fukaha
 
+import kotlinx.serialization.Serializable
+
 /**
  * Live reachability of an embed-fixer host.
  * Untested hosts stay [Unknown] so they remain usable until probed.
  */
+@Serializable
 enum class EmbedHealthStatus {
     Alive,
     Dead,
     Unknown,
 }
 
+@Serializable
+enum class SourceCheckReason { Responded, Redirected, Blocked, HttpError, TimedOut, NetworkError }
+
+@Serializable
+data class SourceCheckDetail(
+    val reason: SourceCheckReason,
+    val httpStatus: Int? = null,
+    val finalHost: String? = null,
+)
+
+@Serializable
 data class EmbedHealthSnapshot(
     val statuses: Map<String, EmbedHealthStatus> = emptyMap(),
     val checkedAtEpochMs: Long? = null,
+    val details: Map<String, SourceCheckDetail> = emptyMap(),
 ) {
     val aliveCount: Int get() = statuses.values.count { it == EmbedHealthStatus.Alive }
     val deadCount: Int get() = statuses.values.count { it == EmbedHealthStatus.Dead }
+
+    val unknownCount: Int get() = statuses.values.count { it == EmbedHealthStatus.Unknown }
 
     fun statusOf(host: String): EmbedHealthStatus {
         val key = EmbedHealthKeys.normalize(host)
@@ -32,7 +49,7 @@ data class EmbedHealthProgress(
     val deadCount: Int = 0,
 ) {
     val displayHost: String get() = EmbedHealthKeys.displayHost(currentHost)
-    val completedCount: Int get() = (aliveCount + deadCount).coerceAtMost(total)
+    val completedCount: Int get() = currentIndex.coerceIn(0, total.coerceAtLeast(0))
     val fraction: Float get() = if (total <= 0) 0f else completedCount.toFloat() / total.toFloat()
 }
 
@@ -66,6 +83,7 @@ interface EmbedHealthStore {
     suspend fun save(
         statuses: Map<String, EmbedHealthStatus>,
         checkedAtEpochMs: Long,
+        details: Map<String, SourceCheckDetail> = emptyMap(),
     )
 }
 
@@ -81,9 +99,9 @@ object EmbedHealthPolicy {
     }
 
     /**
-     * A run only counts when at least one host answered: everything failing means the
-     * device is offline, not that the embedders died. Such runs keep the previous
-     * snapshot and leave the manual check available for an immediate retry.
+     * Save a new snapshot only when at least one host is verified reachable. A run
+     * with no verified hosts may be offline or blocked; it must not erase prior
+     * results or prevent a manual retry.
      */
     fun isUsableResult(statuses: Map<String, EmbedHealthStatus>): Boolean =
         statuses.values.any { it == EmbedHealthStatus.Alive }
@@ -99,11 +117,7 @@ object EmbedHealthPolicy {
         return (MANUAL_REFRESH_COOLDOWN_MS - elapsed).coerceAtLeast(0L)
     }
 
-    /**
-     * Preferred if Alive/Unknown; else the first Alive and then the first unprobed service,
-     * searched from just after the pick and wrapping the list, or in default-then-catalogue
-     * order when there is no pick; else preferred/default/first.
-     */
+    /** Explicit choices are sticky; health only guides automatic selection. */
     fun pickService(
         services: List<EmbedService>,
         preferred: EmbedService?,
@@ -117,32 +131,15 @@ object EmbedHealthPolicy {
             return health[key] ?: EmbedHealthStatus.Unknown
         }
 
-        if (preferred != null && statusOf(preferred) != EmbedHealthStatus.Dead) {
-            return preferred
-        }
-
-        // A dead pick hands over to its neighbour rather than to the catalogue default:
-        // the stand-in should sit next to the choice the user actually made. Without a
-        // pick there is no position to stay near, so the default keeps leading.
-        val anchor = preferred
-            ?.let { EmbedHealthKeys.normalize(it.normalizedHost()) }
-            ?.let { key ->
-                services.indexOfFirst { EmbedHealthKeys.normalize(it.normalizedHost()) == key }
-            }
-            ?.takeIf { it >= 0 }
-
-        val ordered = if (anchor != null) {
-            List(services.size - 1) { services[(anchor + 1 + it) % services.size] }
-        } else {
-            buildList {
-                default?.let { add(it) }
-                addAll(services)
-            }.distinctBy { EmbedHealthKeys.normalize(it.normalizedHost()) }
-        }
+        services.firstOrNull { it == preferred }?.let { return it }
+        val ordered = buildList {
+            default?.takeIf { it in services }?.let { add(it) }
+            addAll(services)
+        }.distinctBy { EmbedHealthKeys.normalize(it.normalizedHost()) }
 
         ordered.firstOrNull { statusOf(it) == EmbedHealthStatus.Alive }?.let { return it }
         ordered.firstOrNull { statusOf(it) == EmbedHealthStatus.Unknown }?.let { return it }
 
-        return preferred ?: default ?: services.first()
+        return default?.takeIf { it in services } ?: services.first()
     }
 }

@@ -22,5 +22,14 @@ dist/
 *.jks
 *.keystore
 key.properties
+*.p12
+*.p8
+*.mobileprovision
+*.xcarchive/
+iosApp/testflight/.env*
+__pycache__/
 .firebase/
 firebase-debug.log*
+
+# Generated testing deployment configuration
+/firebase.testing.json

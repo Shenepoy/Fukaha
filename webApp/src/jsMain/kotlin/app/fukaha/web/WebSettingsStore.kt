@@ -37,8 +37,9 @@ class WebSettingsStore : SettingsStore {
     }
 
     private fun read(): Stored {
-        val raw = localStorage.getItem(KEY) ?: return Stored()
-        return runCatching { json.decodeFromString<Stored>(raw) }.getOrDefault(Stored())
+        return runCatching {
+            localStorage.getItem(KEY)?.let { json.decodeFromString<Stored>(it) } ?: Stored()
+        }.getOrDefault(Stored())
     }
 
     private fun Stored.toSettings() = FukahaSettings(

@@ -92,7 +92,7 @@ class IosSettingsStore(
     }
 
     companion object {
-        const val APP_GROUP = "group.app.fukaha"
+        const val APP_GROUP = "group.com.shenepoy.fukaha"
         private const val KEY_DEFAULT_ACTION = "default_action"
         private const val KEY_PREFERRED_FIXERS = "preferred_fixers"
         private const val KEY_COBALT = "cobalt_base_url"

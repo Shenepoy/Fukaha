@@ -10,7 +10,6 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.encodeToString
@@ -18,7 +17,8 @@ import kotlinx.serialization.json.Json
 
 private val Context.fukahaDataStore: DataStore<Preferences> by preferencesDataStore(name = "fukaha_settings")
 
-class AndroidSettingsStore(private val context: Context) : SettingsStore {
+class AndroidSettingsStore internal constructor(private val dataStore: DataStore<Preferences>) : SettingsStore {
+    constructor(context: Context) : this(context.fukahaDataStore)
     private val json = Json { ignoreUnknownKeys = true }
     private val migrationLock = Mutex()
     private var migrated = false
@@ -44,27 +44,28 @@ class AndroidSettingsStore(private val context: Context) : SettingsStore {
 
     override suspend fun get(): FukahaSettings {
         migrateIfNeeded()
-        return context.fukahaDataStore.data.map { prefs ->
-            FukahaSettings(
-                defaultAction = prefs[Keys.defaultAction]?.let { runCatching { ShareAction.valueOf(it) }.getOrNull() }
-                    ?: ShareAction.Ask,
-                preferredFixers = prefs[Keys.preferredFixers]?.let {
-                    runCatching { json.decodeFromString<Map<String, String>>(it) }.getOrDefault(emptyMap())
-                } ?: emptyMap(),
-                cobaltBaseUrl = prefs[Keys.cobaltBaseUrl] ?: FukahaSettings.DEFAULT_COBALT_BASE_URL,
-                cobaltApiKey = prefs[Keys.cobaltApiKey].orEmpty(),
-                resolveShortLinks = prefs[Keys.resolveShortLinks] ?: true,
-                language = AppLanguage.fromPersistedValue(prefs[Keys.language]),
-                theme = prefs[Keys.theme]?.let { runCatching { AppTheme.valueOf(it) }.getOrNull() }
-                    ?: AppTheme.System,
-                deleteCacheAfterShare = prefs[Keys.deleteCacheAfterShare] ?: true,
-                onboardingCompleted = prefs[Keys.onboardingCompleted] ?: false,
-                checkUpdatesOnLaunch = prefs[Keys.checkUpdatesOnLaunch] ?: true,
-                skippedUpdateVersion = prefs[Keys.skippedUpdateVersion].orEmpty(),
-                lastUpdateCheckEpochMs = prefs[Keys.lastUpdateCheckEpochMs] ?: 0L,
-            ).withDownloadClamped()
-        }.first()
+        return read(dataStore.data.first())
     }
+
+    private fun read(prefs: Preferences): FukahaSettings =
+        FukahaSettings(
+            defaultAction = prefs[Keys.defaultAction]?.let { runCatching { ShareAction.valueOf(it) }.getOrNull() }
+                ?: ShareAction.Ask,
+            preferredFixers = prefs[Keys.preferredFixers]?.let {
+                runCatching { json.decodeFromString<Map<String, String>>(it) }.getOrDefault(emptyMap())
+            } ?: emptyMap(),
+            cobaltBaseUrl = prefs[Keys.cobaltBaseUrl] ?: FukahaSettings.DEFAULT_COBALT_BASE_URL,
+            cobaltApiKey = prefs[Keys.cobaltApiKey].orEmpty(),
+            resolveShortLinks = prefs[Keys.resolveShortLinks] ?: true,
+            language = AppLanguage.fromPersistedValue(prefs[Keys.language]),
+            theme = prefs[Keys.theme]?.let { runCatching { AppTheme.valueOf(it) }.getOrNull() }
+                ?: AppTheme.System,
+            deleteCacheAfterShare = prefs[Keys.deleteCacheAfterShare] ?: true,
+            onboardingCompleted = prefs[Keys.onboardingCompleted] ?: false,
+            checkUpdatesOnLaunch = prefs[Keys.checkUpdatesOnLaunch] ?: true,
+            skippedUpdateVersion = prefs[Keys.skippedUpdateVersion].orEmpty(),
+            lastUpdateCheckEpochMs = prefs[Keys.lastUpdateCheckEpochMs] ?: 0L,
+        ).withDownloadClamped()
 
     /**
      * Migrations are persisted-flag guarded, so once this process has run them the
@@ -74,7 +75,7 @@ class AndroidSettingsStore(private val context: Context) : SettingsStore {
         if (migrated) return
         migrationLock.withLock {
             if (migrated) return
-            context.fukahaDataStore.edit { prefs ->
+            dataStore.edit { prefs ->
                 migrateLanguageDefault(prefs)
                 migrateCobaltPublicDefault(prefs)
             }
@@ -105,8 +106,9 @@ class AndroidSettingsStore(private val context: Context) : SettingsStore {
     }
 
     override suspend fun update(transform: (FukahaSettings) -> FukahaSettings) {
-        val next = transform(get()).withDownloadClamped()
-        context.fukahaDataStore.edit { prefs ->
+        migrateIfNeeded()
+        dataStore.edit { prefs ->
+            val next = transform(read(prefs)).withDownloadClamped()
             prefs[Keys.defaultAction] = next.defaultAction.name
             prefs[Keys.preferredFixers] = json.encodeToString(next.preferredFixers)
             prefs[Keys.cobaltBaseUrl] = next.cobaltBaseUrl

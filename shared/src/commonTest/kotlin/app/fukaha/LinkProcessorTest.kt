@@ -72,8 +72,8 @@ class LinkProcessorTest {
                 health = health,
             )
             assertNotNull(prepared)
-            assertEquals("https://twitterez.com/foo/status/99", prepared.embedUrl)
-            assertEquals(EmbedHealthStatus.Alive, prepared.embedHealth)
+            assertEquals("https://fixvx.com/foo/status/99", prepared.embedUrl)
+            assertEquals(EmbedHealthStatus.Dead, prepared.embedHealth)
         } finally {
             processor.close()
         }

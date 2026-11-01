@@ -3,6 +3,9 @@ package app.fukaha
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 /**
@@ -23,6 +26,10 @@ class FukahaIosFacade {
 
     fun defaultFixer(platformKey: String): String? = bridge.defaultFixer(platformKey)
 
+    /** Use the same catalog resolution for the picker and the generated link. */
+    fun selectedFixer(platformKey: String, preferredHost: String?): String? =
+        bridge.effectiveService(platformKey, preferredHost)?.normalizedHost()
+
     fun platformKeys(): List<String> = bridge.platformKeys()
 
     fun serviceNames(platformKey: String): List<String> =
@@ -32,7 +39,7 @@ class FukahaIosFacade {
         text: String,
         cobaltBaseUrl: String,
         resolveShortLinks: Boolean,
-        preferredFixerHost: String?,
+        preferredFixers: Map<String, String>,
         onResult: (cleanUrl: String?, embedUrl: String?, platform: String?, error: String?) -> Unit,
     ) {
         scope.launch {
@@ -40,12 +47,10 @@ class FukahaIosFacade {
                 val settings = FukahaSettings(
                     cobaltBaseUrl = cobaltBaseUrl,
                     resolveShortLinks = resolveShortLinks,
-                    preferredFixers = preferredFixerHost?.let { host ->
-                        bridge.detectPlatform(UrlCleaner.extractFirstUrl(text) ?: text)
-                            ?.let { key -> mapOf(key to host) }
-                    } ?: emptyMap(),
+                    preferredFixers = preferredFixers,
                 )
                 val prepared = bridge.prepare(text, settings)
+                ensureActive()
                 if (prepared == null) {
                     onResult(null, null, null, "No link found")
                 } else {
@@ -56,7 +61,10 @@ class FukahaIosFacade {
                         null,
                     )
                 }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
             } catch (t: Throwable) {
+                ensureActive()
                 onResult(null, null, null, t.message ?: "Prepare failed")
             }
         }
@@ -75,13 +83,18 @@ class FukahaIosFacade {
                     cobaltBaseUrl = cobaltBaseUrl,
                     cobaltApiKey = cobaltApiKey,
                 )
-                when (val result = bridge.download(url, settings, cacheDirPath)) {
+                val result = bridge.download(url, settings, cacheDirPath)
+                ensureActive()
+                when (result) {
                     is MediaDownloadResult.Success ->
                         onResult(result.filePath, result.mimeType, null)
                     is MediaDownloadResult.Failure ->
                         onResult(null, null, result.message)
                 }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
             } catch (t: Throwable) {
+                ensureActive()
                 onResult(null, null, t.message ?: "Download failed")
             }
         }
@@ -98,7 +111,9 @@ class FukahaIosFacade {
         ) -> Unit,
     ) {
         scope.launch {
-            when (val result = AppUpdateChecker().check(currentVersion)) {
+            val result = AppUpdateChecker().check(currentVersion)
+            ensureActive()
+            when (result) {
                 is UpdateCheckResult.Available -> onResult(
                     "available",
                     result.release.version,
@@ -125,6 +140,7 @@ class FukahaIosFacade {
     }
 
     fun close() {
+        scope.cancel()
         bridge.close()
     }
 }

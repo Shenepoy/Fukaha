@@ -1,5 +1,7 @@
 package app.fukaha
 
+import kotlinx.coroutines.CancellationException
+
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.get
@@ -34,6 +36,8 @@ class AppUpdateChecker(
                 return UpdateCheckResult.Failed("http ${response.status.value}")
             }
             evaluate(json.decodeFromString(response.bodyAsText()), currentVersion)
+        } catch (cancelled: CancellationException) {
+            throw cancelled
         } catch (t: Throwable) {
             UpdateCheckResult.Failed(t.message ?: "update.check.failed")
         } finally {

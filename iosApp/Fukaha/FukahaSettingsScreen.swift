@@ -66,8 +66,12 @@ struct FukahaSettingsScreen: View {
     @State private var cobaltExpanded = false
     @State private var selectedFixerPlatform: String?
     @State private var helpPresented = false
+    @StateObject private var sourceHealth = FukahaSourceHealth()
+    @State private var sourceRanking = FukahaSourceRanking.load(from: .standard)
+    @Environment(\.scenePhase) private var scenePhase
 
-    private let facade = FukahaIosFacade()
+    @StateObject private var client = FukahaClient()
+    private var facade: FukahaIosFacade { client.facade }
 
     private var isArabic: Bool {
         switch settings.language {
@@ -126,7 +130,7 @@ struct FukahaSettingsScreen: View {
                     ? text(en: "Download the file and share it", ar: "تحميل الملف ومشاركته")
                     : text(
                         en: "Needs your own Cobalt server URL, set under Media download in Settings.",
-                        ar: "يتطلب عنوان خادم Cobalt الخاص بك، ويُضبط تحت تحميل الوسائط.",
+                        ar: "يتطلب عنوان خادم Cobalt عبر HTTPS الخاص بك، ويُضبط تحت تحميل الوسائط.",
                     ),
             ),
         ]
@@ -174,15 +178,22 @@ struct FukahaSettingsScreen: View {
         .onChange(of: settings.language) { _ in settings.save() }
         .onChange(of: settings.theme) { _ in settings.save() }
         .onChange(of: settings.checkUpdatesOnLaunch) { _ in settings.save() }
+        .onChange(of: sourceRanking) { ranking in ranking.save(to: .standard) }
+        .onChange(of: scenePhase) { phase in
+            if phase == .background { sourceHealth.cancel() }
+        }
         .sheet(isPresented: Binding(
             get: { selectedFixerPlatform != nil },
             set: { if !$0 { selectedFixerPlatform = nil } },
         )) {
             if let key = selectedFixerPlatform {
                 IosFixerPickerSheet(
+                    platformKey: key,
+                    sourceRanking: $sourceRanking,
                     platformName: platformTitle(key),
                     services: serviceOptions(for: key),
                     selectedHost: currentService(for: key)?.host,
+                    sourceHealth: sourceHealth,
                     isArabic: isArabic,
                     onSelect: { host in
                         var next = settings
@@ -315,6 +326,9 @@ struct FukahaSettingsScreen: View {
     private var preferredFixersSection: some View {
         FukahaSection(title: text(en: "Preferred embed fixers", ar: "خدمات المعاينة المفضّلة")) {
             VStack(spacing: 0) {
+                IosSourceCheckControl(health: sourceHealth, isArabic: isArabic)
+                    .padding(16)
+                FukahaDivider()
                 ForEach(Array(platformKeys.enumerated()), id: \.offset) { index, key in
                     fixerRow(for: key)
                     if index != platformKeys.count - 1 {
@@ -330,11 +344,14 @@ struct FukahaSettingsScreen: View {
         let serviceName = service?.name ?? text(en: "No fixer selected", ar: "لم يتم اختيار خدمة")
         let host = service.map { displayHost($0.host) } ?? ""
         let infoUrl = service.flatMap { urlForHost($0.host) }
+        let status = sourceHealth.cache.snapshot.status(for: service?.host ?? "")
+        let statusLabel = sourceHealth.cache.snapshot.label(for: service?.host ?? "", isArabic: isArabic)
 
         return HStack(spacing: 12) {
             Circle()
-                .fill(Color.fukahaPrimary)
+                .fill(status.indicatorColor)
                 .frame(width: 10, height: 10)
+                .accessibilityHidden(true)
             Button {
                 selectedFixerPlatform = key
             } label: {
@@ -344,7 +361,7 @@ struct FukahaSettingsScreen: View {
                         .foregroundStyle(Color.fukahaOnSurface)
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
-                    Text(host)
+                    Text("\(host) · \(statusLabel)")
                         .font(.system(size: 16))
                         .foregroundStyle(Color.fukahaSecondary)
                         .lineLimit(1)
@@ -381,8 +398,8 @@ struct FukahaSettingsScreen: View {
                     icon: "info.circle",
                     title: "Fukaha",
                     subtitle: text(
-                        en: "Fukaha (فكها) cleans tracking from social links, rewrites them to embed-friendly hosts, or downloads media to re-share as a file (requires your own Cobalt instance URL in Settings). Open it from the system share menu.",
-                        ar: "فكها يزيل التتبع من روابط التواصل الاجتماعي، ويحوّلها إلى مضيفات مناسبة للمعاينة، أو يحمّل الوسائط لمشاركتها كملف (يتطلب عنوان خادم Cobalt الخاص بك في الإعدادات). افتحه من قائمة المشاركة في النظام.",
+                        en: "Fukaha (فكها) cleans tracking from social links, rewrites them to embed-friendly hosts, or downloads media to re-share as a file (requires your own Cobalt instance URL (HTTPS) in Settings). Open it from the system share menu.",
+                        ar: "فكها يزيل التتبع من روابط التواصل الاجتماعي، ويحوّلها إلى مضيفات مناسبة للمعاينة، أو يحمّل الوسائط لمشاركتها كملف (يتطلب عنوان خادم Cobalt عبر HTTPS الخاص بك في الإعدادات). افتحه من قائمة المشاركة في النظام.",
                     ),
                     trailingIcon: nil,
                 )
@@ -450,6 +467,20 @@ struct FukahaSettingsScreen: View {
     private var developerSection: some View {
         FukahaSection(title: text(en: "Developer", ar: "المطوّر")) {
             VStack(spacing: 0) {
+                externalLinkRow(
+                    icon: "hand.raised",
+                    title: text(en: "Privacy policy", ar: "سياسة الخصوصية"),
+                    subtitle: text(en: "How Fukaha handles your data", ar: "كيف يتعامل Fukaha مع بياناتك"),
+                    url: "https://fukaha.shenepoy.com/privacy.html",
+                )
+                FukahaDivider()
+                externalLinkRow(
+                    icon: "questionmark.circle",
+                    title: text(en: "Help and support", ar: "المساعدة والدعم"),
+                    subtitle: text(en: "Get help or report a problem", ar: "احصل على مساعدة أو أبلغ عن مشكلة"),
+                    url: "https://fukaha.shenepoy.com/support.html",
+                )
+                FukahaDivider()
                 externalLinkRow(
                     icon: "person",
                     title: "shenepoy",
@@ -525,8 +556,8 @@ struct FukahaSettingsScreen: View {
                         icon: "externaldrive",
                         title: text(en: "Media download", ar: "تحميل الوسائط"),
                         subtitle: cobaltExpanded ? nil : text(
-                            en: "Tap to set your Cobalt instance URL",
-                            ar: "اضغط لتعيين عنوان خادم Cobalt",
+                            en: "Tap to set your Cobalt instance URL (HTTPS)",
+                            ar: "اضغط لتعيين عنوان خادم Cobalt عبر HTTPS",
                         ),
                         trailingIcon: cobaltExpanded ? "chevron.up" : "chevron.down",
                     )
@@ -536,13 +567,13 @@ struct FukahaSettingsScreen: View {
                     FukahaDivider()
                     VStack(alignment: .leading, spacing: 12) {
                         Text(text(
-                            en: "Media download needs your own self-hosted Cobalt instance URL (and API key if your instance requires one). The public cobalt.tools API will not work with this app.",
-                            ar: "يحتاج تحميل الوسائط إلى عنوان خادم Cobalt تستضيفه بنفسك (ومفتاح API إن طلبه خادمك). واجهة cobalt.tools العامة لا تعمل مع هذا التطبيق.",
+                            en: "Media download needs your own self-hosted Cobalt instance URL (HTTPS) (and API key if your instance requires one). The public cobalt.tools API will not work with this app.",
+                            ar: "يحتاج تحميل الوسائط إلى عنوان خادم Cobalt عبر HTTPS تستضيفه بنفسك (ومفتاح API إن طلبه خادمك). واجهة cobalt.tools العامة لا تعمل مع هذا التطبيق.",
                         ))
                         .font(.system(size: 15))
                         .foregroundStyle(Color.fukahaSecondary)
                         TextField(
-                            text(en: "Cobalt instance URL", ar: "عنوان خادم Cobalt"),
+                            text(en: "Cobalt instance URL (HTTPS)", ar: "عنوان خادم Cobalt عبر HTTPS"),
                             text: Binding(
                                 get: { settings.cobaltBaseUrl },
                                 set: { updateCobaltUrl($0) },
@@ -651,12 +682,12 @@ struct FukahaSettingsScreen: View {
     }
 
     private var versionLabel: String {
-        "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.09.0")"
+        "v\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.10.0")"
     }
 
     private func currentService(for key: String) -> IosServiceOption? {
         let services = serviceOptions(for: key)
-        let preferred = settings.preferredFixers[key] ?? facade.defaultFixer(platformKey: key)
+        let preferred = facade.selectedFixer(platformKey: key, preferredHost: settings.preferredFixers[key])
         if let preferred {
             let normalized = normalizeHost(preferred)
             if let selected = services.first(where: { normalizeHost($0.host) == normalized }) {
@@ -730,39 +761,57 @@ struct FukahaSettingsScreen: View {
 }
 
 private struct IosFixerPickerSheet: View {
+    let platformKey: String
+    @Binding var sourceRanking: FukahaSourceRanking
     let platformName: String
     let services: [IosServiceOption]
     let selectedHost: String?
+    @ObservedObject var sourceHealth: FukahaSourceHealth
     let isArabic: Bool
     let onSelect: (String) -> Void
     @Environment(\.dismiss) private var dismiss
+    @State private var editMode = EditMode.inactive
+
+    private var orderedServices: [IosServiceOption] {
+        let byHost = Dictionary(services.map { (FukahaSourceHealthSnapshot.normalize($0.host), $0) },
+                                uniquingKeysWith: { first, _ in first })
+        return sourceRanking.orderedHosts(platform: platformKey, catalog: services.map(\.host))
+            .compactMap { byHost[$0] }
+    }
+
+    private func group(favorites: Bool) -> [IosServiceOption] {
+        orderedServices.filter { sourceRanking.isFavorite(platform: platformKey, host: $0.host) == favorites }
+    }
 
     var body: some View {
         NavigationStack {
             List {
-                ForEach(services) { service in
-                    Button {
-                        onSelect(service.host)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(service.name)
-                                    .font(.system(size: 18, weight: .semibold))
-                                    .foregroundStyle(Color.fukahaOnSurface)
-                                Text(service.host)
-                                    .font(.system(size: 15))
-                                    .foregroundStyle(Color.fukahaSecondary)
-                            }
-                            Spacer()
-                            if selectedHost.map({ normalize($0) == normalize(service.host) }) == true {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundStyle(Color.fukahaPrimary)
-                            }
-                        }
-                    }
+                IosSourceCheckControl(health: sourceHealth, isArabic: isArabic)
                     .listRowBackground(Color.fukahaSurfaceLow)
+                Section {
+                    if group(favorites: true).isEmpty {
+                        Text(isArabic ? "اضغط النجمة لإضافة مصدر إلى المفضلة" : "Tap a star to add a favorite source")
+                            .font(.subheadline)
+                            .foregroundStyle(Color.fukahaSecondary)
+                            .listRowBackground(Color.fukahaSurfaceLow)
+                    }
+                    ForEach(group(favorites: true)) { service in
+                        sourceRow(service, rank: (group(favorites: true).firstIndex { $0.id == service.id } ?? 0) + 1)
+                    }
+                    .onMove { offsets, destination in move(offsets, to: destination, favorites: true) }
+                } header: {
+                    Text(isArabic ? "المفضلة حسب الترتيب" : "Ranked favorites")
+                } footer: {
+                    Text(isArabic ? "رتّب المصادر بالسحب. النجمة والترتيب لا يغيّران المصدر المحدد." : "Use Reorder to drag sources. Stars and rank do not change your selected source.")
+                }
+                if !group(favorites: false).isEmpty {
+                    Section(isArabic ? "مصادر أخرى" : "Other sources") {
+                        ForEach(group(favorites: false)) { service in sourceRow(service, rank: nil) }
+                            .onMove { offsets, destination in move(offsets, to: destination, favorites: false) }
+                    }
                 }
             }
+            .environment(\.editMode, $editMode)
             .scrollContentBackground(.hidden)
             .background(Color.fukahaBackground)
             .navigationTitle(isArabic ? "خدمات \(platformName)" : "\(platformName) fixers")
@@ -770,16 +819,133 @@ private struct IosFixerPickerSheet: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(isArabic ? "تم" : "Done") { dismiss() }
                 }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(editMode.isEditing
+                        ? (isArabic ? "حفظ الترتيب" : "Finish ordering")
+                        : (isArabic ? "ترتيب" : "Reorder")) {
+                        withAnimation { editMode = editMode.isEditing ? .inactive : .active }
+                    }
+                    .disabled(!editMode.isEditing && group(favorites: true).count < 2 && group(favorites: false).count < 2)
+                }
             }
         }
         .tint(Color.fukahaPrimary)
         .presentationDetents([.medium, .large])
     }
 
-    private func normalize(_ value: String) -> String {
-        value.trimmingCharacters(in: .whitespacesAndNewlines)
-            .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-            .lowercased()
+    private func sourceRow(_ service: IosServiceOption, rank: Int?) -> some View {
+        HStack(spacing: 10) {
+            Button { onSelect(service.host) } label: {
+                HStack(spacing: 10) {
+                    if let rank {
+                        Text("\(rank)")
+                            .font(.system(size: 14, weight: .semibold).monospacedDigit())
+                            .foregroundStyle(Color.fukahaSecondary)
+                            .accessibilityLabel(isArabic ? "الترتيب \(rank)" : "Rank \(rank)")
+                    }
+                    Circle()
+                        .fill(sourceHealth.cache.snapshot.status(for: service.host).indicatorColor)
+                        .frame(width: 10, height: 10)
+                        .accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(service.name)
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundStyle(Color.fukahaOnSurface)
+                        Text("\(service.host) · \(sourceHealth.cache.snapshot.label(for: service.host, isArabic: isArabic))")
+                            .font(.system(size: 15))
+                            .foregroundStyle(Color.fukahaSecondary)
+                    }
+                    Spacer(minLength: 0)
+                    if selectedHost.map({ FukahaSourceHealthSnapshot.normalize($0) == FukahaSourceHealthSnapshot.normalize(service.host) }) == true {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(Color.fukahaPrimary)
+                            .accessibilityLabel(isArabic ? "محدد" : "Selected")
+                    }
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .disabled(editMode.isEditing)
+            Button {
+                sourceRanking.toggleFavorite(platform: platformKey, host: service.host, catalog: services.map(\.host))
+            } label: {
+                Image(systemName: sourceRanking.isFavorite(platform: platformKey, host: service.host) ? "star.fill" : "star")
+                    .frame(width: 44, height: 44)
+            }
+            .buttonStyle(.borderless)
+            .disabled(editMode.isEditing)
+            .accessibilityLabel(sourceRanking.isFavorite(platform: platformKey, host: service.host)
+                ? (isArabic ? "إزالة \(service.name) من المفضلة" : "Remove \(service.name) from favorites")
+                : (isArabic ? "إضافة \(service.name) إلى المفضلة" : "Add \(service.name) to favorites"))
+        }
+        .listRowBackground(Color.fukahaSurfaceLow)
+    }
+
+    private func move(_ offsets: IndexSet, to destination: Int, favorites: Bool) {
+        sourceRanking.move(platform: platformKey, favoritesOnly: favorites,
+                           from: offsets, to: destination, catalog: services.map(\.host))
+    }
+}
+
+private extension FukahaSourceStatus {
+    var indicatorColor: Color {
+        switch self {
+        case .responding: return .green
+        case .failed: return .red
+        case .unverified: return .fukahaSecondary
+        }
+    }
+}
+
+private struct IosSourceCheckControl: View {
+    @ObservedObject var health: FukahaSourceHealth
+    let isArabic: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(isArabic ? "فحص المصادر" : "Check sources")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Color.fukahaOnSurface)
+                Spacer()
+                Button { health.refresh() } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 21, weight: .medium))
+                        .frame(width: 44, height: 44)
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.fukahaPrimary)
+                .disabled(health.isChecking)
+                .accessibilityLabel(isArabic ? "إعادة فحص المصادر" : "Refresh source checks")
+                .accessibilityIdentifier("refresh-source-checks")
+            }
+            if health.isChecking {
+                ProgressView(value: Double(health.completed), total: Double(max(health.total, 1)))
+                Text(isArabic
+                    ? "جارٍ الفحص: \(health.completed) / \(health.total)"
+                    : "Checking \(health.completed) / \(health.total)")
+                if !health.currentHost.isEmpty {
+                    Text(health.currentHost).lineLimit(1)
+                }
+            } else {
+                if health.cache.lastAttemptFailed {
+                    Text(health.cache.snapshot.checkedAt == nil
+                        ? (isArabic ? "لم نتمكن من التحقق من أي مصدر. تحقق من اتصالك وحاول مجددًا." : "No sources could be verified. Check your connection and try again.")
+                        : (isArabic ? "لم نتمكن من التحقق من أي مصدر. احتُفظ بالنتائج السابقة؛ يمكنك المحاولة مجددًا." : "No sources could be verified. Previous results kept; you can try again."))
+                }
+                if let date = health.cache.snapshot.checkedAt {
+                    Text(isArabic
+                        ? "\(health.cache.snapshot.respondingCount) يستجيب · \(health.cache.snapshot.failedCount) فشل · \(health.cache.snapshot.unverifiedCount) غير مؤكد"
+                        : "\(health.cache.snapshot.respondingCount) responding · \(health.cache.snapshot.failedCount) failed · \(health.cache.snapshot.unverifiedCount) unverified")
+                    Text(isArabic ? "آخر فحص: \(date.formatted(date: .abbreviated, time: .shortened))"
+                        : "Last checked: \(date.formatted(date: .abbreviated, time: .shortened))")
+                } else if !health.cache.lastAttemptFailed {
+                    Text(isArabic ? "لم تُفحص المصادر بعد" : "Sources have not been checked yet")
+                }
+            }
+        }
+        .font(.system(size: 14))
+        .foregroundStyle(Color.fukahaSecondary)
     }
 }
 

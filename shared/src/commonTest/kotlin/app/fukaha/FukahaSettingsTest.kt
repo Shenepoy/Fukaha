@@ -80,7 +80,11 @@ class FukahaSettingsTest {
         assertFalse(FukahaSettings.isValidCobaltBaseUrl(""))
         assertFalse(FukahaSettings.isValidCobaltBaseUrl("   "))
         assertTrue(FukahaSettings.isValidCobaltBaseUrl("https://cobalt.example"))
-        assertTrue(FukahaSettings.isValidCobaltBaseUrl("http://localhost:9000"))
+        assertFalse(FukahaSettings.isValidCobaltBaseUrl("http://localhost:9000"))
+        for (invalid in listOf("https://", "https:///path", "https://user:password@host", "https://host/?token=secret", "https://host/#fragment")) {
+            assertFalse(FukahaSettings.isValidCobaltBaseUrl(invalid), invalid)
+        }
+        assertTrue(FukahaSettings.isValidCobaltBaseUrl(" HTTPS://cobalt.example:9000/api "))
         assertTrue(FukahaSettings.isLegacyPublicCobaltBaseUrl("https://api.cobalt.tools"))
         assertTrue(FukahaSettings.isLegacyPublicCobaltBaseUrl("https://api.cobalt.tools/"))
         assertFalse(FukahaSettings.isLegacyPublicCobaltBaseUrl("https://cobalt.example"))

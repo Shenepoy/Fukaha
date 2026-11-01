@@ -7,6 +7,9 @@ plugins {
 
 val appVersionFile = rootProject.file("VERSION")
 val appVersion = appVersionFile.readText().trim()
+val testingBuild = providers.gradleProperty("testingBuild").orElse("local").get()
+check(Regex("[0-9]+|local").matches(testingBuild)) { "Invalid testingBuild" }
+val testingVersionCode = providers.gradleProperty("testingVersionCode").orElse("1").get().toInt()
 check(Regex("""^[0-9]{2}\.[0-9]{2}\.[0-9]+$""").matches(appVersion)) {
     "VERSION must be YY.0M.MICRO, got: ${appVersion.ifBlank { "<empty>" }}"
 }
@@ -28,8 +31,9 @@ android {
         applicationId = "app.fukaha"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 15
+        versionCode = 16
         versionName = appVersion
+        buildConfigField("boolean", "IS_TESTING", "false")
     }
 
     buildFeatures {
@@ -78,6 +82,19 @@ android {
                 "proguard-rules.pro",
             )
         }
+        create("staging") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".testing"
+            versionNameSuffix = "-testing.$testingBuild"
+            buildConfigField("boolean", "IS_TESTING", "true")
+            matchingFallbacks += "release"
+        }
+    }
+}
+
+androidComponents {
+    onVariants(selector().withBuildType("staging")) { variant ->
+        variant.outputs.forEach { it.versionCode.set(testingVersionCode) }
     }
 }
 

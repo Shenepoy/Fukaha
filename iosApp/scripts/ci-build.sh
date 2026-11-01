@@ -6,6 +6,8 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 IOS="$ROOT/iosApp"
 cd "$IOS"
 
+bash "$IOS/scripts/test-source-preferences.sh"
+
 if ! command -v xcodegen >/dev/null 2>&1; then
   echo "xcodegen is required. Install with: brew install xcodegen" >&2
   exit 1

@@ -69,7 +69,7 @@ class EmbedHealthController(
                 val usable = EmbedHealthPolicy.isUsableResult(results)
                 _lastRunUnreachable.value = !usable
                 if (usable) {
-                    store.save(results, PlatformClock.epochMillis())
+                    store.save(results, PlatformClock.epochMillis(), checker.details())
                 }
             } catch (cancelled: CancellationException) {
                 // In-app task switches (the Settings test link) must not look like

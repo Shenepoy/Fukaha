@@ -95,7 +95,8 @@ test("service worker shell contains existing static assets and production rewrit
   assert.ok(shellUrls.includes("/index.html"));
   assert.ok(shellUrls.includes("/manifest.webmanifest"));
   assert.ok(shellUrls.includes("/icons/icon.svg"));
-  assert.match(serviceWorker, /request\.mode === "navigate" \? "\/index\.html" : request/);
+  // Navigation fallback behavior is exercised by service-worker.test.mjs.
+  assert.match(serviceWorker, /const cacheKey = request\.mode === "navigate"/);
   assert.match(serviceWorker, /url\.origin !== self\.location\.origin/);
 
   assert.match(productionWebpack, /filename:\s*"fukaha\.\[contenthash:12\]\.js"/);

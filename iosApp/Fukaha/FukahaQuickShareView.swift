@@ -11,7 +11,8 @@ import Shared
 struct FukahaQuickShareView: View {
     let text: String
     let settings: SettingsSnapshot
-    let facade: FukahaIosFacade
+    let client: FukahaClient
+    private var facade: FukahaIosFacade { client.facade }
     let onDismiss: () -> Void
 
     @StateObject private var model = FukahaShareModel()
@@ -120,21 +121,14 @@ struct FukahaQuickShareView: View {
         didStartPreparing = true
 
         let originalUrl = facade.extractUrl(text: text) ?? text
-        let preferred: String? = {
-            guard let url = facade.extractUrl(text: text),
-                  let platform = facade.detectPlatform(url: url) else {
-                return nil
-            }
-            return settings.preferredFixers[platform]
-        }()
-
         facade.prepare(
             text: text,
             cobaltBaseUrl: settings.cobaltBaseUrl,
             resolveShortLinks: settings.resolveShortLinks,
-            preferredFixerHost: preferred,
+            preferredFixers: settings.preferredFixers,
         ) { clean, embed, platform, error in
             DispatchQueue.main.async {
+                guard !client.isClosed else { return }
                 model.loading = false
                 if let error {
                     model.error = localizedError(error)
@@ -182,12 +176,19 @@ struct FukahaQuickShareView: View {
     }
 
     private func shareMedia() {
-        guard let url = model.cleanedUrl else { return }
+        guard !client.isClosed, !model.downloading, pendingShare == nil,
+              let url = model.cleanedUrl else { return }
         model.downloading = true
         model.error = nil
 
-        let cache = FileManager.default.temporaryDirectory.appendingPathComponent("fukaha", isDirectory: true)
-        try? FileManager.default.createDirectory(at: cache, withIntermediateDirectories: true)
+        let cache: URL
+        do {
+            cache = try FukahaMediaCache.directory()
+        } catch {
+            model.downloading = false
+            model.error = error.localizedDescription
+            return
+        }
 
         facade.download(
             url: url,
@@ -196,6 +197,12 @@ struct FukahaQuickShareView: View {
             cacheDirPath: cache.path,
         ) { path, _, error in
             DispatchQueue.main.async {
+                guard !client.isClosed else {
+                    if settings.deleteCacheAfterShare, let path {
+                        try? FileManager.default.removeItem(atPath: path)
+                    }
+                    return
+                }
                 model.downloading = false
                 guard let path else {
                     model.error = localizedError(error ?? textFor(

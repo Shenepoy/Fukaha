@@ -439,6 +439,18 @@ private fun renderShare(app: App, parent: HTMLElement) {
             titleTrailing = if (dead) s.embedHealthDead else null,
             shareable = true,
         )
+        parent.el("div", "preview-check-section") {
+            button(if (app.previewChecking) s.checkingPreview else s.checkPreview, ButtonStyle.Text) {
+                app.checkPreview()
+            }.also {
+                it.id = "preview-check"
+                it.disabled = app.previewChecking
+            }
+            el("p", "body-small on-surface-variant", app.previewResult?.let(s::previewResult) ?: s.previewCheckHint) {
+                setAttribute("role", "status")
+                setAttribute("aria-live", "polite")
+            }
+        }
     }
 }
 
@@ -520,13 +532,13 @@ fun renderAbout(app: App, parent: HTMLElement) {
                 }
             }
             el("div", "list-item static-list-item version-row") {
-                setAttribute("aria-label", "${s.version}: $WEB_APP_VERSION")
+                setAttribute("aria-label", "${s.version}: $WEB_DISPLAY_VERSION")
                 icon(Icon.INFO)
                 el("div", "list-item-text") {
                     el("span", "body-large", s.version)
-                    el("span", "body-small on-surface-variant", WEB_APP_VERSION) {
+                    el("span", "body-small on-surface-variant", WEB_DISPLAY_VERSION) {
                         dir = "ltr"
-                        setAttribute("data-app-version", WEB_APP_VERSION)
+                        setAttribute("data-app-version", WEB_DISPLAY_VERSION)
                     }
                 }
             }

@@ -65,6 +65,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.graphics.graphicsLayer
 import app.fukaha.EmbedHealthSnapshot
+import app.fukaha.SourceCheckDetail
+import app.fukaha.SourceCheckReason
 import app.fukaha.EmbedHealthStatus
 import app.fukaha.EmbedService
 import app.fukaha.R
@@ -233,6 +235,7 @@ fun PreferredFixerPickerSheet(
                             service = service,
                             selected = selected,
                             healthStatus = health.statusOf(service.normalizedHost()),
+                            detail = health.details[app.fukaha.EmbedHealthKeys.normalize(service.normalizedHost())],
                             onClick = {
                                 onSelect(service)
                                 dismissSheet()
@@ -280,6 +283,7 @@ private fun FixerOptionCard(
     service: EmbedService,
     selected: Boolean,
     healthStatus: EmbedHealthStatus,
+    detail: SourceCheckDetail?,
     onClick: () -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
@@ -396,6 +400,21 @@ private fun FixerOptionCard(
                         modifier = Modifier.weight(1f, fill = false),
                     )
                     HealthStatusChip(status = healthStatus)
+                }
+
+                detail?.let { evidence ->
+                    val description = when (evidence.reason) {
+                        SourceCheckReason.Responded -> null
+                        SourceCheckReason.Redirected -> stringResource(R.string.source_redirected) + " " + evidence.finalHost.orEmpty()
+                        SourceCheckReason.Blocked -> stringResource(R.string.preview_blocked)
+                        SourceCheckReason.HttpError -> stringResource(R.string.preview_http_error)
+                        SourceCheckReason.TimedOut -> stringResource(R.string.preview_timed_out)
+                        SourceCheckReason.NetworkError -> stringResource(R.string.preview_network_error)
+                    }
+                    description?.let {
+                        Text(it + (evidence.httpStatus?.let { code -> " (HTTP $code)" } ?: ""),
+                            style = MaterialTheme.typography.bodySmall, color = muted)
+                    }
                 }
 
                 service.description?.takeIf { it.isNotBlank() }?.let { description ->

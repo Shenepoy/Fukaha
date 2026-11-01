@@ -50,6 +50,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.key
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -239,6 +240,10 @@ fun ShareSheet(
                                 null
                             },
                         )
+                    }
+
+                    link.embedUrl?.let { embed ->
+                        key(embed) { EmbedPreviewCheckControl(link.detected.cleanedUrl, embed) }
                     }
 
                     // Without a Cobalt URL the download can only fail, so drop the

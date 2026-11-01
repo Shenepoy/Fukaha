@@ -21,9 +21,15 @@ class ShareViewController: UIViewController {
     private var hasAppeared = false
     private var pendingDefaultAction = false
     private var defaultActionStarted = false
+    private var finished = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        switch settings.theme {
+        case "Light": overrideUserInterfaceStyle = .light
+        case "Dark": overrideUserInterfaceStyle = .dark
+        default: overrideUserInterfaceStyle = .unspecified
+        }
         view.backgroundColor = .systemBackground
         setupUI()
         loadSharedUrl()
@@ -128,7 +134,7 @@ class ShareViewController: UIViewController {
         let candidate = candidates[index]
         candidate.provider.loadItem(forTypeIdentifier: candidate.typeIdentifier, options: nil) { [weak self] item, _ in
             DispatchQueue.main.async {
-                guard let self else { return }
+                guard let self, !self.finished else { return }
                 guard let text = self.sharedText(from: item),
                       self.facade.extractUrl(text: text) != nil else {
                     self.loadSharedItem(
@@ -175,21 +181,14 @@ class ShareViewController: UIViewController {
         model.downloading = false
         model.error = nil
 
-        let preferred: String? = {
-            if let url = facade.extractUrl(text: text),
-               let platform = facade.detectPlatform(url: url) {
-                return settings.preferredFixers[platform]
-            }
-            return nil
-        }()
-
         facade.prepare(
             text: text,
             cobaltBaseUrl: settings.cobaltBaseUrl,
             resolveShortLinks: settings.resolveShortLinks,
-            preferredFixerHost: preferred
-        ) { clean, embed, platform, error in
+            preferredFixers: settings.preferredFixers
+        ) { [weak self] clean, embed, platform, error in
             DispatchQueue.main.async {
+                guard let self, !self.finished else { return }
                 self.model.loading = false
                 if let error {
                     self.model.error = self.localizedError(error)
@@ -247,20 +246,27 @@ class ShareViewController: UIViewController {
     }
 
     @objc private func shareMedia() {
-        guard let url = preparedClean else { return }
+        guard !finished, !model.downloading, let url = preparedClean else { return }
         model.downloading = true
         model.error = nil
 
-        let cache = FileManager.default.temporaryDirectory.appendingPathComponent("fukaha", isDirectory: true)
-        try? FileManager.default.createDirectory(at: cache, withIntermediateDirectories: true)
+        let cache: URL
+        do {
+            cache = try FukahaMediaCache.directory()
+        } catch {
+            model.downloading = false
+            model.error = error.localizedDescription
+            return
+        }
 
         facade.download(
             url: url,
             cobaltBaseUrl: settings.cobaltBaseUrl,
             cobaltApiKey: settings.cobaltApiKey,
             cacheDirPath: cache.path
-        ) { path, mime, error in
+        ) { [weak self] path, _, error in
             DispatchQueue.main.async {
+                guard let self, !self.finished else { return }
                 self.model.downloading = false
                 if let path {
                     let fileUrl = URL(fileURLWithPath: path)
@@ -354,15 +360,27 @@ class ShareViewController: UIViewController {
     }
 
     private func presentShare(_ items: [Any], onDone: (() -> Void)? = nil) {
+        guard !finished else { return }
         let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        vc.completionWithItemsHandler = { _, _, _, _ in
-            onDone?()
-            self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+        if let popover = vc.popoverPresentationController {
+            popover.sourceView = view
+            popover.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 1, height: 1)
+            popover.permittedArrowDirections = []
+        }
+        vc.completionWithItemsHandler = { [weak self] _, completed, _, _ in
+            DispatchQueue.main.async {
+                onDone?()
+                // Cancelling the system share sheet returns to the link choices.
+                if completed { self?.cancel() }
+            }
         }
         present(vc, animated: true)
     }
 
     @objc private func cancel() {
+        guard !finished else { return }
+        finished = true
+        facade.close()
         extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
 
@@ -373,73 +391,5 @@ class ShareViewController: UIViewController {
         default:
             return Locale.current.language.languageCode?.identifier == "ar" ? ar : en
         }
-    }
-}
-
-struct SettingsSnapshot {
-    var defaultAction: String = "Ask"
-    var cobaltBaseUrl: String = ""
-    var cobaltApiKey: String = ""
-    var resolveShortLinks: Bool = true
-    var deleteCacheAfterShare: Bool = true
-    var language: String = "System"
-    var preferredFixers: [String: String] = [:]
-
-    static let suite = UserDefaults(suiteName: "group.app.fukaha") ?? .standard
-    private static let legacyPublicCobalt = "https://api.cobalt.tools"
-    private static let cobaltPublicClearedKey = "cobalt_public_default_cleared"
-
-    var hasValidCobaltBaseUrl: Bool {
-        let trimmed = cobaltBaseUrl.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return false }
-        let lower = trimmed.lowercased()
-        return lower.hasPrefix("http://") || lower.hasPrefix("https://")
-    }
-
-    static func load() -> SettingsSnapshot {
-        let d = suite
-        migrateCobaltPublicDefaultIfNeeded(d)
-        var s = SettingsSnapshot()
-        s.defaultAction = d.string(forKey: "default_action") ?? "Ask"
-        s.cobaltBaseUrl = d.string(forKey: "cobalt_base_url") ?? ""
-        s.cobaltApiKey = d.string(forKey: "cobalt_api_key") ?? ""
-        if d.object(forKey: "resolve_short_links") != nil {
-            s.resolveShortLinks = d.bool(forKey: "resolve_short_links")
-        }
-        if d.object(forKey: "delete_cache_after_share") != nil {
-            s.deleteCacheAfterShare = d.bool(forKey: "delete_cache_after_share")
-        }
-        s.language = d.string(forKey: "language") ?? "System"
-        if let raw = d.string(forKey: "preferred_fixers") {
-            s.preferredFixers = Dictionary(
-                uniqueKeysWithValues: raw.split(separator: "\n").compactMap { line -> (String, String)? in
-                    let parts = line.split(separator: "\t", maxSplits: 1).map(String.init)
-                    guard parts.count == 2 else { return nil }
-                    return (parts[0], parts[1])
-                }
-            )
-        }
-        if s.defaultAction == "Download" && !s.hasValidCobaltBaseUrl {
-            s.defaultAction = "Ask"
-        }
-        return s
-    }
-
-    private static func migrateCobaltPublicDefaultIfNeeded(_ d: UserDefaults) {
-        if d.bool(forKey: cobaltPublicClearedKey) { return }
-        let stored = d.string(forKey: "cobalt_base_url")
-        let normalized = stored?.trimmingCharacters(in: .whitespacesAndNewlines)
-            .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        if stored == nil || normalized?.caseInsensitiveCompare(legacyPublicCobalt) == .orderedSame {
-            d.set("", forKey: "cobalt_base_url")
-        }
-        let url = d.string(forKey: "cobalt_base_url") ?? ""
-        let trimmed = url.trimmingCharacters(in: .whitespacesAndNewlines)
-        let lower = trimmed.lowercased()
-        let valid = !trimmed.isEmpty && (lower.hasPrefix("http://") || lower.hasPrefix("https://"))
-        if d.string(forKey: "default_action") == "Download" && !valid {
-            d.set("Ask", forKey: "default_action")
-        }
-        d.set(true, forKey: cobaltPublicClearedKey)
     }
 }

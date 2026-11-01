@@ -2,8 +2,10 @@ package app.fukaha.web
 
 import app.fukaha.EmbedHealthProgress
 import app.fukaha.EmbedHealthStatus
+import app.fukaha.EmbedPreviewOutcome
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
+import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.promise
@@ -11,6 +13,7 @@ import org.w3c.dom.Element
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.events.Event
+import kotlin.js.Promise
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -27,6 +30,8 @@ class WebDomTest {
     @BeforeTest
     fun setUp() {
         localStorage.removeItem("fukaha_settings")
+        localStorage.removeItem("fukaha_source_preferences")
+        localStorage.removeItem("fukaha_embed_health")
         root = document.createElement("div") as HTMLElement
         root.id = "test-app"
         document.body!!.appendChild(root)
@@ -36,9 +41,135 @@ class WebDomTest {
     fun tearDown() {
         root.remove()
         localStorage.removeItem("fukaha_settings")
+        localStorage.removeItem("fukaha_source_preferences")
+        localStorage.removeItem("fukaha_embed_health")
         document.documentElement?.setAttribute("lang", "en")
         document.documentElement?.setAttribute("dir", "ltr")
         document.documentElement?.removeAttribute("data-theme")
+    }
+
+    @Test
+    fun previewActionRejectsStaleResultsWhenLinkChanges() = MainScope().promise {
+        val originalFetch = window.asDynamic().fetch
+        val app = App(root)
+        try {
+            app.start(null)
+            delay(30)
+            app.prepare("https://x.com/example/status/123")
+            delay(30)
+            var finish: ((dynamic) -> Unit)? = null
+            var requestedUrl = ""
+            var signal: dynamic = null
+            window.asDynamic().fetch = { url: dynamic, options: dynamic ->
+                requestedUrl = url as String
+                signal = options.signal
+                Promise<dynamic> { resolve, _ -> finish = resolve }
+            }
+            (root.querySelector("#preview-check") as HTMLButtonElement).click()
+            delay(30)
+            assertTrue(app.previewChecking)
+            assertTrue((root.querySelector("#preview-check") as HTMLButtonElement).disabled)
+            assertEquals(app.prepared!!.embedUrl, requestedUrl)
+
+            app.prepare("https://x.com/example/status/999")
+            delay(30)
+            assertTrue(signal.aborted as Boolean)
+            assertFalse(app.previewChecking)
+            assertNull(app.previewResult)
+            // A late response for the previous post cannot overwrite the new link's state.
+            finish!!(js("({type:'opaque',status:0})"))
+            delay(30)
+            assertNull(app.previewResult)
+
+            window.asDynamic().fetch = { _: dynamic, _: dynamic ->
+                Promise.resolve<dynamic>(js("({type:'opaque',status:0})"))
+            }
+            (root.querySelector("#preview-check") as HTMLElement).click()
+            delay(30)
+            assertEquals(EmbedPreviewOutcome.NetworkError, app.previewResult?.outcome)
+            assertTrue(root.textContent.orEmpty().contains(app.strings.previewNetworkError))
+            assertFalse((root.querySelector("#preview-check") as HTMLButtonElement).disabled)
+            app.show(View.Home)
+            delay(220)
+            assertNull(app.previewResult)
+        } finally {
+            window.asDynamic().fetch = originalFetch
+        }
+    }
+
+    @Test
+    fun failedStorageWriteLeavesSelectionAndPickerIntact() = MainScope().promise {
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.show(View.Settings)
+        app.toggleFixerPicker("x")
+        val original = app.effectiveFixer("x")
+        val storagePrototype: dynamic = js("Storage.prototype")
+        val originalSet = storagePrototype.setItem
+        try {
+            storagePrototype.setItem = { _: dynamic, _: dynamic -> throw IllegalStateException("Storage denied") }
+            (root.querySelectorAll(".fixer-option").item(1) as HTMLElement).click()
+            delay(30)
+            assertEquals(original, app.effectiveFixer("x"))
+            assertEquals("x", app.openFixerPlatform)
+            assertEquals(app.strings.storageUnavailable, app.status)
+            val star = root.querySelector("[data-source-favorite]") as HTMLElement
+            star.click()
+            assertEquals("false", star.getAttribute("aria-pressed"))
+            assertTrue(app.sourcePreferences.favorites.isEmpty())
+        } finally {
+            storagePrototype.setItem = originalSet
+        }
+    }
+
+    @Test
+    fun favoritesAndReorderingAreIndependentOfSelectionAndPersist() = MainScope().promise {
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.show(View.Settings)
+        app.toggleFixerPicker("x")
+        val original = app.effectiveFixer("x")
+        val services = app.servicesFor("x")
+        val a = services[1].normalizedHost()
+        val b = services[2].normalizedHost()
+        (root.querySelector("[data-source-favorite='$a']") as HTMLElement).click()
+        (root.querySelector("[data-source-favorite='$b']") as HTMLElement).click()
+        assertEquals(original, app.effectiveFixer("x"))
+        assertEquals("x", app.openFixerPlatform)
+        (root.querySelector("#source-order-toggle") as HTMLElement).click()
+        val row = root.querySelector("[data-source-host='$b']")!!
+        (row.querySelector(".source-move") as HTMLElement).click()
+        assertEquals(b, root.querySelector("[data-source-host]")?.getAttribute("data-source-host"))
+        assertEquals(original, app.effectiveFixer("x"))
+        assertEquals("true", root.querySelector("[data-source-favorite='$b']")?.getAttribute("aria-pressed"))
+        assertEquals(root.querySelector("[data-source-favorite='$b']"), document.activeElement)
+        // A fresh app instance models reloading the document with the same localStorage.
+        val reloaded = App(root)
+        reloaded.start(null)
+        delay(30)
+        reloaded.show(View.Settings)
+        reloaded.toggleFixerPicker("x")
+        assertEquals(b, root.querySelector("[data-source-host]")?.getAttribute("data-source-host"))
+        assertEquals(original, reloaded.effectiveFixer("x"))
+        (root.querySelector("[data-source-host='$b'] .fixer-option") as HTMLElement).click()
+        delay(220)
+        assertEquals(b, reloaded.effectiveFixer("x")?.normalizedHost())
+        assertEquals(b, WebSettingsStore().get().preferredFixers["x"])
+    }
+
+    @Test
+    fun unsuccessfulCheckIsVisibleAfterReload() = MainScope().promise {
+        WebHealthStore().save(emptyMap(), 1234)
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.show(View.Settings)
+        val summary = root.querySelector("#$EMBED_HEALTH_SUMMARY_ID")!!.textContent.orEmpty()
+        assertTrue(summary.contains(app.strings.embedHealthLastAttempt))
+        assertTrue(summary.contains(app.strings.embedHealthOffline))
+        assertFalse(summary.contains(app.strings.embedHealthNever))
     }
 
     @Test
@@ -104,9 +235,9 @@ class WebDomTest {
         val row = root.querySelector(".version-row") as HTMLElement
         val value = row.querySelector("[data-app-version]") as HTMLElement
 
-        assertEquals("${app.strings.version}: $WEB_APP_VERSION", row.getAttribute("aria-label"))
-        assertEquals(WEB_APP_VERSION, value.textContent)
-        assertEquals(WEB_APP_VERSION, value.getAttribute("data-app-version"))
+        assertEquals("${app.strings.version}: $WEB_DISPLAY_VERSION", row.getAttribute("aria-label"))
+        assertEquals(WEB_DISPLAY_VERSION, value.textContent)
+        assertEquals(WEB_DISPLAY_VERSION, value.getAttribute("data-app-version"))
         assertEquals("ltr", value.dir)
         assertNull(row.getAttribute("href"))
         assertNull(row.getAttribute("role"))

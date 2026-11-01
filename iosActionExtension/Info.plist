@@ -19,7 +19,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.ui-services</string>
 		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).ShareViewController</string>
+		<string>FukahaShareViewController</string>
 	</dict>
 	<key>CFBundleDisplayName</key>
 	<string>Clean with Fukaha</string>

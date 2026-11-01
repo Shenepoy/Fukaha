@@ -1,0 +1,28 @@
+{
+  "name": "Fukaha",
+  "version": "26.10.0",
+  "primaryCategory": "UTILITIES",
+  "icon": "iosApp/Fukaha/Assets.xcassets/AppIcon.appiconset/fukaha-icon-1024.png",
+  "localizations": {
+    "en-US": {
+      "name": "Fukaha",
+      "subtitle": "Clean links. Better previews.",
+      "description": "Untangle social links. Share them clean.\n\nFukaha removes common tracking parameters from links and can turn supported social links into links designed for richer previews in messaging apps.\n\nSHARE FROM YOUR FAVORITE APPS\nShare a link from Safari or another app to Fukaha, or paste it into the app. Choose a clean link, an embed-friendly link, or copy the result.\n\nMAKE IT YOURS\nChoose your preferred preview source for each supported platform. Set a default action or ask each time. Your preferences stay on your device and are shared with Fukaha's iOS extensions.\n\nENGLISH AND ARABIC\nUse Fukaha in English or Arabic, with light and dark themes on iPhone and iPad. No Fukaha account is required.\n\nOPTIONAL MEDIA DOWNLOADS\nConnect your own compatible HTTPS Cobalt server to download supported media. This feature requires your server configuration; no download server is included.\n\nThird-party preview and download services have their own availability and privacy practices. Preview appearance also depends on the app receiving your link.",
+      "promotionalText": "Remove tracking clutter, choose your preferred preview sources, and share cleaner social links from Safari or your favorite apps.",
+      "keywords": "links,cleaner,tracking,share,preview,social,url,embed,utilities",
+      "marketingUrl": "https://fukaha.shenepoy.com",
+      "supportUrl": "https://fukaha.shenepoy.com/support.html",
+      "privacyPolicyUrl": "https://fukaha.shenepoy.com/privacy.html"
+    },
+    "ar-SA": {
+      "name": "Fukaha",
+      "subtitle": "روابط أنظف، مشاركة أسهل",
+      "description": "فكّها من التتبّع، وشاركها ببساطة.\n\nيساعدك Fukaha على إزالة معاملات التتبّع الشائعة من الروابط، وتحويل روابط المنصات المدعومة إلى روابط مناسبة لعرض معاينات أغنى في تطبيقات المراسلة.\n\nشارك من تطبيقاتك المفضلة\nشارك رابطًا من Safari أو أي تطبيق آخر إلى Fukaha، أو الصقه داخل التطبيق. اختر رابطًا نظيفًا أو رابط معاينة، ثم انسخ النتيجة أو شاركها.\n\nإعدادات تناسبك\nاختر مصدر المعاينة المفضل لكل منصة مدعومة، وحدد إجراءً افتراضيًا أو اختر السؤال في كل مرة. تُحفظ تفضيلاتك على جهازك وتُشارك مع امتدادات Fukaha على iOS.\n\nبالعربية والإنجليزية\nواجهة عربية وإنجليزية، ومظهر فاتح وداكن، ودعم iPhone وiPad. لا تحتاج إلى إنشاء حساب في Fukaha.\n\nتحميل الوسائط اختياري\nيمكنك ربط خادم Cobalt متوافق خاص بك عبر HTTPS لتحميل الوسائط المدعومة. تتطلب هذه الميزة إعداد خادمك؛ لا يتضمن التطبيق خادم تحميل جاهزًا.\n\nيعتمد توفر المعاينات والتحميل على خدمات خارجية لها سياسات خصوصية خاصة بها. ويعتمد شكل المعاينة أيضًا على التطبيق الذي يستقبل الرابط.",
+      "promotionalText": "نظّف روابطك من معاملات التتبّع الشائعة، واختر مصادر المعاينة المفضلة، وشارك بسهولة من Safari وتطبيقاتك الأخرى.",
+      "keywords": "روابط,تنظيف,مشاركة,معاينة,تتبع,رابط,أدوات,مراسلة",
+      "marketingUrl": "https://fukaha.shenepoy.com",
+      "supportUrl": "https://fukaha.shenepoy.com/support.html#ar",
+      "privacyPolicyUrl": "https://fukaha.shenepoy.com/privacy.html#ar"
+    }
+  }
+}

@@ -7,6 +7,7 @@ import app.fukaha.EmbedHealthPolicy
 import app.fukaha.EmbedHealthProgress
 import app.fukaha.EmbedHealthSnapshot
 import app.fukaha.EmbedHealthStatus
+import app.fukaha.EmbedPreviewResult
 import app.fukaha.EmbedService
 import app.fukaha.FukahaBridge
 import app.fukaha.FukahaSettings
@@ -43,6 +44,22 @@ class App(private val root: HTMLElement) {
     private val bridge = FukahaBridge()
     private val store = WebSettingsStore()
     private val healthStore = WebHealthStore()
+    private var previewJob: kotlinx.coroutines.Job? = null
+    var previewResult: EmbedPreviewResult? = null
+        private set
+    var previewChecking = false
+        private set
+    private var previewUrl: String? = null
+    private var previewGeneration = 0
+    private val sourcePreferencesStore = WebSourcePreferencesStore()
+    var sourcePreferences = sourcePreferencesStore.get()
+        private set
+    var editingSourceOrder = false
+        private set
+    var healthAttemptAt: Long? = null
+        private set
+    var healthAttemptFailed = false
+        private set
 
     var settings: FukahaSettings = FukahaSettings(resolveShortLinks = false)
         private set
@@ -98,6 +115,8 @@ class App(private val root: HTMLElement) {
         scope.launch {
             settings = store.get()
             health = healthStore.get()
+            healthAttemptAt = healthStore.lastAttemptAt()
+            healthAttemptFailed = healthStore.lastAttemptFailed()
             applyLocaleAndTheme()
             PwaInstall.onChanged { render() }
             if (sharedText.isNullOrBlank()) {
@@ -121,6 +140,7 @@ class App(private val root: HTMLElement) {
     }
 
     private fun showImmediately(next: View) {
+        if (next != View.Share) resetPreviewCheck()
         if (view == View.Share && next == View.Home) {
             prepared = null
         }
@@ -220,6 +240,7 @@ class App(private val root: HTMLElement) {
         failureDraft: String? = null,
         failureMessage: String? = null,
     ) {
+        resetPreviewCheck()
         busy = true
         view = View.Share
         render()
@@ -336,6 +357,28 @@ class App(private val root: HTMLElement) {
 
     // region settings
 
+    fun toggleSourceOrder() {
+        editingSourceOrder = !editingSourceOrder
+        render()
+        (root.querySelector("#source-order-toggle") as? HTMLElement)?.focus()
+    }
+
+    fun changeSourcePreferences(next: WebSourcePreferences, focusId: String) {
+        val scroll = (root.querySelector(".picker-options") as? HTMLElement)?.scrollTop
+        if (!sourcePreferencesStore.save(next)) {
+            notify(strings.storageUnavailable, incrementally = true)
+            return
+        }
+        sourcePreferences = next
+        render()
+        val control = document.getElementById(focusId) as? HTMLElement
+        // The move button may become disabled at the boundary; retain focus on the star instead.
+        if (control?.hasAttribute("disabled") == true) {
+            (control.parentElement?.querySelector("[data-source-favorite]") as? HTMLElement)?.focus()
+        } else control?.focus()
+        scroll?.let { (root.querySelector(".picker-options") as? HTMLElement)?.scrollTop = it }
+    }
+
     fun toggleFixerPicker(platformKey: String?) {
         val closing = openFixerPlatform != null &&
             (platformKey == null || openFixerPlatform == platformKey)
@@ -348,6 +391,7 @@ class App(private val root: HTMLElement) {
                 return
             }
         }
+        editingSourceOrder = false
         openFixerPlatform = platformKey
         render()
         if (openFixerPlatform != null) {
@@ -649,17 +693,24 @@ class App(private val root: HTMLElement) {
         transform: (FukahaSettings) -> FukahaSettings,
     ) {
         scope.launch {
-            applySettingsUpdate(transform)
-            afterRender?.invoke()
+            if (applySettingsUpdate(transform)) afterRender?.invoke()
         }
     }
 
-    private suspend fun applySettingsUpdate(transform: (FukahaSettings) -> FukahaSettings) {
-        store.update(transform)
+    private suspend fun applySettingsUpdate(transform: (FukahaSettings) -> FukahaSettings): Boolean {
+        try {
+            store.update(transform)
+        } catch (error: kotlinx.coroutines.CancellationException) {
+            throw error
+        } catch (_: Throwable) {
+            notify(strings.storageUnavailable, incrementally = true)
+            return false
+        }
         settings = store.get()
         applyLocaleAndTheme()
         recomputePrepared()
         render()
+        return true
     }
 
     // endregion
@@ -692,34 +743,35 @@ class App(private val root: HTMLElement) {
                 ),
             )
 
-            val results = runCatching {
+            val results = try {
                 WebEmbedHealth.refresh(hosts) { progress, result ->
                     updateHealthProgress(progress, result)
                 }
-            }.getOrElse {
+            } catch (error: kotlinx.coroutines.CancellationException) {
                 healthProgress = null
                 healthRunStatuses.clear()
                 updateEmbedHealthUi(this@App)
-                notify(strings.embedHealthOffline, incrementally = true)
-                return@launch
+                throw error
+            } catch (_: Throwable) {
+                emptyMap()
             }
             healthProgress = null
-
-            // Everything failing means the browser is offline, not that the embedders died.
-            if (!EmbedHealthPolicy.isUsableResult(results)) {
-                healthRunStatuses.clear()
-                updateEmbedHealthUi(this@App)
-                notify(strings.embedHealthOffline, incrementally = true)
-                return@launch
-            }
-
-            val now = PlatformClock.epochMillis()
-            healthStore.save(results, now)
-            health = EmbedHealthSnapshot(results, now)
             healthRunStatuses.clear()
-            recomputePrepared()
+            val now = PlatformClock.epochMillis()
+            healthAttemptAt = now
+            healthAttemptFailed = !EmbedHealthPolicy.isUsableResult(results)
+            val saved = healthStore.save(results, now)
+            if (!healthAttemptFailed) {
+                health = EmbedHealthSnapshot(results, now)
+                recomputePrepared()
+            }
             if (!updateEmbedHealthUi(this@App) && view != View.Settings) render()
-            notify(strings.embedHealthCounts(health.aliveCount, health.deadCount), incrementally = true)
+            val message = when {
+                !saved -> strings.storageUnavailable
+                healthAttemptFailed -> strings.embedHealthOffline
+                else -> strings.embedHealthCounts(health.aliveCount, health.deadCount, health.unknownCount)
+            }
+            notify(message, incrementally = true)
         }
     }
 
@@ -732,6 +784,40 @@ class App(private val root: HTMLElement) {
             healthRunStatuses[EmbedHealthKeys.normalize(progress.currentHost)] = completedStatus
         }
         updateEmbedHealthUi(this)
+    }
+
+    private fun resetPreviewCheck() {
+        previewGeneration++
+        previewJob?.cancel()
+        previewJob = null
+        previewChecking = false
+        previewResult = null
+        previewUrl = null
+    }
+
+    fun checkPreview() {
+        val link = prepared ?: return
+        val url = link.embedUrl ?: return
+        if (previewChecking) return
+        val generation = ++previewGeneration
+        previewUrl = url
+        previewChecking = true
+        previewResult = null
+        render()
+        previewJob = scope.launch {
+            try {
+                val result = WebPreviewChecker.check(link.detected.cleanedUrl, url)
+                if (previewGeneration == generation && previewUrl == url && prepared?.embedUrl == url) previewResult = result
+            } finally {
+                if (previewGeneration == generation && previewUrl == url) {
+                    previewChecking = false
+                    if (view == View.Share) {
+                        render()
+                        (root.querySelector("#preview-check") as? HTMLElement)?.focus()
+                    }
+                }
+            }
+        }
     }
 
     fun statusOf(host: String): EmbedHealthStatus =
@@ -753,6 +839,7 @@ class App(private val root: HTMLElement) {
     private suspend fun recomputePrepared() {
         val current = prepared ?: return
         prepared = bridge.prepare(current.detected.originalUrl, settings, health.statuses)
+        if (prepared?.embedUrl != current.embedUrl) resetPreviewCheck()
     }
 
     /** Shows a transient message in the live region, replacing any message still on screen. */
@@ -896,18 +983,15 @@ class App(private val root: HTMLElement) {
 
     fun catalogPlatformKeys(): List<String> = bridge.platformKeys()
 
-    fun servicesFor(platformKey: String) = bridge.servicesFor(platformKey)
+    fun servicesFor(platformKey: String) = sourcePreferences.sorted(platformKey, bridge.servicesFor(platformKey))
 
     /** The user's stored fixer for [platformKey], falling back to the catalog default. */
     fun pickedFixer(platformKey: String): EmbedService? =
         bridge.serviceForHost(platformKey, chosenFixerHost(platformKey))
 
-    /**
-     * Fixer a link would really be rewritten to right now. Differs from [pickedFixer] once a
-     * check marks the pick dead, so Settings can show what sharing does instead of what is stored.
-     */
+    /** Automatic choice uses health; an explicit choice stays selected. */
     fun effectiveFixer(platformKey: String): EmbedService? =
-        bridge.effectiveService(platformKey, chosenFixerHost(platformKey), health.statuses)
+        bridge.effectiveService(platformKey, settings.preferredFixers[platformKey], health.statuses)
 
     private fun chosenFixerHost(platformKey: String): String? =
         settings.preferredFixers[platformKey] ?: bridge.defaultFixer(platformKey)
@@ -917,6 +1001,7 @@ fun main() {
     val root = document.getElementById("app") as? HTMLElement ?: return
     val startup = readStartupNavigation()
     registerServiceWorker()
+    installOutsideTapFocusDismissal()
     App(root).start(startup.sharedText)
 }
 

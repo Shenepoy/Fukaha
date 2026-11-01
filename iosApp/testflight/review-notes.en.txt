@@ -1,0 +1,13 @@
+No login or demo account is required.
+
+To test core functionality:
+1. Open Fukaha and use the sample-link control beside the link field, or paste a public social-media URL.
+2. Keep Ask each time selected, open the share screen, and copy or share the cleaned link.
+3. Change a platform's preferred embed source in settings and prepare a link from that platform.
+4. In Safari, share a public webpage using Fukaha or the Clean with Fukaha action. The extension accepts URLs and text containing URLs.
+
+The app and its two extensions use group.com.shenepoy.fukaha to share settings and cached media.
+Optional media downloading requires a user-configured compatible HTTPS Cobalt server. The cleaned-link and embed-link flows work without that configuration. No server credentials are bundled.
+Preview results depend on third-party providers and the receiving app. No in-app purchase is required.
+
+Before external beta review, the owner must complete the real review-contact details, feedback email, and privacy information in App Store Connect. No contact information is embedded in this file.

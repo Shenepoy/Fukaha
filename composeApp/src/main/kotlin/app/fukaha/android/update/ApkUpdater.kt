@@ -20,6 +20,8 @@ import io.ktor.http.contentLength
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.readAvailable
 import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -29,6 +31,12 @@ import kotlinx.coroutines.withContext
  */
 object ApkUpdater {
     private const val APK_MIME = "application/vnd.android.package-archive"
+    internal const val EXTRA_SESSION_ID = "app.fukaha.INSTALL_SESSION_ID"
+    private val installations = ConcurrentHashMap<Int, CompletableDeferred<String?>>()
+
+    internal fun completeInstall(sessionId: Int, failure: String?) {
+        installations[sessionId]?.complete(failure)
+    }
 
     fun canRequestInstalls(context: Context): Boolean =
         context.packageManager.canRequestPackageInstalls()
@@ -108,7 +116,7 @@ object ApkUpdater {
         }
     }
 
-    fun install(context: Context, apk: File) {
+    suspend fun install(context: Context, apk: File) {
         val installer = context.packageManager.packageInstaller
         val params = PackageInstaller.SessionParams(
             PackageInstaller.SessionParams.MODE_FULL_INSTALL,
@@ -120,36 +128,39 @@ object ApkUpdater {
                     PackageInstaller.SessionParams.USER_ACTION_NOT_REQUIRED,
                 )
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                setRequestUpdateOwnership(true)
-            }
         }
         val sessionId = installer.createSession(params)
-        val session = installer.openSession(sessionId)
+        val result = CompletableDeferred<String?>()
+        installations[sessionId] = result
         var committed = false
         try {
-            session.openWrite("base.apk", 0, apk.length()).use { out ->
-                apk.inputStream().use { input -> input.copyTo(out) }
-                session.fsync(out)
+            installer.openSession(sessionId).use { session ->
+                session.openWrite("base.apk", 0, apk.length()).use { out ->
+                    apk.inputStream().use { input -> input.copyTo(out) }
+                    session.fsync(out)
+                }
+                val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+                val pending = PendingIntent.getActivity(
+                    context,
+                    sessionId,
+                    Intent(context, ApkInstallActivity::class.java)
+                        .setAction(ApkInstallActivity.ACTION_STATUS)
+                        .putExtra(EXTRA_SESSION_ID, sessionId)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                    flags,
+                )
+                session.commit(pending.intentSender)
+                committed = true
             }
-            val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
-            val pending = PendingIntent.getActivity(
-                context,
-                sessionId,
-                Intent(context, ApkInstallActivity::class.java)
-                    .setAction(ApkInstallActivity.ACTION_STATUS)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-                flags,
-            )
-            session.commit(pending.intentSender)
-            committed = true
+            result.await()?.let { error(it) }
         } catch (t: Throwable) {
             if (!committed) {
-                runCatching { session.abandon() }
+                runCatching { installer.abandonSession(sessionId) }
             }
             throw t
         } finally {
-            session.close()
+            installations.remove(sessionId)
+            result.cancel()
         }
     }
 

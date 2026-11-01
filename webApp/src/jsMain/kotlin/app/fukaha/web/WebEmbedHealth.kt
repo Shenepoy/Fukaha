@@ -7,6 +7,7 @@ import app.fukaha.EmbedHealthSnapshot
 import app.fukaha.EmbedHealthStatus
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.await
 import kotlinx.coroutines.awaitAll
@@ -30,13 +31,11 @@ import kotlin.js.Promise
  * `X-Frame-Options` produce a blocked frame that is indistinguishable from a dead one.
  */
 object WebEmbedHealth {
-    private val abortSignal: dynamic = js("AbortSignal")
-
     suspend fun probe(host: String): EmbedHealthStatus {
         val url = EmbedHealthKeys.probeUrl(host)
         // Some hosts reject HEAD outright; fall back to GET when the HEAD request fails.
         val reachable = request(url, "HEAD") || request(url, "GET")
-        return if (reachable) EmbedHealthStatus.Alive else EmbedHealthStatus.Dead
+        return if (reachable) EmbedHealthStatus.Alive else EmbedHealthStatus.Unknown
     }
 
     /**
@@ -63,7 +62,8 @@ object WebEmbedHealth {
                     val host = hosts[index]
                     val status = probe(host)
                     results[host] = status
-                    if (status == EmbedHealthStatus.Alive) alive++ else dead++
+                    if (status == EmbedHealthStatus.Alive) alive++
+                    if (status == EmbedHealthStatus.Dead) dead++
                     onProgress(
                         EmbedHealthProgress(
                             currentHost = host,
@@ -88,14 +88,26 @@ object WebEmbedHealth {
         init.cache = "no-store"
         init.redirect = "follow"
         init.referrerPolicy = "no-referrer"
-        init.signal = abortSignal.timeout(EmbedHealthPolicy.PROBE_TIMEOUT_MS.toInt())
-        return runCatching {
+        // AbortSignal.timeout is absent in older Safari/WebViews. Always clear our timer,
+        // and abort the underlying request when the coroutine is cancelled.
+        val controller: dynamic = js("new AbortController()")
+        init.signal = controller.signal
+        val timer = window.setTimeout({ controller.abort() }, EmbedHealthPolicy.PROBE_TIMEOUT_MS.toInt())
+        return try {
             (window.asDynamic().fetch(url, init) as Promise<*>).await()
-        }.isSuccess
+            true
+        } catch (error: CancellationException) {
+            throw error
+        } catch (_: Throwable) {
+            false
+        } finally {
+            window.clearTimeout(timer)
+            controller.abort()
+        }
     }
 }
 
-/** localStorage-backed snapshot, mirroring what `EmbedHealthStore` persists on Android. */
+/** Keep the last attempt separately so a failed run cannot erase a usable snapshot. */
 class WebHealthStore {
     private val json = Json { ignoreUnknownKeys = true }
 
@@ -103,26 +115,37 @@ class WebHealthStore {
     private data class Stored(
         val statuses: Map<String, String> = emptyMap(),
         val checkedAt: Long? = null,
+        val attemptedAt: Long? = null,
+        val attemptFailed: Boolean = false,
     )
 
-    fun get(): EmbedHealthSnapshot {
-        val raw = localStorage.getItem(KEY) ?: return EmbedHealthSnapshot()
-        val stored = runCatching { json.decodeFromString<Stored>(raw) }.getOrNull()
-            ?: return EmbedHealthSnapshot()
-        return EmbedHealthSnapshot(
+    private fun read(): Stored = runCatching {
+        localStorage.getItem(KEY)?.let { json.decodeFromString<Stored>(it) } ?: Stored()
+    }.getOrDefault(Stored())
+
+    fun get(): EmbedHealthSnapshot = read().let { stored ->
+        EmbedHealthSnapshot(
             statuses = stored.statuses.mapNotNull { (host, status) ->
-                EmbedHealthStatus.entries.firstOrNull { it.name == status }?.let { host to it }
+                EmbedHealthStatus.entries.firstOrNull { it.name == status }
+                    ?.let { EmbedHealthKeys.normalize(host) to it }
             }.toMap(),
             checkedAtEpochMs = stored.checkedAt,
         )
     }
 
-    fun save(statuses: Map<String, EmbedHealthStatus>, checkedAtEpochMs: Long) {
-        val stored = Stored(
-            statuses = statuses.mapValues { it.value.name },
+    fun lastAttemptAt(): Long? = read().let { it.attemptedAt ?: it.checkedAt }
+    fun lastAttemptFailed(): Boolean = read().attemptFailed
+
+    /** False means storage is unavailable; callers must not claim the result was saved. */
+    fun save(statuses: Map<String, EmbedHealthStatus>, checkedAtEpochMs: Long): Boolean {
+        val usable = EmbedHealthPolicy.isUsableResult(statuses)
+        val previous = read()
+        val stored = if (usable) Stored(
+            statuses = statuses.mapKeys { EmbedHealthKeys.normalize(it.key) }.mapValues { it.value.name },
             checkedAt = checkedAtEpochMs,
-        )
-        localStorage.setItem(KEY, json.encodeToString(stored))
+            attemptedAt = checkedAtEpochMs,
+        ) else previous.copy(attemptedAt = checkedAtEpochMs, attemptFailed = true)
+        return runCatching { localStorage.setItem(KEY, json.encodeToString(stored)) }.isSuccess
     }
 
     private companion object {

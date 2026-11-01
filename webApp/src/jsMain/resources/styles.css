@@ -2086,3 +2086,25 @@ html.language-view-transition *::after {
     animation: none !important;
   }
 }
+
+/* Source favorites and order controls are siblings of the source selection button. */
+.source-check-hint { padding: 0 20px 16px; margin: 0; }
+.source-toolbar { display: flex; align-items: center; gap: 12px; padding: 0 24px 12px; }
+.source-toolbar p { flex: 1; margin: 0; }
+.source-toolbar .btn { flex-shrink: 0; }
+.source-group-title { margin: 8px 8px 2px; color: var(--on-surface-variant); }
+.source-option-row { display: flex; align-items: stretch; gap: 4px; }
+.source-option-main { flex: 1; min-width: 0; }
+.source-option-main .fixer-option { height: 100%; }
+.source-option-main .list-item-text { min-width: 0; overflow-wrap: anywhere; }
+.source-option-controls { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.source-favorite-active { color: var(--on-primary-container); background: var(--primary-container); }
+.source-favorite-active .icon { font-variation-settings: "FILL" 1; }
+.source-move { min-width: 44px; min-height: 44px; padding: 4px; font-size: 22px; }
+.source-move:disabled { opacity: 0.3; cursor: default; }
+@media (max-width: 480px) {
+  .source-toolbar { align-items: flex-start; padding-inline: 16px; }
+  .source-option-main .fixer-option { flex-wrap: wrap; gap: 8px; padding: 10px; }
+  .source-option-main .list-item-text { flex: 1; }
+  .source-option-main .list-item-trailing { flex-basis: 100%; flex-direction: row; justify-content: flex-end; }
+}

@@ -58,6 +58,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
+import app.fukaha.android.components.dismissFocusOnOutsideTap
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -167,9 +168,8 @@ fun SettingsScreen(
         platforms.map { key ->
             val chosenHost = settings.preferredFixers[key]
                 ?: catalog.defaultFixerHost(key).orEmpty()
-            // Show the fixer sharing would really use, so a dead pick does not
-            // look like the app is stuck on an unreachable host.
-            val inUse = catalog.effectiveService(key, chosenHost, health.statuses)
+            // Match link rewriting: health only changes automatic selections.
+            val inUse = catalog.effectiveService(key, settings.preferredFixers[key], health.statuses)
             val currentHost = inUse?.normalizedHost() ?: chosenHost
             FixerRowState(
                 platformKey = key,
@@ -369,7 +369,7 @@ fun SettingsScreen(
                                         val next = settings.copy(cobaltBaseUrl = url)
                                         onChange(next.withDownloadClamped())
                                     },
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier.fillMaxWidth().dismissFocusOnOutsideTap(),
                                     textStyle = MaterialTheme.typography.bodyLarge.asLtrUrl(),
                                     label = { Text(stringResource(R.string.cobalt_url)) },
                                     placeholder = {
@@ -389,7 +389,8 @@ fun SettingsScreen(
                                     onValueChange = { onChange(settings.copy(cobaltApiKey = it)) },
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .padding(top = 12.dp),
+                                        .padding(top = 12.dp)
+                                        .dismissFocusOnOutsideTap(),
                                     label = { Text(stringResource(R.string.cobalt_api_key)) },
                                     leadingIcon = {
                                         Icon(Icons.Outlined.Key, contentDescription = null)
@@ -424,7 +425,7 @@ fun SettingsScreen(
         val chosenHost = settings.preferredFixers[key]
             ?: catalog.defaultFixerHost(key).orEmpty()
         // Mark the fixer the row shows, which is the one links go through.
-        val selectedHost = catalog.effectiveService(key, chosenHost, health.statuses)
+        val selectedHost = catalog.effectiveService(key, settings.preferredFixers[key], health.statuses)
             ?.normalizedHost()
             ?: chosenHost
         PreferredFixerPickerSheet(
@@ -480,6 +481,7 @@ private fun EmbedHealthRow(
                 R.string.embed_health_counts,
                 health.aliveCount,
                 health.deadCount,
+                health.unknownCount,
             )
             val trailing = if (remainingMs > 0L) {
                 val minutes = ((remainingMs + 59_999L) / 60_000L).toInt()
@@ -512,7 +514,7 @@ private fun EmbedHealthRow(
                 } else {
                     MaterialTheme.colorScheme.onSurfaceVariant
                 },
-                maxLines = 1,
+                maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(top = 2.dp),
             )
@@ -570,6 +572,7 @@ private fun QuickLinkSection(
     onOpenSample: () -> Unit,
 ) {
     val context = LocalContext.current
+    val clipboardEmpty = stringResource(R.string.quick_use_clipboard_empty)
     val clipboard = LocalClipboard.current
     val scope = rememberCoroutineScope()
     val shareable = remember(value) { shareableLink(value) }
@@ -585,7 +588,8 @@ private fun QuickLinkSection(
                 onValueChange = onValueChange,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .dismissFocusOnOutsideTap(),
                 textStyle = MaterialTheme.typography.bodyLarge.asLtrUrl(),
                 placeholder = {
                     Text(
@@ -628,7 +632,7 @@ private fun QuickLinkSection(
                                         if (pasted.isNullOrBlank()) {
                                             Toast.makeText(
                                                 context,
-                                                context.getString(R.string.quick_use_clipboard_empty),
+                                                clipboardEmpty,
                                                 Toast.LENGTH_SHORT,
                                             ).show()
                                         } else {

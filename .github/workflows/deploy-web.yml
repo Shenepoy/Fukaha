@@ -44,7 +44,7 @@ env:
 jobs:
   deploy-preview:
     name: Preview (PR)
-    if: github.event_name == 'pull_request'
+    if: github.repository == 'Shenepoy/Fukaha' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -62,7 +62,7 @@ jobs:
           cache-read-only: true
 
       - name: Build web distribution
-        run: ./gradlew :webApp:jsBrowserDistribution --stacktrace
+        run: ./gradlew :webApp:jsBrowserTest :webApp:pwaStaticTest :webApp:jsBrowserDistribution --stacktrace
 
       - name: Deploy preview channel
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -74,8 +74,8 @@ jobs:
   deploy-live:
     name: Deploy (live)
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && github.ref == 'refs/heads/main')
+      github.repository == 'Shenepoy/Fukaha' && github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' || github.event_name == 'push')
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -94,7 +94,7 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Build web distribution
-        run: ./gradlew :webApp:jsBrowserDistribution --stacktrace
+        run: ./gradlew :webApp:jsBrowserTest :webApp:pwaStaticTest :webApp:jsBrowserDistribution --stacktrace
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

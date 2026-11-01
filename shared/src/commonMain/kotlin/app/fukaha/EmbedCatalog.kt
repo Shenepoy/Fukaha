@@ -64,8 +64,8 @@ class EmbedCatalog(
     }
 
     /**
-     * Fixer a link would really be sent to: the chosen one unless it is known dead,
-     * in which case a reachable service takes over. Mirrors [rewriteToEmbed] so the
+     * Explicit choices stay selected. With no choice, health guides the automatic
+     * selection. Mirrors [rewriteToEmbed] so the
      * settings list can show what sharing will actually use.
      */
     fun effectiveService(
@@ -87,9 +87,9 @@ class EmbedCatalog(
     fun serviceForHost(platformKey: String, host: String?): EmbedService? {
         val normalized = host?.trim()?.trimEnd('/')?.takeIf { it.isNotEmpty() } ?: return null
         return activeServices(platformKey).firstOrNull {
-            it.normalizedHost().equals(normalized, ignoreCase = true) ||
+            EmbedHealthKeys.normalize(it.normalizedHost()) == EmbedHealthKeys.normalize(normalized) ||
                 it.alternateHosts.any { alt ->
-                    alt.trim().trimEnd('/').equals(normalized, ignoreCase = true)
+                    EmbedHealthKeys.normalize(alt) == EmbedHealthKeys.normalize(normalized)
                 } ||
                 it.name.equals(normalized, ignoreCase = true)
         }
