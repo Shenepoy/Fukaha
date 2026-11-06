@@ -9,14 +9,21 @@ final class ShareDiscoveryTests: XCTestCase {
     }
     override func tearDownWithError() throws { host.terminate() }
 
-    private func findFukaha(sharing button: String) -> XCUIElement {
-        host.buttons[button].tap()
-        let fukaha = host.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "Fukaha")).firstMatch
-        if fukaha.waitForExistence(timeout: 4) { return fukaha }
+    private var fukaha: XCUIElement {
+        host.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "Fukaha")).firstMatch
+    }
+
+    private func openMore() {
         let more = host.cells.matching(NSPredicate(format: "label == %@", "More")).firstMatch
         XCTAssertTrue(more.waitForExistence(timeout: 3), "Cannot inspect the complete activity list.\n\(host.debugDescription)")
         more.tap()
         XCTAssertTrue(host.navigationBars["Apps"].waitForExistence(timeout: 3), "More did not open the Apps list.\n\(host.debugDescription)")
+    }
+
+    private func findFukaha(sharing button: String) -> XCUIElement {
+        host.buttons[button].tap()
+        if fukaha.waitForExistence(timeout: 4) { return fukaha }
+        openMore()
         let found = fukaha.waitForExistence(timeout: 8)
         let screenshot = XCTAttachment(screenshot: host.screenshot())
         screenshot.lifetime = .keepAlways
@@ -33,5 +40,15 @@ final class ShareDiscoveryTests: XCTestCase {
         XCTAssertTrue(cleaned.waitForExistence(timeout: 20), "Extension did not open its link UI.\n\(host.debugDescription)")
     }
     func testTextIsListed() { _ = findFukaha(sharing: "Share text") }
-    func testURLWithPreviewIsListed() { _ = findFukaha(sharing: "Share URL and preview") }
+    func testURLWithPreviewIsListedAndLaunches() {
+        findFukaha(sharing: "Share URL and preview").tap()
+        XCTAssertTrue(host.staticTexts["Cleaned link"].waitForExistence(timeout: 20), "Mixed payload did not load its URL.\n\(host.debugDescription)")
+    }
+
+    func testImageOnlyDoesNotOfferFukaha() {
+        host.buttons["Share image only"].tap()
+        XCTAssertFalse(fukaha.waitForExistence(timeout: 3))
+        openMore()
+        XCTAssertFalse(fukaha.waitForExistence(timeout: 3), "Image-only sharing must not offer the link cleaner.")
+    }
 }

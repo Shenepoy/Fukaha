@@ -16,7 +16,7 @@ simulator=$(xcrun simctl create 'Fukaha iOS17 Discovery' com.apple.CoreSimulator
 trap 'xcrun simctl delete "$simulator" >/dev/null 2>&1 || true' EXIT
 xcrun simctl boot "$simulator"
 xcrun simctl bootstatus "$simulator" -b
-xcodebuild build-for-testing -project Fukaha.xcodeproj -scheme FukahaShareDiscoveryTests \
+xcodebuild build-for-testing -jobs 1 -project Fukaha.xcodeproj -scheme FukahaShareDiscoveryTests \
     -destination "platform=iOS Simulator,id=$simulator" -derivedDataPath build/Discovery \
     CODE_SIGNING_ALLOWED=NO
 xcrun simctl install "$simulator" build/Discovery/Build/Products/Debug-iphonesimulator/Fukaha.app
@@ -24,4 +24,4 @@ xcrun simctl launch "$simulator" com.shenepoy.fukaha
 xcrun simctl terminate "$simulator" com.shenepoy.fukaha
 xcodebuild test-without-building -project Fukaha.xcodeproj -scheme FukahaShareDiscoveryTests \
     -destination "platform=iOS Simulator,id=$simulator" -derivedDataPath build/Discovery \
-    -resultBundlePath build/ShareDiscovery.xcresult CODE_SIGNING_ALLOWED=NO
+    -resultBundlePath "build/${DISCOVERY_RESULT_NAME:-ShareDiscovery}.xcresult" CODE_SIGNING_ALLOWED=NO

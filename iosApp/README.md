@@ -117,8 +117,27 @@ python3 -m unittest discover -s iosApp/tests -p 'test_*.py'
 bash iosApp/scripts/test-source-preferences.sh
 ```
 
-A real macOS archive/export and iPhone/iPad smoke test are still required. Linux
-checks cannot prove signing, App Store acceptance, or system share-sheet behavior.
+On macOS, validate sharing at both levels:
+
+```bash
+# Controller behavior and outgoing share sheets on iPhone and iPad.
+bash iosApp/scripts/test-sharing.sh
+# Actual extension discovery and launch through the iOS 17 system share sheet.
+xcodebuild -downloadPlatform iOS -buildVersion 17.5
+bash iosApp/scripts/test-share-discovery.sh
+```
+
+The discovery script creates and deletes its own iOS 17 simulator. It installs the
+real app and embedded extensions, then uses a test-only source app to share plain
+URLs, text, and a URL alongside an image. An image-only case must not offer Fukaha.
+It opens the full More/Apps list when needed and saves an XCTest result bundle to
+`iosApp/build/ShareDiscovery.xcresult`. The source app is not included in the
+shipping app. These controlled payloads do not replace a physical-device check
+from Instagram or X.
+
+A signed macOS archive/export and physical-device smoke test are still required.
+Linux checks cannot prove signing, App Store acceptance, or system share-sheet
+behavior.
 
 References: [Apple upload requirements](https://developer.apple.com/news/upcoming-requirements/),
 [new app records](https://developer.apple.com/help/app-store-connect/create-an-app-record/add-a-new-app/),
