@@ -34,7 +34,12 @@ class LinkProcessor(
         }
         val detected = catalog.detect(resolved)
         val preferred = detected.platformKey?.let { settings.preferredFixers[it] }
-        val embedUrl = catalog.rewriteToEmbed(detected.cleanedUrl, preferred, health)
+        val embedUrl = if (detected.platformKey in settings.disabledEmbedPlatforms) null
+            else catalog.rewriteToEmbed(detected.cleanedUrl, preferred, health)
+        // Generate embed links from the canonical path, before compacting the clean output.
+        val output = if (settings.useOfficialShortLinks) {
+            detected.copy(cleanedUrl = OfficialShortLinks.shorten(detected.cleanedUrl))
+        } else detected
         val embedHealth = embedUrl?.let { url ->
             val hostOnly = UrlCleaner.hostOf(url)
             if (hostOnly != null) {
@@ -44,7 +49,7 @@ class LinkProcessor(
             }
         } ?: EmbedHealthStatus.Unknown
         return PreparedLink(
-            detected = detected,
+            detected = output,
             embedUrl = embedUrl,
             embedHealth = embedHealth,
         )

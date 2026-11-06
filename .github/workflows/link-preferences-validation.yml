@@ -1,0 +1,41 @@
+name: Link preferences validation
+on:
+  push:
+    branches: [codex/link-sharing-options]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 45
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - uses: gradle/actions/setup-gradle@v6
+      - run: brew install xcodegen
+      - name: Test native shared processing
+        run: ./gradlew :shared:iosSimulatorArm64Test
+      - name: Build app and both extensions
+        run: |
+          cd iosApp
+          xcodegen generate --spec project.yml
+          xcodebuild build -jobs 1 -project Fukaha.xcodeproj -scheme Fukaha -sdk iphonesimulator -arch arm64 -derivedDataPath build/LinkPreferences CODE_SIGNING_ALLOWED=NO
+      - name: Test sharing preferences on iPhone and iPad
+        run: bash iosApp/scripts/test-sharing.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: link-preferences-tests
+          path: |
+            iosApp/build/Sharing-*.xcresult
+            shared/build/test-results/iosSimulatorArm64Test/**

@@ -156,4 +156,8 @@
     <string name="preview_unsupported">Sin verificar: la respuesta no era una página HTML de vista previa.</string>
     <string name="preview_invalid">No se puede comprobar este enlace.</string>
     <string name="source_redirected">Redirigido a</string>
+    <string name="embed_links_enabled">Insertar enlaces</string>
+    <string name="embed_links_enabled_hint">Al desactivarlo, Insertar comparte el enlace limpio de este sitio.</string>
+    <string name="official_short_links">Usar enlaces cortos oficiales</string>
+    <string name="official_short_links_hint">Usa youtu.be para vídeos de YouTube. Conserva tiempos y listas; los demás sitios no cambian.</string>
 </resources>

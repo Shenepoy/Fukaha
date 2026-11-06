@@ -156,4 +156,8 @@
     <string name="preview_unsupported">未验证：响应不是 HTML 预览页面。</string>
     <string name="preview_invalid">无法检查此链接。</string>
     <string name="source_redirected">重定向至</string>
+    <string name="embed_links_enabled">启用嵌入链接</string>
+    <string name="embed_links_enabled_hint">关闭后，此网站的嵌入操作将分享清理后的链接。</string>
+    <string name="official_short_links">使用官方短链接</string>
+    <string name="official_short_links_hint">YouTube 视频使用 youtu.be，保留时间戳和播放列表，其他网站保持不变。</string>
 </resources>

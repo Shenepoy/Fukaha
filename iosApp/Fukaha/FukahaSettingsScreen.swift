@@ -173,6 +173,8 @@ struct FukahaSettingsScreen: View {
         .onChange(of: settings.defaultAction) { _ in settings.save() }
         .onChange(of: settings.cobaltBaseUrl) { _ in persistCobaltUrl() }
         .onChange(of: settings.cobaltApiKey) { _ in settings.save() }
+        .onChange(of: settings.useOfficialShortLinks) { _ in settings.save() }
+        .onChange(of: settings.disabledEmbedPlatforms) { _ in settings.save() }
         .onChange(of: settings.resolveShortLinks) { _ in settings.save() }
         .onChange(of: settings.deleteCacheAfterShare) { _ in settings.save() }
         .onChange(of: settings.language) { _ in settings.save() }
@@ -331,6 +333,18 @@ struct FukahaSettingsScreen: View {
                 FukahaDivider()
                 ForEach(Array(platformKeys.enumerated()), id: \.offset) { index, key in
                     fixerRow(for: key)
+                    toggleRow(
+                        icon: "link",
+                        title: "\(text(en: "Embed links", ar: "تفعيل روابط المعاينة")) · \(platformTitle(key))",
+                        subtitle: text(en: "When off, Embed shares the cleaned link for this site.", ar: "عند الإيقاف، يشارك خيار المعاينة الرابط المنظّف لهذا الموقع."),
+                        isOn: Binding(
+                            get: { !settings.disabledEmbedPlatforms.contains(key) },
+                            set: { enabled in
+                                if enabled { settings.disabledEmbedPlatforms.remove(key) }
+                                else { settings.disabledEmbedPlatforms.insert(key) }
+                            }
+                        )
+                    )
                     if index != platformKeys.count - 1 {
                         FukahaDivider()
                     }
@@ -441,6 +455,13 @@ struct FukahaSettingsScreen: View {
     private var sharingSection: some View {
         FukahaSection(title: text(en: "Sharing", ar: "المشاركة")) {
             VStack(spacing: 0) {
+                toggleRow(
+                    icon: "link",
+                    title: text(en: "Use official shorter links", ar: "استخدام الروابط الرسمية الأقصر"),
+                    subtitle: text(en: "Use youtu.be for YouTube videos. Keeps timestamps and playlists; other sites stay unchanged.", ar: "استخدام youtu.be لفيديوهات YouTube مع الحفاظ على الوقت وقائمة التشغيل. تبقى المواقع الأخرى دون تغيير."),
+                    isOn: $settings.useOfficialShortLinks
+                )
+                FukahaDivider()
                 toggleRow(
                     icon: "link",
                     title: text(en: "Resolve short links", ar: "تتبّع الروابط المختصرة"),

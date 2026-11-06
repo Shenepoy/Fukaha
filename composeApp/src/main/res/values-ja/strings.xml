@@ -156,4 +156,8 @@
     <string name="preview_unsupported">未検証：HTMLプレビューページではありません。</string>
     <string name="preview_invalid">このリンクは確認できません。</string>
     <string name="source_redirected">転送先</string>
+    <string name="embed_links_enabled">埋め込みリンク</string>
+    <string name="embed_links_enabled_hint">オフの場合、このサイトでは埋め込みの代わりに追跡情報を除いたリンクを共有します。</string>
+    <string name="official_short_links">公式の短いリンクを使う</string>
+    <string name="official_short_links_hint">YouTube 動画に youtu.be を使用します。再生位置と再生リストを保持し、他のサイトは変更しません。</string>
 </resources>

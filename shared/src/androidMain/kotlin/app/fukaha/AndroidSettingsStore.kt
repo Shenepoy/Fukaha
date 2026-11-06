@@ -26,6 +26,8 @@ class AndroidSettingsStore internal constructor(private val dataStore: DataStore
     private object Keys {
         val defaultAction = stringPreferencesKey("default_action")
         val preferredFixers = stringPreferencesKey("preferred_fixers")
+        val disabledEmbedPlatforms = stringPreferencesKey("disabled_embed_platforms")
+        val useOfficialShortLinks = booleanPreferencesKey("use_official_short_links")
         val cobaltBaseUrl = stringPreferencesKey("cobalt_base_url")
         val cobaltApiKey = stringPreferencesKey("cobalt_api_key")
         val resolveShortLinks = booleanPreferencesKey("resolve_short_links")
@@ -54,6 +56,10 @@ class AndroidSettingsStore internal constructor(private val dataStore: DataStore
             preferredFixers = prefs[Keys.preferredFixers]?.let {
                 runCatching { json.decodeFromString<Map<String, String>>(it) }.getOrDefault(emptyMap())
             } ?: emptyMap(),
+            disabledEmbedPlatforms = prefs[Keys.disabledEmbedPlatforms]?.let {
+                runCatching { json.decodeFromString<Set<String>>(it) }.getOrDefault(emptySet())
+            } ?: emptySet(),
+            useOfficialShortLinks = prefs[Keys.useOfficialShortLinks] ?: false,
             cobaltBaseUrl = prefs[Keys.cobaltBaseUrl] ?: FukahaSettings.DEFAULT_COBALT_BASE_URL,
             cobaltApiKey = prefs[Keys.cobaltApiKey].orEmpty(),
             resolveShortLinks = prefs[Keys.resolveShortLinks] ?: true,
@@ -111,6 +117,8 @@ class AndroidSettingsStore internal constructor(private val dataStore: DataStore
             val next = transform(read(prefs)).withDownloadClamped()
             prefs[Keys.defaultAction] = next.defaultAction.name
             prefs[Keys.preferredFixers] = json.encodeToString(next.preferredFixers)
+            prefs[Keys.disabledEmbedPlatforms] = json.encodeToString(next.disabledEmbedPlatforms)
+            prefs[Keys.useOfficialShortLinks] = next.useOfficialShortLinks
             prefs[Keys.cobaltBaseUrl] = next.cobaltBaseUrl
             prefs[Keys.cobaltApiKey] = next.cobaltApiKey
             prefs[Keys.resolveShortLinks] = next.resolveShortLinks

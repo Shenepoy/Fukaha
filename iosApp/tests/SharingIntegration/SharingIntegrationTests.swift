@@ -91,6 +91,34 @@ final class SharingIntegrationTests: XCTestCase {
         XCTAssertNil(controller.presentedViewController, "Ask must wait for a choice")
     }
 
+    func testDisabledEmbeddingUsesCleanFallbackFromSavedPreferences() async {
+        var settings = SettingsSnapshot.load()
+        settings.defaultAction = "Embed"
+        settings.disabledEmbedPlatforms = ["x"]
+        settings.save()
+        XCTAssertEqual(SettingsSnapshot.load().disabledEmbedPlatforms, ["x"])
+        await load([urlProvider()])
+        XCTAssertNil(controller.model.embedUrl)
+        XCTAssertEqual(controller.model.cleanedUrl, cleaned)
+        XCTAssertEqual(SettingsSnapshot.load().preferredFixers["x"], "fixupx.com")
+        await waitUntil("Embed falls back to sharing the clean link") {
+            self.controller.presentedViewController is UIActivityViewController
+        }
+    }
+
+    func testOfficialShortLinksReachTheShareExtension() async {
+        var settings = SettingsSnapshot.load()
+        settings.useOfficialShortLinks = true
+        settings.disabledEmbedPlatforms = ["youtube"]
+        settings.save()
+        XCTAssertTrue(SettingsSnapshot.load().useOfficialShortLinks)
+        let url = URL(string: "https://youtube.com/watch?v=dQw4w9WgXcQ&t=42&si=tracking")!
+        await load([NSItemProvider(item: url as NSURL, typeIdentifier: UTType.url.identifier)])
+        XCTAssertNil(controller.model.error)
+        XCTAssertNil(controller.model.embedUrl)
+        XCTAssertEqual(controller.model.cleanedUrl, "https://youtu.be/dQw4w9WgXcQ?t=42")
+    }
+
     func testIncomingTextAndFallbackText() async {
         let text = "Read this: \(source)"
         await load([NSItemProvider(item: text as NSString, typeIdentifier: UTType.plainText.identifier)])

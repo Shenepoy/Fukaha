@@ -156,4 +156,8 @@
     <string name="preview_unsupported">Unverified: the response was not an HTML preview page.</string>
     <string name="preview_invalid">This link cannot be checked.</string>
     <string name="source_redirected">Redirected to</string>
+    <string name="embed_links_enabled">Embed links</string>
+    <string name="embed_links_enabled_hint">When off, Embed shares the cleaned link for this site.</string>
+    <string name="official_short_links">Use official shorter links</string>
+    <string name="official_short_links_hint">Use youtu.be for YouTube videos. Keeps timestamps and playlists; other sites stay unchanged.</string>
 </resources>

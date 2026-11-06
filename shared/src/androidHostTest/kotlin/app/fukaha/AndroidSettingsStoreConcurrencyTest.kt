@@ -31,6 +31,10 @@ class AndroidSettingsStoreConcurrencyTest {
             }.awaitAll()
             assertEquals(50L, store.get().lastUpdateCheckEpochMs)
 
+            store.update { it.copy(disabledEmbedPlatforms = setOf("x"), useOfficialShortLinks = true) }
+            val reopened = AndroidSettingsStore(dataStore)
+            assertEquals(setOf("x"), reopened.get().disabledEmbedPlatforms)
+            assertEquals(true, reopened.get().useOfficialShortLinks)
             val before = store.get()
             store.update { it.copy(lastUpdateCheckEpochMs = 100, theme = AppTheme.Dark) }
             store.update { it.applyChangesFrom(before, before.copy(language = AppLanguage.Arabic)) }

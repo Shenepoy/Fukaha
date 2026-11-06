@@ -240,6 +240,21 @@ fun SettingsScreen(
                         infoUrl = row.infoUrl,
                         onClick = { fixerPlatform = row.platformKey },
                     )
+                    ListItem(
+                        headlineContent = { Text("${stringResource(R.string.embed_links_enabled)} · ${row.platformName}") },
+                        supportingContent = { Text(stringResource(R.string.embed_links_enabled_hint)) },
+                        trailingContent = {
+                            androidx.compose.material3.Switch(
+                                checked = row.platformKey !in settings.disabledEmbedPlatforms,
+                                onCheckedChange = { enabled ->
+                                    onChange(settings.copy(disabledEmbedPlatforms =
+                                        if (enabled) settings.disabledEmbedPlatforms - row.platformKey
+                                        else settings.disabledEmbedPlatforms + row.platformKey))
+                                },
+                            )
+                        },
+                        colors = transparentListColors(),
+                    )
                     if (index != fixerRows.lastIndex) {
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                     }
@@ -257,6 +272,18 @@ fun SettingsScreen(
 
         item {
             SettingsSection(title = stringResource(R.string.section_sharing)) {
+                ListItem(
+                    headlineContent = { Text(stringResource(R.string.official_short_links)) },
+                    supportingContent = { Text(stringResource(R.string.official_short_links_hint)) },
+                    trailingContent = {
+                        androidx.compose.material3.Switch(
+                            checked = settings.useOfficialShortLinks,
+                            onCheckedChange = { onChange(settings.copy(useOfficialShortLinks = it)) },
+                        )
+                    },
+                    colors = transparentListColors(),
+                )
+                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 ListItem(
                     headlineContent = { Text(stringResource(R.string.resolve_short_links)) },
                     supportingContent = { Text(stringResource(R.string.resolve_short_links_hint)) },

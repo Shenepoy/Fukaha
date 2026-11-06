@@ -25,6 +25,8 @@ class WebSettingsStore : SettingsStore {
     private data class Stored(
         val defaultAction: String = ShareAction.Ask.name,
         val preferredFixers: Map<String, String> = emptyMap(),
+        val disabledEmbedPlatforms: Set<String> = emptySet(),
+        val useOfficialShortLinks: Boolean = false,
         val language: String = AppLanguage.System.name,
         val theme: String = AppTheme.System.name,
     )
@@ -45,6 +47,8 @@ class WebSettingsStore : SettingsStore {
     private fun Stored.toSettings() = FukahaSettings(
         defaultAction = defaultAction.toEnum(ShareAction.entries, ShareAction.Ask),
         preferredFixers = preferredFixers,
+        disabledEmbedPlatforms = disabledEmbedPlatforms,
+        useOfficialShortLinks = useOfficialShortLinks,
         language = language.toEnum(AppLanguage.entries, AppLanguage.System),
         theme = theme.toEnum(AppTheme.entries, AppTheme.System),
         resolveShortLinks = false,
@@ -53,6 +57,8 @@ class WebSettingsStore : SettingsStore {
     private fun FukahaSettings.toStored() = Stored(
         defaultAction = defaultAction.name,
         preferredFixers = preferredFixers,
+        disabledEmbedPlatforms = disabledEmbedPlatforms,
+        useOfficialShortLinks = useOfficialShortLinks,
         language = language.name,
         theme = theme.name,
     )

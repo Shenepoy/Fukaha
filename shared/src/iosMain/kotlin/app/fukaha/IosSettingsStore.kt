@@ -13,6 +13,8 @@ class IosSettingsStore(
         } ?: ShareAction.Ask
         return FukahaSettings(
             defaultAction = action,
+            disabledEmbedPlatforms = defaults.arrayForKey(IosSettingsKeys.DISABLED_EMBED_PLATFORMS)?.filterIsInstance<String>()?.toSet().orEmpty(),
+            useOfficialShortLinks = defaults.boolForKey(IosSettingsKeys.OFFICIAL_SHORT_LINKS),
             preferredFixers = parseFixers(defaults.stringForKey(KEY_PREFERRED_FIXERS)),
             cobaltBaseUrl = defaults.stringForKey(KEY_COBALT)
                 ?: FukahaSettings.DEFAULT_COBALT_BASE_URL,
@@ -49,6 +51,8 @@ class IosSettingsStore(
     override suspend fun update(transform: (FukahaSettings) -> FukahaSettings) {
         val next = transform(get()).withDownloadClamped()
         defaults.setObject(next.defaultAction.name, KEY_DEFAULT_ACTION)
+        defaults.setObject(next.disabledEmbedPlatforms.toList(), IosSettingsKeys.DISABLED_EMBED_PLATFORMS)
+        defaults.setBool(next.useOfficialShortLinks, IosSettingsKeys.OFFICIAL_SHORT_LINKS)
         defaults.setObject(serializeFixers(next.preferredFixers), KEY_PREFERRED_FIXERS)
         defaults.setObject(next.cobaltBaseUrl, KEY_COBALT)
         defaults.setObject(next.cobaltApiKey, KEY_COBALT_API_KEY)

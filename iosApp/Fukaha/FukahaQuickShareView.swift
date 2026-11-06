@@ -121,11 +121,13 @@ struct FukahaQuickShareView: View {
         didStartPreparing = true
 
         let originalUrl = facade.extractUrl(text: text) ?? text
-        facade.prepare(
+        facade.prepareWithPreferences(
             text: text,
             cobaltBaseUrl: settings.cobaltBaseUrl,
             resolveShortLinks: settings.resolveShortLinks,
             preferredFixers: settings.preferredFixers,
+            disabledEmbedPlatforms: Array(settings.disabledEmbedPlatforms),
+            useOfficialShortLinks: settings.useOfficialShortLinks,
         ) { clean, embed, platform, error in
             DispatchQueue.main.async {
                 guard !client.isClosed else { return }

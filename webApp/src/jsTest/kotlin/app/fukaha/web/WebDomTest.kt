@@ -49,6 +49,29 @@ class WebDomTest {
     }
 
     @Test
+    fun siteEmbeddingAndOfficialShorteningControlsUpdatePreparedLinks() = MainScope().promise {
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.prepare("https://youtube.com/watch?v=dQw4w9WgXcQ&t=42&si=tracking")
+        delay(50)
+        assertNotNull(app.prepared?.embedUrl)
+        app.show(View.Settings)
+        (root.querySelector("#embed-enabled-youtube") as HTMLElement).click()
+        delay(50)
+        assertNull(app.prepared?.embedUrl)
+        assertTrue("youtube" in WebSettingsStore().get().disabledEmbedPlatforms)
+        (root.querySelector("#official-short-links") as HTMLElement).click()
+        delay(50)
+        assertEquals("https://youtu.be/dQw4w9WgXcQ?t=42", app.prepared?.detected?.cleanedUrl)
+        assertTrue(WebSettingsStore().get().useOfficialShortLinks)
+        (root.querySelector("#embed-enabled-youtube") as HTMLElement).click()
+        delay(50)
+        assertNotNull(app.prepared?.embedUrl)
+        assertTrue(WebSettingsStore().get().disabledEmbedPlatforms.isEmpty())
+    }
+
+    @Test
     fun previewActionRejectsStaleResultsWhenLinkChanges() = MainScope().promise {
         val originalFetch = window.asDynamic().fetch
         val app = App(root)

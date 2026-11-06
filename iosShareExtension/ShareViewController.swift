@@ -182,11 +182,13 @@ class ShareViewController: UIViewController {
         model.downloading = false
         model.error = nil
 
-        facade.prepare(
+        facade.prepareWithPreferences(
             text: text,
             cobaltBaseUrl: settings.cobaltBaseUrl,
             resolveShortLinks: settings.resolveShortLinks,
-            preferredFixers: settings.preferredFixers
+            preferredFixers: settings.preferredFixers,
+            disabledEmbedPlatforms: Array(settings.disabledEmbedPlatforms),
+            useOfficialShortLinks: settings.useOfficialShortLinks
         ) { [weak self] clean, embed, platform, error in
             DispatchQueue.main.async {
                 guard let self, !self.finished else { return }

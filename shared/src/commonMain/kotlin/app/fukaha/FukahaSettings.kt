@@ -83,6 +83,8 @@ internal fun migrateLegacyLanguageValue(stored: String?): String =
 data class FukahaSettings(
     val defaultAction: ShareAction = ShareAction.Ask,
     val preferredFixers: Map<String, String> = emptyMap(),
+    val disabledEmbedPlatforms: Set<String> = emptySet(),
+    val useOfficialShortLinks: Boolean = false,
     val cobaltBaseUrl: String = DEFAULT_COBALT_BASE_URL,
     val cobaltApiKey: String = "",
     val resolveShortLinks: Boolean = true,
@@ -152,7 +154,15 @@ fun FukahaSettings.applyChangesFrom(before: FukahaSettings, after: FukahaSetting
             after.preferredFixers[key]?.let { fixers[key] = it } ?: fixers.remove(key)
         }
     }
+    val disabled = disabledEmbedPlatforms.toMutableSet()
+    (before.disabledEmbedPlatforms + after.disabledEmbedPlatforms).forEach { key ->
+        if ((key in before.disabledEmbedPlatforms) != (key in after.disabledEmbedPlatforms)) {
+            if (key in after.disabledEmbedPlatforms) disabled.add(key) else disabled.remove(key)
+        }
+    }
     return copy(
+        disabledEmbedPlatforms = disabled,
+        useOfficialShortLinks = changed(before.useOfficialShortLinks, after.useOfficialShortLinks, useOfficialShortLinks),
         defaultAction = changed(before.defaultAction, after.defaultAction, defaultAction),
         preferredFixers = fixers,
         cobaltBaseUrl = changed(before.cobaltBaseUrl, after.cobaltBaseUrl, cobaltBaseUrl),

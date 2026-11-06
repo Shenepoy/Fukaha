@@ -29,6 +29,21 @@ class IosFacadeTest {
         }
     }
 
+    @Test fun preferencesReachNativePreparation() = runTest {
+        withContext(Dispatchers.Default) {
+            val facade = FukahaIosFacade()
+            try {
+                val result = CompletableDeferred<Pair<String?, String?>>()
+                facade.prepareWithPreferences("https://youtube.com/watch?v=dQw4w9WgXcQ&t=42", "", false,
+                    emptyMap(), listOf("youtube"), true) { clean, embed, _, error ->
+                    if (error != null) result.completeExceptionally(IllegalStateException(error))
+                    else result.complete(clean to embed)
+                }
+                assertEquals("https://youtu.be/dQw4w9WgXcQ?t=42" to null, withTimeout(5_000) { result.await() })
+            } finally { facade.close() }
+        }
+    }
+
     @Test fun closedFacadeDoesNotStartWorkOrDeliverCallbacks() = runTest {
         withContext(Dispatchers.Default) {
             val facade = FukahaIosFacade()

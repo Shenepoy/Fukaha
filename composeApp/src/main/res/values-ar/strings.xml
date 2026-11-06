@@ -156,4 +156,8 @@
     <string name="preview_unsupported">غير مؤكّد: الاستجابة ليست صفحة معاينة HTML.</string>
     <string name="preview_invalid">لا يمكن فحص هذا الرابط.</string>
     <string name="source_redirected">أُعيد التوجيه إلى</string>
+    <string name="embed_links_enabled">تفعيل روابط المعاينة</string>
+    <string name="embed_links_enabled_hint">عند الإيقاف، يشارك خيار المعاينة الرابط المنظّف لهذا الموقع.</string>
+    <string name="official_short_links">استخدام الروابط الرسمية الأقصر</string>
+    <string name="official_short_links_hint">استخدام youtu.be لفيديوهات YouTube مع الحفاظ على الوقت وقائمة التشغيل. تبقى المواقع الأخرى دون تغيير.</string>
 </resources>

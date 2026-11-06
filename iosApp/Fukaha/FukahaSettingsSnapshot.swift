@@ -6,6 +6,8 @@ struct SettingsSnapshot {
     var cobaltBaseUrl: String = ""
     var cobaltApiKey: String = ""
     var resolveShortLinks: Bool = true
+    var disabledEmbedPlatforms: Set<String> = []
+    var useOfficialShortLinks: Bool = false
     var deleteCacheAfterShare: Bool = true
     var language: String = "System"
     var theme: String = "System"
@@ -26,6 +28,8 @@ struct SettingsSnapshot {
         let d = suite
         migrateCobaltPublicDefaultIfNeeded(d)
         var s = SettingsSnapshot()
+        s.disabledEmbedPlatforms = Set(d.stringArray(forKey: IosSettingsKeys.shared.DISABLED_EMBED_PLATFORMS) ?? [])
+        s.useOfficialShortLinks = d.bool(forKey: IosSettingsKeys.shared.OFFICIAL_SHORT_LINKS)
         s.defaultAction = d.string(forKey: IosSettingsKeys.shared.DEFAULT_ACTION) ?? "Ask"
         s.cobaltBaseUrl = d.string(forKey: IosSettingsKeys.shared.COBALT) ?? ""
         s.cobaltApiKey = d.string(forKey: IosSettingsKeys.shared.COBALT_API_KEY) ?? ""
@@ -75,6 +79,8 @@ struct SettingsSnapshot {
         if action == "Download" && !hasValidCobaltBaseUrl {
             action = "Ask"
         }
+        d.set(Array(disabledEmbedPlatforms).sorted(), forKey: IosSettingsKeys.shared.DISABLED_EMBED_PLATFORMS)
+        d.set(useOfficialShortLinks, forKey: IosSettingsKeys.shared.OFFICIAL_SHORT_LINKS)
         d.set(action, forKey: IosSettingsKeys.shared.DEFAULT_ACTION)
         d.set(cobaltBaseUrl, forKey: IosSettingsKeys.shared.COBALT)
         d.set(cobaltApiKey, forKey: IosSettingsKeys.shared.COBALT_API_KEY)

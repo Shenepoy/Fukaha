@@ -17,6 +17,9 @@ fun renderSettings(app: App, parent: HTMLElement) {
     val s = app.strings
 
     renderDefaultAction(app, parent)
+    parent.preferenceToggle("official-short-links", s.officialShortLinks, s.officialShortLinksHint, app.settings.useOfficialShortLinks) { enabled ->
+        app.updateSettings { it.copy(useOfficialShortLinks = enabled) }
+    }
     renderEmbedders(app, parent)
     renderAbout(app, parent)
 
@@ -125,6 +128,11 @@ private fun renderEmbedders(app: App, parent: HTMLElement) {
                     val services = app.servicesFor(key)
                     if (services.isEmpty()) return@forEach
                     renderFixerRow(app, this, key)
+                    preferenceToggle("embed-enabled-$key", "${s.embedLinksEnabled} · ${platformLabel(key)}", s.embedLinksEnabledHint, key !in app.settings.disabledEmbedPlatforms) { enabled ->
+                        app.updateSettings {
+                            it.copy(disabledEmbedPlatforms = if (enabled) it.disabledEmbedPlatforms - key else it.disabledEmbedPlatforms + key)
+                        }
+                    }
                 }
             }
         }
@@ -480,5 +488,21 @@ private fun HTMLElement.radioItem(
                 selectedLabel,
             )
         }
+    }
+}
+
+private fun HTMLElement.preferenceToggle(idValue: String, title: String, hint: String, enabled: Boolean, onChange: (Boolean) -> Unit) {
+    el("label", "list-item preference-toggle") {
+        el("div", "list-item-text") {
+            el("span", "body-large", title)
+            el("span", "body-small on-surface-variant", hint)
+        }
+        val input = el("input", "preference-checkbox") {
+            id = idValue
+            setAttribute("type", "checkbox")
+            setAttribute("role", "switch")
+        } as HTMLInputElement
+        input.checked = enabled
+        input.onchange = { onChange(input.checked); Unit }
     }
 }

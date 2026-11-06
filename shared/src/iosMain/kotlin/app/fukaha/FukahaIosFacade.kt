@@ -40,6 +40,16 @@ class FukahaIosFacade {
         cobaltBaseUrl: String,
         resolveShortLinks: Boolean,
         preferredFixers: Map<String, String>,
+        onResult: (String?, String?, String?, String?) -> Unit,
+    ) = prepareWithPreferences(text, cobaltBaseUrl, resolveShortLinks, preferredFixers, emptyList(), false, onResult)
+
+    fun prepareWithPreferences(
+        text: String,
+        cobaltBaseUrl: String,
+        resolveShortLinks: Boolean,
+        preferredFixers: Map<String, String>,
+        disabledEmbedPlatforms: List<String>,
+        useOfficialShortLinks: Boolean,
         onResult: (cleanUrl: String?, embedUrl: String?, platform: String?, error: String?) -> Unit,
     ) {
         scope.launch {
@@ -48,6 +58,8 @@ class FukahaIosFacade {
                     cobaltBaseUrl = cobaltBaseUrl,
                     resolveShortLinks = resolveShortLinks,
                     preferredFixers = preferredFixers,
+                    disabledEmbedPlatforms = disabledEmbedPlatforms.toSet(),
+                    useOfficialShortLinks = useOfficialShortLinks,
                 )
                 val prepared = bridge.prepare(text, settings)
                 ensureActive()
