@@ -13,7 +13,8 @@ class ShareViewController: UIViewController {
     private let facade = FukahaIosFacade()
     private var settings = SettingsSnapshot.load()
 
-    private let model = FukahaShareModel()
+    // Internal so simulator integration tests can verify the actual prepared payload.
+    let model = FukahaShareModel()
     private var hostingController: UIHostingController<FukahaShareScreen>?
 
     private var preparedClean: String?

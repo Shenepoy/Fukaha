@@ -127,7 +127,56 @@ targets:
         TARGETED_DEVICE_FAMILY: "1,2"
         SKIP_INSTALL: YES
         LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/Frameworks @executable_path/../../Frameworks
+  FukahaShareHarness:
+    type: application
+    platform: iOS
+    sources:
+      - path: tests/ShareHarness
+      - path: ../iosShareExtension/ShareViewController.swift
+      - path: ../iosShareExtension/FukahaShareScreen.swift
+      - path: Fukaha/FukahaDesign.swift
+      - path: Fukaha/FukahaMediaCache.swift
+      - path: Fukaha/FukahaSettingsSnapshot.swift
+      - path: Fukaha/FukahaSourcePreferences.swift
+      - path: Fukaha/FukahaClient.swift
+      - path: Fukaha/FukahaQuickShareView.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.share-harness
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
+        LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/Frameworks
+        CODE_SIGNING_ALLOWED: NO
+    preBuildScripts:
+      - name: Compile Kotlin Framework
+        basedOnDependencyAnalysis: false
+        script: |
+          set -euo pipefail
+          cd "$SRCROOT/.."
+          ./gradlew :shared:embedAndSignAppleFrameworkForXcode
+  FukahaSharingTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: tests/SharingIntegration
+    dependencies:
+      - target: FukahaShareHarness
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.sharing-tests
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGNING_ALLOWED: NO
 schemes:
+  FukahaSharingTests:
+    shared: true
+    build:
+      targets:
+        FukahaShareHarness: all
+    test:
+      targets:
+        - FukahaSharingTests
+      gatherCoverageData: false
   Fukaha:
     shared: true
     build:

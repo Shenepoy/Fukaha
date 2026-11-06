@@ -1,6 +1,8 @@
 name: iOS TestFlight
 
 on:
+  push:
+    branches: [codex/ios-share-validation]
   workflow_call:
     inputs:
       upload:
@@ -81,6 +83,16 @@ jobs:
           else
             ./gradlew :shared:testAndroidHostTest :shared:iosX64Test
           fi
+      - name: Validate iPhone and iPad sharing
+        run: bash iosApp/scripts/test-sharing.sh
+      - name: Save sharing test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fukaha-sharing-tests-${{ env.IOS_BUILD_NUMBER }}
+          path: iosApp/build/Sharing-*.xcresult
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Archive and export signed IPA
         env:
           IOS_DISTRIBUTION_P12_BASE64: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
