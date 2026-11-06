@@ -1,4 +1,8 @@
 Please test:
+- Disable embedding for a site in the source list and confirm Embed shares its cleaned link. Re-enable it and check that the previous source is retained.
+- Enable official shorter links and share a YouTube video with a timestamp or playlist. Check the compact youtu.be link retains that context.
+- On iOS 17, share from Safari, Instagram, or X with a link preview. Check Fukaha appears in the share menu and Clean with Fukaha opens from Actions.
+- Check the plain share icons and transparent Action icon in light and dark mode.
 - Share a link from Safari and another app into Fukaha. Check the cleaned and embed links.
 - Choose a different source, close Fukaha, and confirm the choice is used on the next share.
 - Refresh source checks from the source list and picker. Check progress, status labels, and the saved last-checked time after restarting. Your selected source should not change.
