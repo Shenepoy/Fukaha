@@ -13,8 +13,10 @@ final class ShareDiscoveryTests: XCTestCase {
         host.buttons[button].tap()
         let fukaha = host.descendants(matching: .any).matching(NSPredicate(format: "label == %@", "Fukaha")).firstMatch
         if fukaha.waitForExistence(timeout: 4) { return fukaha }
-        let more = host.buttons["More"].firstMatch
-        if more.waitForExistence(timeout: 3) { more.tap() }
+        let more = host.cells.matching(NSPredicate(format: "label == %@", "More")).firstMatch
+        XCTAssertTrue(more.waitForExistence(timeout: 3), "Cannot inspect the complete activity list.\n\(host.debugDescription)")
+        more.tap()
+        XCTAssertTrue(host.navigationBars["Apps"].waitForExistence(timeout: 3), "More did not open the Apps list.\n\(host.debugDescription)")
         let found = fukaha.waitForExistence(timeout: 8)
         let screenshot = XCTAttachment(screenshot: host.screenshot())
         screenshot.lifetime = .keepAlways
