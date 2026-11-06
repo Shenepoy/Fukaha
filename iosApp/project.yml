@@ -167,7 +167,43 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.sharing-tests
         GENERATE_INFOPLIST_FILE: YES
         CODE_SIGNING_ALLOWED: NO
+  FukahaDiscoveryHost:
+    type: application
+    platform: iOS
+    sources:
+      - path: tests/DiscoveryHost
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.discovery-host
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
+        OTHER_LDFLAGS: ""
+        CODE_SIGNING_ALLOWED: NO
+  FukahaShareDiscoveryTests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: tests/ShareDiscovery
+    dependencies:
+      - target: FukahaDiscoveryHost
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.share-discovery-tests
+        GENERATE_INFOPLIST_FILE: YES
+        OTHER_LDFLAGS: ""
+        CODE_SIGNING_ALLOWED: NO
 schemes:
+  FukahaShareDiscoveryTests:
+    shared: true
+    build:
+      targets:
+        Fukaha: all
+        FukahaDiscoveryHost: all
+    test:
+      targets:
+        - FukahaShareDiscoveryTests
+      gatherCoverageData: false
   FukahaSharingTests:
     shared: true
     build:

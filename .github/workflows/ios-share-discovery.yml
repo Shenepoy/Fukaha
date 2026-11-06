@@ -1,0 +1,40 @@
+name: iOS 17 Share Discovery
+on:
+  push:
+    branches: [codex/ios17-share-discovery]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ios17-share-discovery
+  cancel-in-progress: true
+jobs:
+  discovery:
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - uses: gradle/actions/setup-gradle@v6
+      - run: brew install xcodegen
+      - name: Install iOS 17 simulator runtime
+        run: xcodebuild -downloadPlatform iOS -buildVersion 17.5
+      - name: Reproduce real system share-extension discovery on iOS 17
+        run: bash iosApp/scripts/test-share-discovery.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ios17-share-discovery
+          path: |
+            iosApp/build/ShareDiscovery.xcresult
+            iosApp/build/discovery-runtimes.json
+          if-no-files-found: ignore

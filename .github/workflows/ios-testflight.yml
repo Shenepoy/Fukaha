@@ -1,8 +1,6 @@
 name: iOS TestFlight
 
 on:
-  push:
-    branches: [codex/ios-share-validation]
   workflow_call:
     inputs:
       upload:
