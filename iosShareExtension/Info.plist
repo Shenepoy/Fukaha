@@ -8,6 +8,9 @@
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<dict>
+				<!-- Match a supported link/text type even when the host also shares a preview image. -->
+				<key>NSExtensionActivationDictionaryVersion</key>
+				<integer>2</integer>
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>

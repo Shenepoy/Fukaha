@@ -135,6 +135,13 @@ It opens the full More/Apps list when needed and saves an XCTest result bundle t
 shipping app. These controlled payloads do not replace a physical-device check
 from Instagram or X.
 
+Both extensions use activation dictionary version 2 so a supported URL or text
+can be shared alongside a preview image. Without this setting, the iOS 17.5
+system share sheet excludes Fukaha for that mixed payload, including from More.
+The discovery test reproduces that failure with the old rules and passes with
+version 2; it also verifies that the extension opens and extracts the URL.
+See [Apple's activation dictionary documentation](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/AppExtensionKeys.html).
+
 A signed macOS archive/export and physical-device smoke test are still required.
 Linux checks cannot prove signing, App Store acceptance, or system share-sheet
 behavior.

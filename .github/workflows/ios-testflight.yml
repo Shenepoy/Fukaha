@@ -83,12 +83,19 @@ jobs:
           fi
       - name: Validate iPhone and iPad sharing
         run: bash iosApp/scripts/test-sharing.sh
+      - name: Validate iOS 17 extension discovery
+        run: |
+          xcodebuild -downloadPlatform iOS -buildVersion 17.5
+          bash iosApp/scripts/test-share-discovery.sh
       - name: Save sharing test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: fukaha-sharing-tests-${{ env.IOS_BUILD_NUMBER }}
-          path: iosApp/build/Sharing-*.xcresult
+          path: |
+            iosApp/build/Sharing-*.xcresult
+            iosApp/build/ShareDiscovery.xcresult
+            iosApp/build/discovery-runtimes.json
           if-no-files-found: ignore
           retention-days: 14
       - name: Archive and export signed IPA
