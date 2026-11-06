@@ -50,12 +50,15 @@ final class SharingIntegrationTests: XCTestCase {
         super.tearDown()
     }
 
-    private func waitUntil(_ description: String, _ condition: @escaping () -> Bool) {
-        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in condition() }, object: nil)
-        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 8), .completed, description)
+    private func waitUntil(_ description: String, _ condition: @escaping () -> Bool) async {
+        let deadline = Date().addingTimeInterval(8)
+        while !condition() && Date() < deadline {
+            try? await Task.sleep(nanoseconds: 20_000_000)
+        }
+        XCTAssertTrue(condition(), description)
     }
 
-    private func load(_ providers: [NSItemProvider], fallback: String? = nil, appear: Bool = true) {
+    private func load(_ providers: [NSItemProvider], fallback: String? = nil, appear: Bool = true) async {
         let item = NSExtensionItem()
         item.attachments = providers
         item.attributedContentText = fallback.map(NSAttributedString.init(string:))
@@ -63,7 +66,7 @@ final class SharingIntegrationTests: XCTestCase {
         controller.input.items = [item]
         controller.loadViewIfNeeded()
         if appear { show(controller) }
-        waitUntil("Shared input finishes preparing") { !self.controller.model.loading }
+        await waitUntil("Shared input finishes preparing") { !self.controller.model.loading }
     }
 
     private func show(_ viewController: UIViewController) {
@@ -82,45 +85,45 @@ final class SharingIntegrationTests: XCTestCase {
         XCTAssertEqual(SettingsSnapshot.load().preferredFixers["x"], "fixupx.com")
     }
 
-    func testIncomingURLUsesSavedSourceAndRemovesTracking() {
-        load([urlProvider()])
+    func testIncomingURLUsesSavedSourceAndRemovesTracking() async {
+        await load([urlProvider()])
         assertPrepared()
         XCTAssertNil(controller.presentedViewController, "Ask must wait for a choice")
     }
 
-    func testIncomingTextAndFallbackText() {
+    func testIncomingTextAndFallbackText() async {
         let text = "Read this: \(source)"
-        load([NSItemProvider(item: text as NSString, typeIdentifier: UTType.plainText.identifier)])
+        await load([NSItemProvider(item: text as NSString, typeIdentifier: UTType.plainText.identifier)])
         assertPrepared()
-        load([], fallback: text)
+        await load([], fallback: text)
         assertPrepared()
     }
 
-    func testFailedAttachmentFallsThroughToValidURL() {
+    func testFailedAttachmentFallsThroughToValidURL() async {
         let broken = NSItemProvider()
         broken.registerDataRepresentation(forTypeIdentifier: UTType.url.identifier, visibility: .all) { completion in
             completion(nil, NSError(domain: "TestProvider", code: 1))
             return nil
         }
-        load([broken, urlProvider()])
+        await load([broken, urlProvider()])
         assertPrepared()
     }
 
-    func testNoLinkShowsErrorWithoutOpeningShareSheet() {
-        load([], fallback: "No URL here")
+    func testNoLinkShowsErrorWithoutOpeningShareSheet() async {
+        await load([], fallback: "No URL here")
         XCTAssertEqual(controller.model.error, "No link found")
         XCTAssertNil(controller.presentedViewController)
     }
 
-    func testAutomaticCleanWaitsForAppearanceAndCancellationAllowsRetry() {
+    func testAutomaticCleanWaitsForAppearanceAndCancellationAllowsRetry() async {
         var settings = SettingsSnapshot.load()
         settings.defaultAction = "Clean"
         settings.save()
-        load([urlProvider()], appear: false)
+        await load([urlProvider()], appear: false)
         assertPrepared()
         XCTAssertNil(controller.presentedViewController)
         show(controller)
-        waitUntil("Automatic Clean opens the system share sheet") {
+        await waitUntil("Automatic Clean opens the system share sheet") {
             self.controller.presentedViewController is UIActivityViewController
         }
         guard let activity = controller.presentedViewController as? UIActivityViewController else { return }
@@ -130,37 +133,37 @@ final class SharingIntegrationTests: XCTestCase {
         }
         activity.completionWithItemsHandler?(nil, false, nil, nil)
         activity.dismiss(animated: false)
-        waitUntil("Cancelled sheet is dismissed") { self.controller.presentedViewController == nil }
+        await waitUntil("Cancelled sheet is dismissed") { self.controller.presentedViewController == nil }
         XCTAssertEqual(controller.input.completions, 0, "Cancellation must preserve extension choices")
         controller.perform(NSSelectorFromString("shareClean"))
-        waitUntil("Retry opens the system share sheet") {
+        await waitUntil("Retry opens the system share sheet") {
             self.controller.presentedViewController is UIActivityViewController
         }
         let retry = controller.presentedViewController as? UIActivityViewController
         retry?.completionWithItemsHandler?(nil, true, nil, nil)
-        waitUntil("Successful share completes extension once") { self.controller.input.completions == 1 }
+        await waitUntil("Successful share completes extension once") { self.controller.input.completions == 1 }
         controller.perform(NSSelectorFromString("cancel"))
         XCTAssertEqual(controller.input.completions, 1)
     }
 
-    func testAutomaticEmbedAndDownloadWithoutServer() {
+    func testAutomaticEmbedAndDownloadWithoutServer() async {
         var settings = SettingsSnapshot.load()
         settings.defaultAction = "Embed"
         settings.save()
-        load([urlProvider()])
+        await load([urlProvider()])
         assertPrepared()
-        waitUntil("Automatic Embed opens sharing") { self.controller.presentedViewController is UIActivityViewController }
+        await waitUntil("Automatic Embed opens sharing") { self.controller.presentedViewController is UIActivityViewController }
         controller.presentedViewController?.dismiss(animated: false)
         controller.perform(NSSelectorFromString("cancel"))
         settings.defaultAction = "Download"
         settings.cobaltBaseUrl = ""
         settings.save()
-        load([urlProvider()])
+        await load([urlProvider()])
         assertPrepared()
         XCTAssertNil(controller.presentedViewController, "Missing media server falls back to choices")
     }
 
-    func testContainerQuickSharePresentsSystemSheetAndCompletes() {
+    func testContainerQuickSharePresentsSystemSheetAndCompletes() async {
         var settings = SettingsSnapshot.load()
         settings.defaultAction = "Clean"
         let client = FukahaClient()
@@ -170,14 +173,14 @@ final class SharingIntegrationTests: XCTestCase {
             text: source, settings: settings, client: client, onDismiss: { dismissed = true }
         ))
         show(host)
-        waitUntil("Container quick share presents a sheet") { host.presentedViewController != nil }
+        await waitUntil("Container quick share presents a sheet") { host.presentedViewController != nil }
         func activity(in root: UIViewController) -> UIActivityViewController? {
             if let sheet = root as? UIActivityViewController { return sheet }
             if let presented = root.presentedViewController, let found = activity(in: presented) { return found }
             return root.children.lazy.compactMap { activity(in: $0) }.first
         }
-        waitUntil("Container presents the system activity controller") { activity(in: host) != nil }
+        await waitUntil("Container presents the system activity controller") { activity(in: host) != nil }
         activity(in: host)?.completionWithItemsHandler?(nil, true, nil, nil)
-        waitUntil("Completed quick share dismisses its containing sheet") { dismissed }
+        await waitUntil("Completed quick share dismisses its containing sheet") { dismissed }
     }
 }
