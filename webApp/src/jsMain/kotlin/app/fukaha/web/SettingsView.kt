@@ -129,11 +129,6 @@ private fun renderEmbedders(app: App, parent: HTMLElement) {
                     val services = app.servicesFor(key)
                     if (services.isEmpty()) return@forEach
                     renderFixerRow(app, this, key)
-                    preferenceToggle("embed-enabled-$key", "${s.embedLinksEnabled} · ${platformLabel(key)}", s.embedLinksEnabledHint, key !in app.settings.disabledEmbedPlatforms) { enabled ->
-                        app.updateSettings(afterRender = { (document.getElementById("embed-enabled-$key") as? HTMLElement)?.focus() }) {
-                            it.copy(disabledEmbedPlatforms = if (enabled) it.disabledEmbedPlatforms - key else it.disabledEmbedPlatforms + key)
-                        }
-                    }
                 }
             }
         }
@@ -227,11 +222,31 @@ private fun renderFixerRow(
     parent: HTMLElement,
     platformKey: String,
 ) {
-    parent.el("button", "fixer-row state") {
-        setAttribute("type", "button")
-        setAttribute("data-fixer-row", platformKey)
-        renderFixerRowContents(app, this, platformKey)
-        onclick = { app.toggleFixerPicker(platformKey); Unit }
+    parent.el("div", "fixer-list-row") {
+        el("button", "fixer-row state") {
+            setAttribute("type", "button")
+            setAttribute("data-fixer-row", platformKey)
+            renderFixerRowContents(app, this, platformKey)
+            onclick = { app.toggleFixerPicker(platformKey); Unit }
+        }
+        el("label", "fixer-embed-switch") {
+            val label = "${app.strings.embedLinksEnabled} · ${platformLabel(platformKey)}"
+            setAttribute("title", app.strings.embedLinksEnabledHint)
+            el("span", "sr-only", label)
+            val input = el("input", "preference-checkbox") {
+                id = "embed-enabled-$platformKey"
+                setAttribute("type", "checkbox")
+                setAttribute("role", "switch")
+            } as HTMLInputElement
+            input.checked = platformKey !in app.settings.disabledEmbedPlatforms
+            input.onchange = {
+                val enabled = input.checked
+                app.updateSettings(afterRender = { (document.getElementById("embed-enabled-$platformKey") as? HTMLElement)?.focus() }) {
+                    it.copy(disabledEmbedPlatforms = if (enabled) it.disabledEmbedPlatforms - platformKey else it.disabledEmbedPlatforms + platformKey)
+                }
+                Unit
+            }
+        }
     }
 }
 

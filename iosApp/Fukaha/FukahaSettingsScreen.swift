@@ -333,18 +333,6 @@ struct FukahaSettingsScreen: View {
                 FukahaDivider()
                 ForEach(Array(platformKeys.enumerated()), id: \.offset) { index, key in
                     fixerRow(for: key)
-                    toggleRow(
-                        icon: "link",
-                        title: "\(text(en: "Embed links", ar: "تفعيل روابط المعاينة")) · \(platformTitle(key))",
-                        subtitle: text(en: "When off, Embed shares the cleaned link for this site.", ar: "عند الإيقاف، يشارك خيار المعاينة الرابط المنظّف لهذا الموقع."),
-                        isOn: Binding(
-                            get: { !settings.disabledEmbedPlatforms.contains(key) },
-                            set: { enabled in
-                                if enabled { settings.disabledEmbedPlatforms.remove(key) }
-                                else { settings.disabledEmbedPlatforms.insert(key) }
-                            }
-                        )
-                    )
                     if index != platformKeys.count - 1 {
                         FukahaDivider()
                     }
@@ -397,6 +385,18 @@ struct FukahaSettingsScreen: View {
                     .font(.system(size: 18, weight: .semibold))
             }
             .accessibilityLabel(text(en: "Choose embed fixer", ar: "اختيار خدمة المعاينة"))
+            Toggle(isOn: Binding(
+                get: { !settings.disabledEmbedPlatforms.contains(key) },
+                set: { enabled in
+                    if enabled { settings.disabledEmbedPlatforms.remove(key) }
+                    else { settings.disabledEmbedPlatforms.insert(key) }
+                }
+            )) {
+                Text("\(text(en: "Embed links", ar: "تفعيل روابط المعاينة")) · \(platformTitle(key))")
+            }
+            .labelsHidden()
+            .fixedSize()
+            .accessibilityHint(text(en: "When off, Embed shares the cleaned link for this site.", ar: "عند الإيقاف، يشارك خيار المعاينة الرابط المنظّف لهذا الموقع."))
         }
         .foregroundStyle(Color.fukahaPrimary)
         .padding(.horizontal, 16)

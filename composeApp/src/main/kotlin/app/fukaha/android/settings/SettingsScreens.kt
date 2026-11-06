@@ -239,21 +239,12 @@ fun SettingsScreen(
                         healthStatus = row.healthStatus,
                         infoUrl = row.infoUrl,
                         onClick = { fixerPlatform = row.platformKey },
-                    )
-                    ListItem(
-                        headlineContent = { Text("${stringResource(R.string.embed_links_enabled)} · ${row.platformName}") },
-                        supportingContent = { Text(stringResource(R.string.embed_links_enabled_hint)) },
-                        trailingContent = {
-                            androidx.compose.material3.Switch(
-                                checked = row.platformKey !in settings.disabledEmbedPlatforms,
-                                onCheckedChange = { enabled ->
-                                    onChange(settings.copy(disabledEmbedPlatforms =
-                                        if (enabled) settings.disabledEmbedPlatforms - row.platformKey
-                                        else settings.disabledEmbedPlatforms + row.platformKey))
-                                },
-                            )
+                        embedEnabled = row.platformKey !in settings.disabledEmbedPlatforms,
+                        onEmbedEnabledChange = { enabled ->
+                            onChange(settings.copy(disabledEmbedPlatforms =
+                                if (enabled) settings.disabledEmbedPlatforms - row.platformKey
+                                else settings.disabledEmbedPlatforms + row.platformKey))
                         },
-                        colors = transparentListColors(),
                     )
                     if (index != fixerRows.lastIndex) {
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))

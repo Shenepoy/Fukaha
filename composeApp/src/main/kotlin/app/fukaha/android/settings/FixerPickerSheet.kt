@@ -59,6 +59,8 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -82,6 +84,8 @@ fun PreferredFixerRow(
     healthStatus: EmbedHealthStatus = EmbedHealthStatus.Unknown,
     infoUrl: String?,
     onClick: () -> Unit,
+    embedEnabled: Boolean,
+    onEmbedEnabledChange: (Boolean) -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
     val hostLabel = host.removePrefix("https://").removePrefix("http://").trimEnd('/')
@@ -136,6 +140,12 @@ fun PreferredFixerRow(
                 contentDescription = stringResource(R.string.preferred_fixer_pick_title),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(20.dp),
+            )
+            val embedLabel = "${stringResource(R.string.embed_links_enabled)} · $platformName"
+            androidx.compose.material3.Switch(
+                checked = embedEnabled,
+                onCheckedChange = onEmbedEnabledChange,
+                modifier = Modifier.semantics { contentDescription = embedLabel },
             )
         }
     }
