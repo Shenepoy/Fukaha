@@ -260,9 +260,12 @@ struct FukahaSettingsScreen: View {
                         Button {
                             onOpenQuickLink(shareableUrl.absoluteString)
                         } label: {
-                            Image(systemName: "arrow.forward.circle.fill")
+                            Image(systemName: "square.and.arrow.up")
                                 .font(.system(size: 24, weight: .medium))
+                                .frame(width: 44, height: 44)
+                                .contentShape(Rectangle())
                         }
+                        .buttonStyle(.plain)
                         .accessibilityLabel(text(en: "Open share screen", ar: "افتح شاشة المشاركة"))
                     }
                 }

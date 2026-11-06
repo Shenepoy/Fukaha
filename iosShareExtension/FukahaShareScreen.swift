@@ -238,17 +238,14 @@ struct FukahaShareScreen: View {
 
     private var mediaButton: some View {
         Button(action: onShareMedia) {
-            HStack(spacing: 8) {
-                Image(systemName: "arrow.down.to.line")
-                    .font(.system(size: 19, weight: .medium))
-                Text(text(en: "Share media file", ar: "مشاركة ملف الوسائط"))
-                    .font(.system(size: 15, weight: .semibold))
-            }
-            .frame(maxWidth: .infinity, minHeight: 46)
+            Image(systemName: "arrow.down.to.line")
+                .font(.system(size: 19, weight: .medium))
+                .frame(width: 52, height: 46)
+                .contentShape(Rectangle())
         }
-        .foregroundStyle(Color.fukahaOnPrimaryContainer)
-        .background(Color.fukahaPrimaryContainer)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .buttonStyle(.plain)
+        .foregroundStyle(Color.fukahaPrimary)
+        .accessibilityLabel(text(en: "Share media file", ar: "مشاركة ملف الوسائط"))
     }
 
     private func text(en: String, ar: String) -> String {
