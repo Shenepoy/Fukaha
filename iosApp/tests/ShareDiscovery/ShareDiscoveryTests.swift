@@ -44,7 +44,7 @@ final class ShareDiscoveryTests: XCTestCase {
 
     func testActionIsListedAndLaunches() {
         host.buttons["Share URL"].tap()
-        let action = host.buttons["Clean with Fukaha"].firstMatch
+        let action = host.cells["Clean with Fukaha"].firstMatch
         if !action.waitForExistence(timeout: 3) {
             host.swipeUp()
         }
