@@ -97,6 +97,7 @@ targets:
     type: app-extension
     platform: iOS
     sources:
+      - path: ../iosActionExtension/Assets.xcassets
       - path: ../iosShareExtension/ShareViewController.swift
       - path: ../iosShareExtension/FukahaShareScreen.swift
       - path: Fukaha/FukahaDesign.swift
@@ -118,6 +119,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.shenepoy.fukaha.action
         PRODUCT_NAME: FukahaAction
+        ASSETCATALOG_COMPILER_APPICON_NAME: ActionIcon
         INFOPLIST_FILE: ../iosActionExtension/Info.plist
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_CFBundleDisplayName: "Clean with Fukaha"

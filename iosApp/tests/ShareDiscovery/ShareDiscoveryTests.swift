@@ -34,10 +34,32 @@ final class ShareDiscoveryTests: XCTestCase {
 
     func testURLIsListedAndLaunchesRealShareExtension() {
         let extensionButton = findFukaha(sharing: "Share URL")
+        capture("System share menu")
         extensionButton.tap()
         // This crosses the actual OS extension boundary, unlike the controller unit harness.
         let cleaned = host.staticTexts["Cleaned link"].firstMatch
         XCTAssertTrue(cleaned.waitForExistence(timeout: 20), "Extension did not open its link UI.\n\(host.debugDescription)")
+        capture("Share extension icon-only buttons")
+    }
+
+    func testActionIsListedAndLaunches() {
+        host.buttons["Share URL"].tap()
+        let action = host.buttons["Clean with Fukaha"].firstMatch
+        if !action.waitForExistence(timeout: 3) {
+            host.swipeUp()
+        }
+        XCTAssertTrue(action.waitForExistence(timeout: 5), "Action extension is missing.\n\(host.debugDescription)")
+        capture("Action extension template icon")
+        action.tap()
+        XCTAssertTrue(host.staticTexts["Cleaned link"].waitForExistence(timeout: 20))
+        capture("Action extension icon-only buttons")
+    }
+
+    private func capture(_ name: String) {
+        let attachment = XCTAttachment(screenshot: host.screenshot())
+        attachment.name = name
+        attachment.lifetime = .keepAlways
+        add(attachment)
     }
     func testTextIsListed() { _ = findFukaha(sharing: "Share text") }
     func testURLWithPreviewIsListedAndLaunches() {

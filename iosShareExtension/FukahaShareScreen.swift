@@ -221,11 +221,10 @@ struct FukahaShareScreen: View {
                         Image(systemName: "square.and.arrow.up")
                             .font(.system(size: 20, weight: .medium))
                             .frame(width: 52, height: 44)
+                            .contentShape(Rectangle())
                     }
-                    .frame(width: 52, height: 44)
-                    .foregroundStyle(Color.fukahaOnPrimary)
-                    .background(Color.fukahaPrimary)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color.fukahaPrimary)
                     .accessibilityLabel(text(en: "Share", ar: "مشاركة"))
                 }
             }
