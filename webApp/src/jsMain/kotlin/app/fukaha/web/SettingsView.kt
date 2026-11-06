@@ -5,6 +5,7 @@ import app.fukaha.EmbedHealthPolicy
 import app.fukaha.EmbedHealthStatus
 import app.fukaha.EmbedService
 import app.fukaha.ShareAction
+import kotlinx.browser.document
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLInputElement
@@ -18,7 +19,7 @@ fun renderSettings(app: App, parent: HTMLElement) {
 
     renderDefaultAction(app, parent)
     parent.preferenceToggle("official-short-links", s.officialShortLinks, s.officialShortLinksHint, app.settings.useOfficialShortLinks) { enabled ->
-        app.updateSettings { it.copy(useOfficialShortLinks = enabled) }
+        app.updateSettings(afterRender = { (document.getElementById("official-short-links") as? HTMLElement)?.focus() }) { it.copy(useOfficialShortLinks = enabled) }
     }
     renderEmbedders(app, parent)
     renderAbout(app, parent)
@@ -129,7 +130,7 @@ private fun renderEmbedders(app: App, parent: HTMLElement) {
                     if (services.isEmpty()) return@forEach
                     renderFixerRow(app, this, key)
                     preferenceToggle("embed-enabled-$key", "${s.embedLinksEnabled} · ${platformLabel(key)}", s.embedLinksEnabledHint, key !in app.settings.disabledEmbedPlatforms) { enabled ->
-                        app.updateSettings {
+                        app.updateSettings(afterRender = { (document.getElementById("embed-enabled-$key") as? HTMLElement)?.focus() }) {
                             it.copy(disabledEmbedPlatforms = if (enabled) it.disabledEmbedPlatforms - key else it.disabledEmbedPlatforms + key)
                         }
                     }

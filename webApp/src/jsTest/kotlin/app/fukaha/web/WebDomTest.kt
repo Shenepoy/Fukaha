@@ -57,6 +57,7 @@ class WebDomTest {
         delay(50)
         assertNotNull(app.prepared?.embedUrl)
         app.show(View.Settings)
+        delay(220) // Wait for the share-sheet exit transition before inspecting Settings.
         (root.querySelector("#embed-enabled-youtube") as HTMLElement).click()
         delay(50)
         assertNull(app.prepared?.embedUrl)

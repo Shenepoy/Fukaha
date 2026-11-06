@@ -2112,4 +2112,8 @@ html.language-view-transition *::after {
 /* Settings controls share the existing list-row spacing and typography. */
 .preference-toggle { display: flex; align-items: center; gap: 16px; padding: 12px 16px; cursor: pointer; }
 .preference-toggle .list-item-text { flex: 1; }
-.preference-checkbox { flex-shrink: 0; width: 22px; height: 22px; accent-color: var(--primary); }
+.preference-checkbox { appearance: none; flex-shrink: 0; width: 44px; height: 26px; margin: 0; border: 2px solid var(--outline); border-radius: 13px; background: var(--surface); cursor: pointer; position: relative; }
+.preference-checkbox::before { content: ""; position: absolute; width: 18px; height: 18px; inset-inline-start: 2px; top: 2px; border-radius: 50%; background: var(--outline); }
+.preference-checkbox:checked { background: var(--primary); border-color: var(--primary); }
+.preference-checkbox:checked::before { inset-inline-start: 20px; background: var(--on-primary); }
+.preference-checkbox:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }

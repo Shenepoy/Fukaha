@@ -58,6 +58,15 @@
 | **Lite** | No background sync, no accounts — network only when you share. |
 | **Web app** | The same core at [fukaha.shenepoy.com](https://fukaha.shenepoy.com) — installable, offline, and it joins the Android share sheet once installed. |
 
+In Settings, turn **Embed links** off for individual sites to make the Embed action
+share a cleaned link instead. Your preferred fixer remains saved for when you
+re-enable the site. These preferences stay on the device/browser.
+
+**Use official shorter links** is optional and off by default. It converts YouTube
+watch URLs to the official `youtu.be` format while preserving timestamps, playlists,
+and fragments. Other sites and embed-provider URLs stay unchanged. Conversion is
+local and works on web, Android, and iOS without calling a shortening service.
+
 **Default actions**
 
 | Action | Behaviour |
