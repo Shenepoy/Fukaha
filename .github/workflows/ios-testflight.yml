@@ -28,7 +28,24 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  validate-shared:
+    name: Validate configuration and shared code (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v6
+      - name: Validate release configuration
+        run: python3 -m unittest discover -s iosApp/tests -p 'test_*.py'
+      - name: Test shared processing
+        run: ./gradlew :shared:testAndroidHostTest --stacktrace
+
   archive:
+    needs: validate-shared
     runs-on: macos-26
     timeout-minutes: 60
     environment: testflight
@@ -72,14 +89,13 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6
       - name: Install XcodeGen
         run: brew install xcodegen
-      - name: Validate release configuration and shared code
+      - name: Validate native iOS shared code
         run: |
-          python3 -m unittest discover -s iosApp/tests -p 'test_*.py'
           bash iosApp/scripts/test-source-preferences.sh
           if [[ "$(uname -m)" == arm64 ]]; then
-            ./gradlew :shared:testAndroidHostTest :shared:iosSimulatorArm64Test
+            ./gradlew :shared:iosSimulatorArm64Test
           else
-            ./gradlew :shared:testAndroidHostTest :shared:iosX64Test
+            ./gradlew :shared:iosX64Test
           fi
       - name: Validate iPhone and iPad sharing
         run: bash iosApp/scripts/test-sharing.sh
