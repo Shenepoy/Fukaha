@@ -1,5 +1,13 @@
 # Release 26.11.1 review — 2026-11-17
 
+## Current status after free-plan decision
+
+The user chose to retain Firebase Spark and use direct web previews only. Removed the browser proxy fallback, Cloud Functions Hosting rewrite/configuration and CI function deployment. Both https://fukaha.shenepoy.com (26.11.1) and https://test.fukaha.shenepoy.com (26.11.1-testing.1) are deployed. Live hashed bundles contain the expected versions and no `/api/preview` request path. Production deployment succeeded: https://github.com/Shenepoy/Fukaha/actions/runs/44144820686. Direct browser tests, all 13 static/PWA checks, production compilation, and four channel configuration tests passed. Providers that deny CORS may not display previews; copying/sharing remains available. No billing plan, billing account, or IAM permissions were changed.
+
+Apple's official developer status feed confirms ongoing App Store Connect and App Store Connect API outages. The uploaded, processed iOS build 26.11.1 (1003.1) is preserved; AppTesters attachment and beta review remain incomplete. Retry after Apple recovery before deciding whether the existing key needs changing. Relevant status snapshot and direct-preview validation/live verification reports are in direct-preview/.
+
+## Review and earlier deployment stages
+
 Version: 26.11.1; Android production version code 18; iOS marketing version 26.11.1. Testing builds retain independent monotonically increasing platform build numbers.
 
 Standards review: no confirmed documented standards violations. One nonblocking observation: the server metadata endpoint deliberately allows only observed redirect hosts, while native direct requests permit a wider TikTok CDN suffix. The server is a public endpoint and keeps its narrower allowlist; this is intentional rather than a guarantee that every native redirect works on the server.
@@ -18,6 +26,6 @@ Apple's filtered betaGroups collection verified the existing external group AppT
 
 All required macOS checks passed: native shared code, iPhone/iPad sharing, iOS 17 extension discovery, signed archive/export, and Apple upload. IPA and dSYMs are retained in https://github.com/Shenepoy/iOS-Setup/actions/runs/44129500432. The old post-upload distribution step was canceled after upload, and corrected distribution was retried separately without rebuilding.
 
-Apple processed 26.11.1 (1003.1), build 9a22b53f-eb27-4997-a784-b675fb47f13f. English test notes were saved. External state is READY_FOR_BETA_SUBMISSION. Both external beta review submission and AppTesters group attachment return 403; Apple explicitly says the API key does not allow the request. **AppTesters is configured but not attached to this build.** The current Developer upload key must be replaced with an appropriately authorized key, or an authorized user must sign in to App Store Connect to complete these operations. No new signing/upload is needed. The API verification report is in testflight/testflight-distribution.json; retry run: https://github.com/Shenepoy/iOS-Setup/actions/runs/44135286379.
+Apple processed 26.11.1 (1003.1), build 9a22b53f-eb27-4997-a784-b675fb47f13f. English test notes were saved. External state is READY_FOR_BETA_SUBMISSION. Both external beta review submission and AppTesters group attachment return 403; Apple explicitly says the API key does not allow the request. **AppTesters is configured but not attached to this build.** These permission errors overlapped a confirmed Apple API outage. Retry with the current key after recovery before changing credentials; if 403 persists, use an appropriately authorized key or complete distribution in an authorized App Store Connect session. No new signing/upload is needed. The API verification report is in testflight/testflight-distribution.json; retry run: https://github.com/Shenepoy/iOS-Setup/actions/runs/44135286379.
 
 General CI passed on both public and private repositories at ab84226. Temporary local validation and deployment checkouts were removed by with-temp-build. Existing user-requested localhost preview services and emulator installation were preserved. Editor/device artifacts and local AGENTS.md were excluded from commits.

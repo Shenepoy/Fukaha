@@ -1,0 +1,10 @@
+[
+  {
+    "service": "App Store Connect",
+    "ongoingOutage": true
+  },
+  {
+    "service": "App Store Connect API",
+    "ongoingOutage": true
+  }
+]
