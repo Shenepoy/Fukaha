@@ -42,26 +42,16 @@ class WebPreviewCheckerTest {
         } finally { window.asDynamic().fetch = originalFetch }
     }
 
-    @Test fun blockedProviderUsesBoundedSameOriginMetadataAndNeverFetchesTheVideo() = MainScope().promise {
+    @Test fun blockedProviderDoesNotContactAProxyOrFetchVideo() = MainScope().promise {
         val originalFetch = window.asDynamic().fetch
         val requests = mutableListOf<String>()
         try {
-            val payload: dynamic = js("({status:200,contentType:'text/html',html:''})")
-            payload.html = metadata.replace("</head>", "<meta property='og:video' content='https://cdn.example/stream.mp4'></head>")
-            window.asDynamic().fetch = { url: dynamic, options: dynamic ->
+            window.asDynamic().fetch = { url: dynamic, _: dynamic ->
                 requests.add(url as String)
-                if (url == embed) Promise.reject(Throwable("CORS"))
-                else {
-                    assertEquals("/api/preview", url)
-                    assertEquals("POST", options.method as String)
-                    assertTrue((options.body as String).contains(embed))
-                    val create: dynamic = js("(function(body){return new Response(JSON.stringify(body),{status:200,headers:{'Content-Type':'application/json'}});})")
-                    Promise.resolve<dynamic>(create(payload))
-                }
+                Promise.reject(Throwable("CORS"))
             }
-            val result = WebPreviewChecker.check(original, embed)
-            assertEquals("https://cdn.example/stream.mp4", result.preview?.videoUrl)
-            assertEquals(listOf(embed, "/api/preview"), requests)
+            assertEquals(EmbedPreviewOutcome.NetworkError, WebPreviewChecker.check(original, embed).outcome)
+            assertEquals(listOf(embed), requests)
         } finally { window.asDynamic().fetch = originalFetch }
     }
 

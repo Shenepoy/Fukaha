@@ -11,41 +11,7 @@ import kotlin.js.Promise
 
 /** Readable CORS responses only. An opaque response cannot verify preview metadata. */
 object WebPreviewChecker {
-    suspend fun check(original: String, embed: String): EmbedPreviewResult {
-        val direct = checkDirect(original, embed)
-        return if (direct.outcome in setOf(EmbedPreviewOutcome.NetworkError, EmbedPreviewOutcome.Redirected,
-                EmbedPreviewOutcome.AccessBlocked)) checkViaMetadataEndpoint(original, embed) ?: direct else direct
-    }
-
-    /** Same-origin metadata only. The endpoint never relays video bytes. */
-    private suspend fun checkViaMetadataEndpoint(original: String, embed: String): EmbedPreviewResult? {
-        val controller: dynamic = js("new AbortController()")
-        val timer = window.setTimeout({ controller.abort() }, 12_000)
-        return try {
-            val init: dynamic = js("({method:'POST',credentials:'omit',cache:'no-store',redirect:'error',referrerPolicy:'no-referrer',headers:{'Content-Type':'application/json'}})")
-            val payload: dynamic = js("({})")
-            payload.embed = embed
-            init.body = kotlin.js.JSON.stringify(payload)
-            init.signal = controller.signal
-            val response = (window.asDynamic().fetch("/api/preview", init) as Promise<dynamic>).await()
-            if ((response.status as Number).toInt() != 200 || !(response.headers.get("Content-Type") as? String).orEmpty().startsWith("application/json")) return null
-            val data = (response.json() as Promise<dynamic>).await()
-            val status = (data.status as? Number)?.toInt() ?: return null
-            if (status !in 200..299) return null
-            val type = data.contentType as? String ?: return null
-            if (type.startsWith("video/")) {
-                val target = data.finalUrl as? String ?: return null
-                if (!target.startsWith("https://")) return null
-                return EmbedPreviewResult(EmbedPreviewOutcome.UnsupportedContent, status, EmbedPreviewMedia("", videoUrl = target))
-            }
-            if (type !in setOf("text/html", "application/xhtml+xml")) return null
-            val html = data.html as? String ?: return null
-            EmbedPreviewChecker.classifyMetadata(original, embed, html.take(EmbedPreviewChecker.MAX_HEAD_BYTES), status)
-        } catch (error: CancellationException) {
-            throw error
-        } catch (_: Throwable) { null }
-        finally { window.clearTimeout(timer); controller.abort() }
-    }
+    suspend fun check(original: String, embed: String): EmbedPreviewResult = checkDirect(original, embed)
 
     private suspend fun checkDirect(original: String, embed: String): EmbedPreviewResult {
         val allowedHosts = EmbedPreviewChecker.allowedHosts(original, embed)

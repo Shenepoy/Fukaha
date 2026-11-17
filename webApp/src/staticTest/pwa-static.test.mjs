@@ -243,10 +243,10 @@ test("fixer rows distinguish pointer focus from visible keyboard focus", () => {
 
 test("Firebase hosting keeps dynamic shell revalidated and hashed bundles immutable", () => {
   const firebase = JSON.parse(read(resolve(repoRoot, "firebase.json")));
+  assert.equal(firebase.functions, undefined, "free-plan Hosting must not deploy functions");
   assert.equal(firebase.hosting.public, "webApp/build/dist/js/productionExecutable");
   assert.ok(!firebase.hosting.redirects, "path canonicalization must not use a catch-all redirect");
   assert.deepEqual(firebase.hosting.rewrites, [
-    { source: "/api/preview", function: { functionId: "previewMetadata", region: "us-central1" } },
     { source: "**", destination: "/index.html" },
   ]);
 

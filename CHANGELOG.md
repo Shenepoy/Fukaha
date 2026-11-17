@@ -16,10 +16,11 @@ All notable changes to Fukaha are documented here.
 - Videos stream only after Play and release their source on pause, hiding, or closure.
 - Preview windows contain media and overlay controls without caption/footer space.
 - Retired or failing preview sources and false redirect detection for configured www hosts.
-- Web metadata fallback deployment and native/browser preview cancellation.
+- Native/browser preview cancellation.
 
 ### Changed
 - Android version code 18; all platforms use version 26.11.1.
+- Web previews use direct requests only, keeping Firebase Hosting on the free plan.
 
 ## [26.11.0] — 2026-11-06
 

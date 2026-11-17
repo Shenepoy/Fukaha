@@ -116,6 +116,8 @@ Not on the App Store yet. You can build an **unsigned Simulator app** on a Mac (
 
 Install it and Fukaha joins the system share sheet, same as the app. That part is **Chromium on Android only**: iOS has no Web Share Target at any version, so on iPhone it is Add to Home Screen plus the paste box.
 
+Media previews load directly from the selected provider. The web deployment stays on Firebase's free Hosting plan and uses no preview proxy. Providers that block browser CORS access cannot show inline previews; copying and sharing their links still works. Videos load only after Play and release their source when paused or closed.
+
 Embedder reachability checks work here too, run manually from Settings. In the Android app, the checker uses HTTP status codes and a bounded request pool; the browser is more limited because CORS stops it reading a third-party response. A browser `no-cors` request resolves for any HTTP status and rejects only on a network-level failure, so browser results remain reachability checks rather than reliable 404 detection. Short-link resolving and media download do stay app-only — following a redirect means reading a response the browser will not hand over.
 
 ---

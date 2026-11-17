@@ -9,13 +9,6 @@
     ],
     "rewrites": [
       {
-        "source": "/api/preview",
-        "function": {
-          "functionId": "previewMetadata",
-          "region": "us-central1"
-        }
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }
@@ -94,14 +87,5 @@
         ]
       }
     ]
-  },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "preview",
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run build"
-      ]
-    }
-  ]
+  }
 }
