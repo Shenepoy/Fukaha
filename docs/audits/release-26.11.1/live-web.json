@@ -1,0 +1,32 @@
+[
+  {
+    "channel": "production",
+    "url": "https://fukaha.shenepoy.com",
+    "scripts": [
+      {
+        "path": "/fukaha.ba4c1fe880dc.js",
+        "versions": [
+          "26.11.0"
+        ],
+        "bytes": 920144
+      }
+    ],
+    "previewEndpointStatus": 200,
+    "previewEndpointNote": "200 is the previous SPA fallback HTML, not a deployed metadata function."
+  },
+  {
+    "channel": "testing",
+    "url": "https://test.fukaha.shenepoy.com",
+    "scripts": [
+      {
+        "path": "/fukaha.4d4b08051826.js",
+        "versions": [
+          "26.11.1-testing.1"
+        ],
+        "bytes": 939755
+      }
+    ],
+    "previewEndpointStatus": 404,
+    "previewEndpointNote": "New function cannot deploy on the current Firebase Spark plan."
+  }
+]
