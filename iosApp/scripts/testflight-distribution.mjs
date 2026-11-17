@@ -72,8 +72,13 @@ async function main() {
   if (detail.attributes.externalBuildState === 'READY_FOR_BETA_SUBMISSION') await api('/v1/betaAppReviewSubmissions', 'POST', { data: { type: 'betaAppReviewSubmissions', relationships: { build: { data: { type: 'builds', id: build.id } } } } });
   else if (!['WAITING_FOR_BETA_REVIEW', 'IN_BETA_REVIEW', 'BETA_APPROVED', 'READY_FOR_BETA_TESTING', 'IN_BETA_TESTING'].includes(detail.attributes.externalBuildState)) throw new Error(`Build cannot distribute: ${detail.attributes.externalBuildState}`);
   await api(`/v1/builds/${build.id}/relationships/betaGroups`, 'POST', { data: [{ type: 'betaGroups', id: group.id }] });
-  const assigned = await list(`/v1/builds/${build.id}/betaGroups?limit=200`);
-  if (!assigned.some(item => item.id === group.id)) throw new Error('External group assignment verification failed');
+  let confirmed = false;
+  for (let attempt = 0; attempt < 10; attempt++) {
+    const assigned = await list(`/v1/builds/${build.id}/betaGroups?limit=200`);
+    if (assigned.some(item => item.id === group.id)) { confirmed = true; break; }
+    await new Promise(resolve => setTimeout(resolve, 3000));
+  }
+  if (!confirmed) throw new Error('External group assignment verification failed');
   detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
   Object.assign(report, { version, buildNumber, build: build.id, externalGroup: group.attributes.name, externalGroupId: group.id, externalState: detail.attributes.externalBuildState });
   console.log(JSON.stringify(report, null, 2));
