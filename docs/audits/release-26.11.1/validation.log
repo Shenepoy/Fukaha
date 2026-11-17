@@ -1,0 +1,317 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Type-safe project accessors is an incubating feature.
+Configuration 'jsNpmAggregated' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'jsTestNpmAggregated' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+> Task :composeApp:preBuild UP-TO-DATE
+> Task :composeApp:preDebugBuild UP-TO-DATE
+> Task :webApp:kmpPartiallyResolvedDependenciesChecker
+> Task :kotlinKotlinNpmCachesSetup
+> Task :webApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :webApp:generateBuildVersion
+> Task :webApp:jsProcessResources
+> Task :composeApp:generateDebugBuildConfig
+> Task :webApp:jsTestProcessResources NO-SOURCE
+> Task :composeApp:generateDebugResources FROM-CACHE
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :composeApp:packageDebugResources FROM-CACHE
+> Task :composeApp:javaPreCompileDebug FROM-CACHE
+> Task :composeApp:mapDebugSourceSetPaths
+> Task :composeApp:createDebugCompatibleScreenManifests
+> Task :composeApp:extractDeepLinksDebug FROM-CACHE
+> Task :composeApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :composeApp:javaPreCompileDebugUnitTest FROM-CACHE
+> Task :composeApp:preDebugAndroidTestBuild SKIPPED
+> Task :composeApp:extractProguardFiles
+
+> Task :webApp:pwaStaticTest
+TAP version 13
+# Subtest: manifest is installable and every referenced icon exists
+ok 1 - manifest is installable and every referenced icon exists
+  ---
+  duration_ms: 1.689807
+  type: 'test'
+  ...
+# Subtest: Android, iOS, and web release metadata share the root CalVer
+ok 2 - Android, iOS, and web release metadata share the root CalVer
+  ---
+  duration_ms: 0.399644
+  type: 'test'
+  ...
+# Subtest: index local assets, theme color, locale bootstrap, and service worker agree
+ok 3 - index local assets, theme color, locale bootstrap, and service worker agree
+  ---
+  duration_ms: 0.481277
+  type: 'test'
+  ...
+# Subtest: service worker shell contains existing static assets and production rewrite anchors
+ok 4 - service worker shell contains existing static assets and production rewrite anchors
+  ---
+  duration_ms: 0.615471
+  type: 'test'
+  ...
+# Subtest: development history fallback serves document paths without rewriting resource requests
+ok 5 - development history fallback serves document paths without rewriting resource requests
+  ---
+  duration_ms: 0.464826
+  type: 'test'
+  ...
+# Subtest: production hashing keeps the document and offline shell on the same emitted bundle
+ok 6 - production hashing keeps the document and offline shell on the same emitted bundle
+  ---
+  duration_ms: 0.957866
+  type: 'test'
+  ...
+# Subtest: all five localized Strings constructors have exact field parity
+ok 7 - all five localized Strings constructors have exact field parity
+  ---
+  duration_ms: 1.321391
+  type: 'test'
+  ...
+# Subtest: responsive modal, stable top-bar, RTL arrows, and reduced motion remain encoded
+ok 8 - responsive modal, stable top-bar, RTL arrows, and reduced motion remain encoded
+  ---
+  duration_ms: 0.669182
+  type: 'test'
+  ...
+# Subtest: fixer rows distinguish pointer focus from visible keyboard focus
+ok 9 - fixer rows distinguish pointer focus from visible keyboard focus
+  ---
+  duration_ms: 0.708646
+  type: 'test'
+  ...
+# Subtest: Firebase hosting keeps dynamic shell revalidated and hashed bundles immutable
+ok 10 - Firebase hosting keeps dynamic shell revalidated and hashed bundles immutable
+  ---
+  duration_ms: 0.645798
+  type: 'test'
+  ...
+# Subtest: an interrupted upgrade cannot replace the active shell with a different bundle version
+ok 11 - an interrupted upgrade cannot replace the active shell with a different bundle version
+  ---
+  duration_ms: 29.997889
+  type: 'test'
+  ...
+# Subtest: offline missing scripts never fall back to HTML
+ok 12 - offline missing scripts never fall back to HTML
+  ---
+  duration_ms: 1.36881
+  type: 'test'
+  ...
+# Subtest: privacy and support navigations serve their own cached documents offline
+ok 13 - privacy and support navigations serve their own cached documents offline
+  ---
+  duration_ms: 1.634291
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 109.666067
+
+> Task :shared:compileAndroidMain FROM-CACHE
+> Task :shared:androidPreBuild UP-TO-DATE
+> Task :shared:preAndroidMainBuild UP-TO-DATE
+> Task :shared:androidJar
+> Task :shared:preAndroidHostTestBuild UP-TO-DATE
+> Task :shared:processAndroidHostTestJavaRes NO-SOURCE
+> Task :shared:bundleAndroidMainClassesToCompileJar
+> Task :shared:bundleAndroidMainClassesToRuntimeJar
+> Task :shared:processAndroidMainJavaRes
+> Task :kotlinNodeJsSetup
+> Task :kotlinRestoreYarnLock
+> Task :kotlinYarnSetup
+> Task :shared:compileAndroidHostTest FROM-CACHE
+> Task :shared:testAndroidHostTest FROM-CACHE
+> Task :shared:generateAndroidMainEmptyResourceFiles
+> Task :shared:writeAndroidMainAarMetadata
+> Task :shared:processAndroidMainManifest FROM-CACHE
+> Task :webApp:kotlinNodeJsSetup
+> Task :shared:checkAndroidMainAarMetadata
+> Task :composeApp:processDebugNavigationResources FROM-CACHE
+> Task :composeApp:parseDebugLocalResources FROM-CACHE
+> Task :composeApp:generateDebugRFile FROM-CACHE
+> Task :shared:extractAndroidMainAnnotations
+> Task :shared:createFullJarAndroidMain
+> Task :shared:prepareLintJarForPublish
+> Task :composeApp:compileDebugNavigationResources FROM-CACHE
+> Task :shared:mergeAndroidMainJavaResource
+> Task :composeApp:checkDebugAarMetadata
+> Task :shared:jsPackageJson
+> Task :webApp:jsPackageJson
+> Task :composeApp:mergeDebugResources FROM-CACHE
+> Task :webApp:jsTestPackageJson
+> Task :webApp:jsPublicPackageJson
+> Task :webApp:jsTestPublicPackageJson
+> Task :shared:syncAndroidMainLibJars
+> Task :shared:bundleAndroidMainLocalLintAar
+> Task :shared:jsTestPackageJson
+> Task :shared:jsPublicPackageJson
+> Task :shared:jsTestPublicPackageJson
+> Task :kotlinPackageJsonUmbrella
+> Task :rootPackageJson
+> Task :shared:compileKotlinJs FROM-CACHE
+> Task :composeApp:processDebugMainManifest
+> Task :composeApp:processDebugManifest
+> Task :composeApp:processDebugManifestForPackage
+> Task :shared:generateAndroidHostTestLintModel
+> Task :composeApp:processDebugResources
+
+> Task :kotlinNpmInstall
+(node:248870) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+warning Ignored scripts due to flag.
+
+> Task :kotlinStoreYarnLock
+> Task :webApp:compileKotlinJs
+> Task :webApp:jsMainClasses
+> Task :webApp:compileTestKotlinJs
+> Task :webApp:jsTestClasses
+> Task :shared:lintAnalyzeAndroidHostTest
+> Task :composeApp:compileDebugKotlin
+> Task :composeApp:compileDebugJavaWithJavac
+> Task :composeApp:processDebugJavaRes
+> Task :composeApp:bundleDebugClassesToRuntimeJar
+> Task :composeApp:bundleDebugClassesToCompileJar
+> Task :composeApp:generateDebugLintReportModel
+> Task :composeApp:generateDebugAndroidTestLintModel
+> Task :composeApp:generateDebugUnitTestLintModel
+> Task :composeApp:lintAnalyzeDebugAndroidTest
+> Task :composeApp:compileDebugUnitTestKotlin
+> Task :composeApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :composeApp:processDebugUnitTestJavaRes
+> Task :composeApp:testDebugUnitTest
+> Task :composeApp:lintAnalyzeDebugUnitTest
+> Task :webApp:compileProductionExecutableKotlinJs
+> Task :webApp:jsProductionExecutableCompileSync
+> Task :webApp:compileTestDevelopmentExecutableKotlinJs
+> Task :composeApp:lintAnalyzeDebug
+
+> Task :composeApp:lintReportDebug
+Wrote HTML report to file:///tmp/build-job.ArYtqPQh/src/composeApp/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///tmp/build-job.ArYtqPQh/src/composeApp/build/reports/lint-results-debug.sarif
+
+> Task :composeApp:lintDebug
+
+> Task :webApp:jsBrowserProductionWebpack
+asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+This can impact web performance.
+Assets: 
+  fukaha.beb11f4cab24.js (927 KiB)
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+Entrypoints:
+  main (927 KiB)
+      fukaha.beb11f4cab24.js
+asset fukaha.beb11f4cab24.js 927 KiB [emitted] [immutable] [minimized] [big] (name: main)
+asset fukaha.236.de360a751abd.js 231 bytes [emitted] [immutable] [minimized]
+runtime modules 8 KiB 10 modules
+modules by path ./kotlin/*.js 2.93 MiB
+  ./kotlin/Fukaha-webApp.js 375 KiB [built] [code generated]
+  ./kotlin/kotlin-kotlin-stdlib.js 599 KiB [built] [code generated]
+  ./kotlin/kotlinx-coroutines-core.js 324 KiB [built] [code generated]
+  ./kotlin/kotlin_org_jetbrains_kotlin_kotlin_dom_api_compat.js 1.79 KiB [built] [code generated]
+  ./kotlin/Fukaha-shared.js 184 KiB [built] [code generated]
+  ./kotlin/kotlinx-serialization-kotlinx-serialization-json.js 208 KiB [built] [code generated]
+  ./kotlin/kotlinx-serialization-kotlinx-serialization-core.js 227 KiB [built] [code generated]
+  ./kotlin/ktor-ktor-client-core.js 361 KiB [built] [code generated]
+  ./kotlin/kotlinx-atomicfu.js 9.47 KiB [built] [code generated]
+  ./kotlin/ktor-ktor-http.js 125 KiB [built] [code generated]
+  ./kotlin/ktor-ktor-io.js 122 KiB [built] [code generated]
+  + 10 modules
+../../node_modules/ws/browser.js 176 bytes [built] [code generated]
+webpack 5.101.3 compiled with 2 warnings in 13524 ms
+
+> Task :webApp:jsTestTestDevelopmentExecutableCompileSync
+
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+> Task :webApp:jsBrowserTest
+> Task :webApp:jsBrowserDistribution
+
+BUILD SUCCESSFUL in 1m 2s
+85 actionable tasks: 70 executed, 15 from cache
