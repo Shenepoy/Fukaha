@@ -35,8 +35,8 @@ async function main() {
   const apps = await list('/v1/apps?filter[bundleId]=com.shenepoy.fukaha&limit=200');
   if (apps.length !== 1) throw new Error('Expected one Fukaha app');
   const app = apps[0];
-  const groups = await list(`/v1/apps/${app.id}/betaGroups?limit=200`);
-  const report = { app: app.id, groups: groups.map(group => ({ id: group.id, name: group.attributes.name, internal: group.attributes.isInternalGroup })) };
+  const groups = await list(`/v1/betaGroups?filter[app]=${app.id}&limit=200`);
+  const report = { app: app.id, appName: app.attributes.name, bundleId: app.attributes.bundleId, groups: groups.map(group => ({ id: group.id, name: group.attributes.name, internal: group.attributes.isInternalGroup })) };
   console.log(JSON.stringify(report, null, 2));
   if (process.argv[2] === 'inspect') return;
   if (process.argv[2] !== 'distribute') throw new Error('Usage: testflight-distribution.mjs inspect|distribute');
