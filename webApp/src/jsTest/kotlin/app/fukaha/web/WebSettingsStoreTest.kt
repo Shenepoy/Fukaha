@@ -20,6 +20,19 @@ class WebSettingsStoreTest {
     }
 
     @Test
+    fun sharingPreferencesSurviveReloadAndUnrelatedEdits(): Promise<Unit> = MainScope().promise {
+        val store = WebSettingsStore()
+        store.update { it.copy(disabledEmbedPlatforms = setOf("x", "instagram"), useOfficialShortLinks = true, previewsEnabled = false, preferredFixers = mapOf("x" to "fixupx.com")) }
+        val reopened = WebSettingsStore()
+        reopened.update { it.copy(theme = AppTheme.Dark) }
+        val restored = reopened.get()
+        assertEquals(setOf("x", "instagram"), restored.disabledEmbedPlatforms)
+        assertTrue(restored.useOfficialShortLinks)
+        assertFalse(restored.previewsEnabled)
+        assertEquals("fixupx.com", restored.preferredFixers["x"])
+    }
+
+    @Test
     fun readsLegacyPayloadAndIgnoresUnknownFields(): Promise<Unit> = MainScope().promise {
         localStorage.setItem(
             "fukaha_settings",
@@ -39,6 +52,9 @@ class WebSettingsStoreTest {
         assertEquals(AppLanguage.Spanish, settings.language)
         assertEquals(AppTheme.Dark, settings.theme)
         assertFalse(settings.resolveShortLinks)
+        assertFalse(settings.useOfficialShortLinks)
+        assertTrue(settings.previewsEnabled)
+        assertTrue(settings.disabledEmbedPlatforms.isEmpty())
     }
 
     @Test

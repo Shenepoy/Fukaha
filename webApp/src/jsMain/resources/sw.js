@@ -1,7 +1,7 @@
 // Offline app shell for Fukaha. Cleaning links is pure local logic, so once the shell is
 // cached the whole app works with no network — including a share that arrives offline.
 //
-// Strategy: stale-while-revalidate. Development keeps the fixed fukaha.js URL. The production
+// Strategy: immutable, versioned shell. Development keeps the fixed fukaha.js URL. The production
 // webpack pass rewrites that URL and this cache name with the bundle's content hash, allowing
 // immutable HTTP caching while each deploy still installs a fresh offline shell.
 const CACHE = "fukaha-shell-v2";
@@ -10,6 +10,7 @@ const CACHE = "fukaha-shell-v2";
 // would be missing offline and every glyph would fall back to its ligature name.
 const FONT_CACHE = "fukaha-fonts-v1";
 const FONT_HOSTS = ["fonts.googleapis.com", "fonts.gstatic.com"];
+const STATIC_DOCUMENTS = ["/privacy.html", "/support.html"];
 const SHELL = [
   "/",
   "/index.html",
@@ -19,6 +20,8 @@ const SHELL = [
   "/icons/icon.svg",
   "/icons/icon-192.png",
   "/icons/icon-512.png",
+  ...STATIC_DOCUMENTS,
+  "/legal.css",
 ];
 
 self.addEventListener("install", (event) => {
@@ -40,18 +43,6 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-function revalidate(request) {
-  return fetch(request)
-    .then((response) => {
-      if (response && response.ok && response.type === "basic") {
-        const copy = response.clone();
-        caches.open(CACHE).then((cache) => cache.put(request, copy));
-      }
-      return response;
-    })
-    .catch(() => undefined);
-}
-
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   if (request.method !== "GET") return;
@@ -60,15 +51,15 @@ self.addEventListener("fetch", (event) => {
 
   if (FONT_HOSTS.includes(url.hostname)) {
     event.respondWith(
-      caches.match(request).then(
+      caches.open(FONT_CACHE).then((cache) => cache.match(request).then(
         (hit) =>
           hit ||
           fetch(request).then((response) => {
             const copy = response.clone();
-            caches.open(FONT_CACHE).then((cache) => cache.put(request, copy));
+            event.waitUntil(cache.put(request, copy));
             return response;
           })
-      )
+      ))
     );
     return;
   }
@@ -78,15 +69,16 @@ self.addEventListener("fetch", (event) => {
 
   // A share target navigation lands on "/?text=…", which never matches a cache entry of its
   // own, so the shell is served explicitly. The query string is read by the app, not the cache.
-  const cacheKey = request.mode === "navigate" ? "/index.html" : request;
+  const cacheKey = request.mode === "navigate"
+    ? (STATIC_DOCUMENTS.includes(url.pathname) ? url.pathname : "/index.html")
+    : request;
 
   event.respondWith(
-    caches.match(cacheKey).then((hit) => {
-      if (hit) {
-        event.waitUntil(revalidate(new Request(cacheKey, { cache: "reload" })));
-        return hit;
-      }
-      return fetch(request).catch(() => caches.match("/index.html"));
-    })
+    caches.open(CACHE).then((cache) => cache.match(cacheKey).then((hit) => {
+      // Only a fully installed new worker can replace this shell. Revalidating
+      // HTML here would pair a new document with the old cached script offline.
+      if (hit) return hit;
+      return fetch(request);
+    }))
   );
 });

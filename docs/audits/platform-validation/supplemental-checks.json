@@ -1,0 +1,24 @@
+{
+  "results": [
+    {
+      "platform": "weibo",
+      "name": "WeiboEZ",
+      "host": "https://weiboez.com",
+      "original": "https://weibo.com/6389423278/RrFnnA9r1",
+      "embed": "https://weiboez.com/6389423278/RrFnnA9r1",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://weibo.com/6389423278/RrFnnA9r1",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "王怡人yiren_18ar (@6389423278)",
+        "og:description": "小怡的十八宫格🍂🍁 落叶之秋，微风徐来，有怡刚好#独家记怡# #王怡人1229生日快乐# @王怡人yiren_\nQuoting: 王怡人yiren_\n看看秋天🍂#秋天的证据##生活有星意##独家记怡#王怡人超话 ​​​",
+        "og:url": "https://embedez.com/embed/search_6afc2043ea012ff5c5a6a46d",
+        "og:image": "https://embedez.com/api/v2/redirect/search_6afc2043ea012ff5c5a6a46d",
+        "twitter:title": "王怡人yiren_18ar (@6389423278)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6afc2043ea012ff5c5a6a46d"
+      }
+    }
+  ]
+}

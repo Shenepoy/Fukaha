@@ -16,6 +16,8 @@ env:
 
 jobs:
   verify:
+    # Testing tags have a separate pipeline and must never create stable releases.
+    if: github.event_name == 'workflow_dispatch' || !contains(github.ref_name, '-')
     name: Verify & Test
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +48,7 @@ jobs:
           grep -qE "^## \[${version}\]" CHANGELOG.md
 
       - name: Unit tests
-        run: ./gradlew :shared:testAndroidHostTest :composeApp:testDebugUnitTest --stacktrace
+        run: ./gradlew :shared:testAndroidHostTest :composeApp:testDebugUnitTest :composeApp:lintDebug --stacktrace
 
   build-android:
     name: Build Android APK

@@ -51,6 +51,14 @@ upstream Swift toolchain; the xtool AppImage uses its own bundled libraries.
 
 ## Prepare the local build
 
+After changes to `shared`, rebuild the Shared framework from the same source revision before preparing Swift sources. The facade now passes the full preferred-fixer map, so older framework artifacts are not compatible.
+
+`prepare.sh` checks the framework's Swift-facing API before replacing generated
+sources. An incompatible framework must be rebuilt; downloading an older
+successful artifact will not validate the current checkout. The facade also
+exposes `selectedFixer(platformKey:preferredHost:)` so the picker uses the same
+source resolution as the prepared link.
+
 The Kotlin `Shared` framework is a device-only binary produced by the private
 GitHub workflow. Run **Actions → iOS Shared Framework → Run workflow** in
 [`Zyzto/iOS-Setup`](https://github.com/Zyzto/iOS-Setup), then fetch its latest

@@ -1,0 +1,12 @@
+npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+
+added 206 packages in 2s
+
+> build
+> node prepare.mjs
+
+
+> build
+> node prepare.mjs
+
+PASS: Firebase endpoint builds and imports both from the repo and from a functions-only deployment bundle

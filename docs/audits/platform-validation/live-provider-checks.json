@@ -1,0 +1,936 @@
+{
+  "checked_at_utc": "2026-11-17T09:28:31.917718+00:00",
+  "mode": "Discord crawler HTTP GET; redirects followed; not an app/CORS result",
+  "results": [
+    {
+      "platform": "bilibili",
+      "name": "BiliFix",
+      "host": "https://vxbilibili.com",
+      "original": "https://bilibili.com/video/BV1xx411c7mD",
+      "embed": "https://vxbilibili.com/video/BV1xx411c7mD",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://vxbilibili.com/video/BV1xx411c7mD",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://www.bilibili.com/video/BV1xx411c7mD?p=1",
+        "og:title": "字幕君交流場所",
+        "og:description": "www",
+        "og:image": "https://i0.hdslb.com/bfs/archive/transparent.png@1200w.webp",
+        "og:video": "https://media.vxbilibili.com/video/BV1xx411c7mD/1",
+        "twitter:title": "字幕君交流場所",
+        "twitter:image": "https://i0.hdslb.com/bfs/archive/transparent.png@1200w.webp"
+      }
+    },
+    {
+      "platform": "bilibili",
+      "name": "fxBilibili",
+      "host": "https://fxbilibili.seria.moe",
+      "original": "https://bilibili.com/video/BV1xx411c7mD",
+      "embed": "https://fxbilibili.seria.moe/video/BV1xx411c7mD",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fxbilibili.seria.moe/video/BV1xx411c7mD",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "碧诗 - 字幕君交流场所",
+        "og:url": "http://fxbilibili.seria.moe/video/BV1xx411c7mD",
+        "og:video": "https://fxbilibili.seria.moe/clip/BV1xx411c7mD/62131.mp4",
+        "og:image": "https://i0.hdslb.com/bfs/archive/transparent.png",
+        "twitter:title": "字幕君交流场所",
+        "twitter:image": "https://i0.hdslb.com/bfs/archive/transparent.png"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "VixBluesky",
+      "host": "https://bskx.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bskx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://bskx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:image": "0"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "FixBluesky",
+      "host": "https://bsyy.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bsyy.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://bsyy.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "bskye",
+      "host": "https://bskye.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bskye.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://bskye.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "vxBsky",
+      "host": "https://vxbsky.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://vxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://vxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "FxBluesky",
+      "host": "https://fxbsky.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://fxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "og:title": "舟 (@nkjrs12.bsky.social)"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "xbsky",
+      "host": "https://xbsky.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://xbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://xbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a"
+      }
+    },
+    {
+      "platform": "bluesky",
+      "name": "embeds.now",
+      "host": "https://bs.embeds.now",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bs.embeds.now/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://bs.embeds.now/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "og:description": "786 likes · 4 replies · 246 reposts",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a"
+      }
+    },
+    {
+      "platform": "deviantart",
+      "name": "fixDeviantArt",
+      "host": "https://fixdeviantart.com",
+      "original": "https://deviantart.com/arcipello/art/Arci-ID-4659791",
+      "embed": "https://fixdeviantart.com/arcipello/art/Arci-ID-4659791",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fixdeviantart.com/arcipello/art/Arci-ID-4659791",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "Arci ID",
+        "og:image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a95baf23-aa57-4ccd-bae2-711b8fc993e1/d2rvin-ca9e3a29-e5cc-4cc3-9703-3a99ef2e0615.jpg",
+        "twitter:title": "Arci ID",
+        "twitter:image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a95baf23-aa57-4ccd-bae2-711b8fc993e1/d2rvin-ca9e3a29-e5cc-4cc3-9703-3a99ef2e0615.jpg"
+      }
+    },
+    {
+      "platform": "facebook",
+      "name": "facebed",
+      "host": "https://facebed.com",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://facebed.com/share/r/19xGa5YKiR",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://facebed.com/share/r/19xGa5YKiR",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "Đinh Việt Thắng",
+        "og:description": "Twisted Fate 5 Vàng Mùa 19 Đấu Trường Chân Lý Có Kỹ Năng Bốc Bài Cực Kỳ Thú Vị #gaming #tft #dtcl #tftmobile #dtclmobile",
+        "og:url": "https://www.facebook.com/reel/2396887120845705",
+        "og:video": "https://video.fhan5-6.fna.fbcdn.net/o1/v/t2/f2/m366/AQO_6PJbUJgJmMf5XRlp32BZNWTIZtoTIhvqNeclKtM_mPvR5XFadLeBWyoBeJAZcURoYpdu8w2O_PPwolyuZ98s9D-Iy3ODchgC0dkKoU9JWA.mp4"
+      }
+    },
+    {
+      "platform": "facebook",
+      "name": "Facecot",
+      "host": "https://facecot.com",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://facecot.com/share/r/19xGa5YKiR",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://facecot.com/share/r/19xGa5YKiR",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://facecot.com/share/r/19xGa5YKiR",
+        "og:title": "15K views · 169 reactions | Twisted Fate 5 Vàng Mùa 19 Đấu Trường Chân Lý Có Kỹ Năng Bốc Bài Cực Kỳ Thú Vị #gaming #tft #dtcl #tftmobile #dtclmobile | Đinh Việt Thắng",
+        "og:description": "Twisted Fate 5 Vàng Mùa 19 Đấu Trường Chân Lý Có Kỹ Năng Bốc Bài Cực Kỳ Thú Vị #gaming #tft #dtcl #tftmobile #dtclmobile",
+        "og:image": "https://facecot.com/media/eyJ1IjoiaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3NoYXJlL3IvMTl4R2E1WUtpUiIsImsiOiJ0aHVtYm5haWwifQ.v9LmaMUtpxOAp9cmUSnqbuxKzI63aeklhme1vIc8_no",
+        "twitter:title": "15K views · 169 reactions | Twisted Fate 5 Vàng Mùa 19 Đấu Trường Chân Lý Có Kỹ Năng Bốc Bài Cực Kỳ Thú Vị #gaming #tft #dtcl #tftmobile #dtclmobile | Đinh Việt Thắng",
+        "twitter:image": "https://facecot.com/media/eyJ1IjoiaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3NoYXJlL3IvMTl4R2E1WUtpUiIsImsiOiJ0aHVtYm5haWwifQ.v9LmaMUtpxOAp9cmUSnqbuxKzI63aeklhme1vIc8_no",
+        "og:video": "https://facecot.com/media/eyJ1IjoiaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3NoYXJlL3IvMTl4R2E1WUtpUiIsImsiOiJ2aWRlbyJ9.NJGh1lwxYhozYOwfw7Pd0APQ1o5g8icrLpj_sfd8wbU"
+      }
+    },
+    {
+      "platform": "facebook",
+      "name": "facebed (seria)",
+      "host": "https://facebed.seria.moe",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://facebed.seria.moe/share/r/19xGa5YKiR",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://facebed.seria.moe/share/r/19xGa5YKiR",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "Đinh Việt Thắng",
+        "og:description": "Twisted Fate 5 Vàng Mùa 19 Đấu Trường Chân Lý Có Kỹ Năng Bốc Bài Cực Kỳ Thú Vị #gaming #tft #dtcl #tftmobile #dtclmobile",
+        "og:url": "https://www.facebook.com/reel/2396887120845705",
+        "og:video": "https://video-fra3-1.xx.fbcdn.net/o1/v/t2/f2/m366/AQO_6PJbUJgJmMf5XRlp32BZNWTIZtoTIhvqNeclKtM_mPvR5XFadLeBWyoBeJAZcURoYpdu8w2O_PPwolyuZ98s9D-Iy3ODchgC0dkKoU9JWA.mp4"
+      }
+    },
+    {
+      "platform": "facebook",
+      "name": "embeds.now",
+      "host": "https://fb.embeds.now",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://fb.embeds.now/share/r/19xGa5YKiR",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fb.embeds.now/share/r/19xGa5YKiR",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "15K views | Reel by Đinh Việt Thắng",
+        "og:url": "https://www.facebook.com/share/r/19xGa5YKiR",
+        "twitter:title": "15K views | Reel by Đinh Việt Thắng",
+        "og:image": "https://scontent-lhr6-2.xx.fbcdn.net/v/t15.5256-10/895396093_2338729793556352_3420821633323479280_n.jpg",
+        "twitter:image": "https://scontent-lhr6-2.xx.fbcdn.net/v/t15.5256-10/895396093_2338729793556352_3420821633323479280_n.jpg",
+        "og:video": "https://embeds.now/media/mx/facebook-share~r~19xGa5YKiR~-0.mp4"
+      }
+    },
+    {
+      "platform": "imgur",
+      "name": "ImgurEZ",
+      "host": "https://imgurez.com",
+      "original": "https://imgur.com/gallery/UXCBWlW",
+      "embed": "https://imgurez.com/gallery/UXCBWlW",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://imgur.com/gallery/UXCBWlW",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "celestialstein (@celestialstein)",
+        "og:description": "Learn about the purpose of EmbedEZ and how we strive to provide the best embedding services for your content.",
+        "og:url": "https://embedez.com/embed/search_6afc1e32dce1e7f960de2912",
+        "og:image": "https://embedez.com/api/v2/redirect/search_6afc1e32dce1e7f960de2912",
+        "twitter:title": "celestialstein (@celestialstein)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6afc1e32dce1e7f960de2912"
+      }
+    },
+    {
+      "platform": "instagram",
+      "name": "uuinstagram",
+      "host": "https://uuinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://uuinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://uuinstagram.com/reel/DfF3eqGSKKc/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "twitter:title": "@nasajohnson",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 s...",
+        "og:video": "/videos/DfF3eqGSKKc/1"
+      }
+    },
+    {
+      "platform": "instagram",
+      "name": "eeinstagram",
+      "host": "https://eeinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://eeinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://eeinstagram.com/reel/DfF3eqGSKKc/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "twitter:title": "@nasajohnson",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 s...",
+        "og:video": "/videos/DfF3eqGSKKc/1"
+      }
+    },
+    {
+      "platform": "instagram",
+      "name": "InstagramEmbed",
+      "host": "https://vxinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:video": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 spacewalk, increasing the station’s available power by up to 30%.",
+        "twitter:title": "NASA’s Johnson Space Center (@nasajohnson)"
+      }
+    },
+    {
+      "platform": "instagram",
+      "name": "kkScript",
+      "host": "https://kkinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://kkinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 0,
+      "curl_exit": 6,
+      "final_url": "https://kkinstagram.com/reel/DfF3eqGSKKc/",
+      "content_type": null,
+      "error": "curl: (6) Could not resolve host: kkinstagram.com\n",
+      "meta": {}
+    },
+    {
+      "platform": "instagram",
+      "name": "zzinstagram",
+      "host": "https://zzinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://zzinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 0,
+      "curl_exit": 6,
+      "final_url": "https://zzinstagram.com/reel/DfF3eqGSKKc/",
+      "content_type": null,
+      "error": "curl: (6) Could not resolve host: zzinstagram.com\n",
+      "meta": {}
+    },
+    {
+      "platform": "instagram",
+      "name": "OGInstagram",
+      "host": "https://oginstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://oginstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://oginstagram.com/reel/DfF3eqGSKKc/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://www.instagram.com/reel/DfF3eqGSKKc/",
+        "og:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "twitter:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "og:description": "❤️ 16,799  💬 184\n\nMore power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 spacewalk, increasing the station’s available power by up to 30%.",
+        "twitter:image": "https://oginstagram.com/offload/DfF3eqGSKKc/1",
+        "og:image": "https://oginstagram.com/offload/DfF3eqGSKKc/1",
+        "og:video": "https://oginstagram.com/offload/DfF3eqGSKKc/1"
+      }
+    },
+    {
+      "platform": "instagram",
+      "name": "embeds.now",
+      "host": "https://ig.embeds.now",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://ig.embeds.now/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://ig.embeds.now/reel/DfF3eqGSKKc/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "@nasajohnson",
+        "og:url": "https://www.instagram.com/reel/DfF3eqGSKKc/",
+        "twitter:title": "@nasajohnson",
+        "og:image": "https://scontent-lhr6-2.cdninstagram.com/v/t51.82787-15/865204930_18640535563026724_3353517023594775034_n.jpg",
+        "twitter:image": "https://scontent-lhr6-2.cdninstagram.com/v/t51.82787-15/865204930_18640535563026724_3353517023594775034_n.jpg",
+        "og:video": "https://embeds.now/media/ig/DfF3eqGSKKc/1.mp4"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "name": "PinterestEZ",
+      "host": "https://pinterestez.com",
+      "original": "https://pinterest.com/pin/99360735500167749/",
+      "embed": "https://pinterestez.com/pin/99360735500167749/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://pinterest.com/pin/99360735500167749/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Kent Brewster (@kentbrew)",
+        "og:description": "Love my Pinterest t-shirt!",
+        "og:url": "https://embedez.com/embed/search_6a5b29712ab966517eaa167b",
+        "og:image": "https://embedez.com/api/v2/redirect/search_6a5b29712ab966517eaa167b",
+        "twitter:title": "Kent Brewster (@kentbrew)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6a5b29712ab966517eaa167b"
+      }
+    },
+    {
+      "platform": "pinterest",
+      "name": "embeds.now",
+      "host": "https://pi.embeds.now",
+      "original": "https://pinterest.com/pin/99360735500167749/",
+      "embed": "https://pi.embeds.now/pin/99360735500167749/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://pi.embeds.now/pin/99360735500167749/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Goodbye Live Tweeting, Hello Live Pinning",
+        "og:url": "https://www.pinterest.com/pin/99360735500167749/",
+        "og:description": "Have you heard of Pinterest? Yes right? What about ? I just read the first report of live pinning on Mashable and I must say it is quite intriguing. Looks",
+        "twitter:title": "Goodbye Live Tweeting, Hello Live Pinning",
+        "og:image": "https://i.pinimg.com/736x/a7/66/56/a76656e966b1958f568d63c3f1c05aec.jpg",
+        "twitter:image": "https://i.pinimg.com/736x/a7/66/56/a76656e966b1958f568d63c3f1c05aec.jpg"
+      }
+    },
+    {
+      "platform": "pixiv",
+      "name": "phixiv",
+      "host": "https://phixiv.net",
+      "original": "https://pixiv.net/en/artworks/124748386",
+      "embed": "https://phixiv.net/en/artworks/124748386",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://phixiv.net/en/artworks/124748386",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "DONALD DUCK by (@Mika Pikazo)",
+        "og:description": "ドナルドからイメージした女の子ちゃんです。\nポップアップ＆展示イベント＆グッズなど...\n「Disney Collection by Mika Pikazo」盛りだくさんです！\n\nPOP-UP STORE\n●開催期間：2024/12/7(土)〜12/31(火)\n●10:00〜21:00(入場無料)\nSHIBUYA TSUTAYA B1F\n#ディズニーコレクションbyMikaPikazo\nhttps://prtimes.jp/main/html/rd/p/000000187.000085936.html\n#original, #disney, #Donald Duck, #original 10000+ bookmarks, #ディズニー10000users入り",
+        "og:url": "https://www.pixiv.net/en/artworks/124748386",
+        "og:image": "https://phixiv.net/i/img-master/img/2024/11/30/00/00/47/124748386_p0_master1200.jpg"
+      }
+    },
+    {
+      "platform": "reddit",
+      "name": "RedditEZ",
+      "host": "https://redditez.com",
+      "original": "https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "embed": "https://redditez.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "JapKumintang1991 (@r/flags)",
+        "og:description": "Learn about the purpose of EmbedEZ and how we strive to provide the best embedding services for your content.",
+        "og:url": "https://embedez.com/embed/search_6afc1e35dce1e7f960de291b",
+        "og:image": "https://embedez.com/api/v2/redirect/search_6afc1e35dce1e7f960de291b",
+        "twitter:title": "JapKumintang1991 (@r/flags)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6afc1e35dce1e7f960de291b"
+      }
+    },
+    {
+      "platform": "reddit",
+      "name": "vxreddit",
+      "host": "https://vxreddit.com",
+      "original": "https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "embed": "https://vxreddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://vxreddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://www.reddit.com/comments/1hqed7c",
+        "og:title": "Flag of Seychelles",
+        "og:image": "https://i.redd.it/ovdeih1p4b681.png",
+        "twitter:image": "https://i.redd.it/ovdeih1p4b681.png"
+      }
+    },
+    {
+      "platform": "reddit",
+      "name": "embeds.now",
+      "host": "https://r.embeds.now",
+      "original": "https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "embed": "https://r.embeds.now/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://r.embeds.now/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Flag of Seychelles",
+        "og:url": "https://www.reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+        "og:description": "r/flags · u/JapKumintang1991\n\n1 upvote · 1 comment",
+        "twitter:title": "Flag of Seychelles",
+        "og:image": "https://i.redd.it/ovdeih1p4b681.png",
+        "twitter:image": "https://i.redd.it/ovdeih1p4b681.png"
+      }
+    },
+    {
+      "platform": "roblox",
+      "name": "FxRoblox",
+      "host": "https://www.fxroblox.com",
+      "original": "https://roblox.com/games/920587237/Adopt-Me",
+      "embed": "https://www.fxroblox.com/games/920587237/Adopt-Me",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://www.fxroblox.com/games/920587237/Adopt-Me",
+      "content_type": "text/html",
+      "error": "",
+      "meta": {
+        "og:title": "[🥤] Adopt Me!",
+        "og:description": "Adopt and raise 🐶🦄👶, trade and collect legendary pets, build your dream home, and roleplay with friends!\n\n🥤 Mix n Match Slushies! 🥤\n🤸‍♀️ Combine Speed, Jump, Gravity, and Size!\n🌈 Find your preferred combination!\n🏃‍♀️ Bounce and zoom around the map!\n\nBe FIRST 🏆 To experience new updates by pressing 🔔NOTIFY.\n\nMeet the founders!\nNewFissy - Tech Direct",
+        "twitter:image": "https://tr.rbxcdn.com/180DAY-16983b66d58b4f9b8215c5b23fffa057/768/432/Image/Png/noFilter"
+      }
+    },
+    {
+      "platform": "snapchat",
+      "name": "SnapchatEZ",
+      "host": "https://snapchatez.com",
+      "original": "https://snapchat.com/@mr_rajj91319306/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYYWFlZHZpZmpsAZ4S19eiAZ4S19eEAAAAAQ",
+      "embed": "https://snapchatez.com/@mr_rajj91319306/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYYWFlZHZpZmpsAZ4S19eiAZ4S19eEAAAAAQ",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://snapchat.com/@mr_rajj91319306/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYYWFlZHZpZmpsAZ4S19eiAZ4S19eEAAAAAQ",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "mr_rajj91319306 (@Raj Malviya)",
+        "og:description": "Us core #vialspotlight#viral#space#reel#for_you#love#movie",
+        "og:url": "https://embedez.com/embed/search_6afc1e3586a2dd5b891539ce",
+        "og:video": "https://embedez.com/api/v2/redirect/search_6afc1e3586a2dd5b891539ce",
+        "twitter:title": "mr_rajj91319306 (@Raj Malviya)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6afc1e3586a2dd5b891539ce"
+      }
+    },
+    {
+      "platform": "spotify",
+      "name": "fxspotify",
+      "host": "https://fxspotify.com",
+      "original": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "embed": "https://fxspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fxspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:description": "Song · Rick Astley",
+        "og:image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b273baf89eb11ec7c657805d2da0",
+        "og:title": "Never Gonna Give You Up",
+        "og:video": "https://p.scdn.co/mp3-preview/40a780b231e5ed130483bec7917b6c9a4f8a4708",
+        "og:url": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=fxspotify",
+        "twitter:image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b273baf89eb11ec7c657805d2da0",
+        "twitter:title": "Never Gonna Give You Up"
+      }
+    },
+    {
+      "platform": "spotify",
+      "name": "embeds.now",
+      "host": "https://sp.embeds.now",
+      "original": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "embed": "https://sp.embeds.now/track/4cOdK2wGLETKBW3PvgPWqT",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://sp.embeds.now/track/4cOdK2wGLETKBW3PvgPWqT",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Never Gonna Give You Up",
+        "og:url": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+        "og:description": "Rick Astley · Whenever You Need Somebody · 3:34 · 1987",
+        "og:image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b273baf89eb11ec7c657805d2da0",
+        "og:video": "https://embeds.now/media/track-4cOdK2wGLETKBW3PvgPWqT.mp4",
+        "twitter:title": "Never Gonna Give You Up",
+        "twitter:image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b273baf89eb11ec7c657805d2da0"
+      }
+    },
+    {
+      "platform": "threads",
+      "name": "fixthreads (seria)",
+      "host": "https://fixthreads.seria.moe",
+      "original": "https://threads.net/@zuck/post/DTa3-B1EbTp",
+      "embed": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:description": "Today we're establishing a new top-level initiative called Meta Compute. \n\nMeta is planning to build tens of gigawatts this decade, and hundreds of gigawatts or more over time. How we engineer, invest, and partner to build this infrastructure will become a strategic advantage.\n\nThis effort will be led by Santosh Janardhan and Daniel Gross.",
+        "og:title": "@zuck on Threads",
+        "og:image": "https://scontent-fra5-1.cdninstagram.com/v/t51.82787-19/825322135_17989325280103224_1252773933700107438_n.jpg"
+      }
+    },
+    {
+      "platform": "threads",
+      "name": "vxThreads",
+      "host": "https://vxthreads.net",
+      "original": "https://threads.net/@zuck/post/DTa3-B1EbTp",
+      "embed": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "http": 0,
+      "curl_exit": 28,
+      "final_url": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "content_type": null,
+      "error": "curl: (28) Connection timed out after 5001 milliseconds\n",
+      "meta": {}
+    },
+    {
+      "platform": "threads",
+      "name": "embeds.now",
+      "host": "https://th.embeds.now",
+      "original": "https://threads.net/@zuck/post/DTa3-B1EbTp",
+      "embed": "https://th.embeds.now/@zuck/post/DTa3-B1EbTp",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://th.embeds.now/@zuck/post/DTa3-B1EbTp",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Mark Zuckerberg (@zuck)",
+        "og:url": "https://www.threads.com/@zuck/post/DTa3-B1EbTp",
+        "og:description": "Today we're establishing a new top-level initiative called Meta Compute. \n\nMeta is planning to build tens of gigawatts this decade, and hundreds of gigawatts or more over time. How we engineer, invest, and partner to build this infrastructure will become a strategic advantage.\n\nThis effort will be led by Santosh Janardhan and Daniel Gross.\n\n2.9K li",
+        "twitter:title": "Mark Zuckerberg (@zuck)",
+        "og:image": "https://scontent-cdg4-2.cdninstagram.com/v/t51.82787-19/825322135_17989325280103224_1252773933700107438_n.jpg",
+        "twitter:image": "https://scontent-cdg4-2.cdninstagram.com/v/t51.82787-19/825322135_17989325280103224_1252773933700107438_n.jpg"
+      }
+    },
+    {
+      "platform": "tiktok",
+      "name": "fxTikTok",
+      "host": "https://tnktok.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tnktok.com/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://tnktok.com/@scout2015/video/6718335390845095173",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Scout, Suki & Stella (@scout2015)",
+        "twitter:title": "Scout, Suki & Stella (@scout2015)",
+        "og:url": "https://www.tiktok.com/@scout2015/video/6718335390845095173",
+        "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+        "og:video": "https://tnktok.com/generate/video/6718335390845095173.mp4"
+      }
+    },
+    {
+      "platform": "tiktok",
+      "name": "tiktxk",
+      "host": "https://tiktxk.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tiktxk.com/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://tiktxk.com/@scout2015/video/6718335390845095173",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "❤️ 35.2k 💬 5.5k",
+        "og:url": "https://tiktok.com/@scout2015/video/6718335390845095173",
+        "og:video": "https://tiktxk.com/meta/6718335390845095173/video"
+      }
+    },
+    {
+      "platform": "tiktok",
+      "name": "TikTokEZ",
+      "host": "https://tiktokez.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tiktokez.com/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://tiktok.com/@scout2015/video/6718335390845095173",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Scout, Suki & Stella (@scout2015)",
+        "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+        "og:url": "https://embedez.com/embed/search_6a4f661ffd58409a60a40345",
+        "og:video": "https://embedez.com/api/v2/redirect/search_6a4f661ffd58409a60a40345",
+        "twitter:title": "Scout, Suki & Stella (@scout2015)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6a4f661ffd58409a60a40345"
+      }
+    },
+    {
+      "platform": "tiktok",
+      "name": "kkScript",
+      "host": "https://kktiktok.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://kktiktok.com/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "curl_exit": 63,
+      "final_url": "https://v16m.tiktokcdn-us.com/1a90c49610d6947f7f49104ecf6510b6/6afc3b86/video/tos/useast5/tos-useast5-pve-0068-tx/a9d18e19b850455597ce9421ea84a228/?a=1233&bti=OUBzOTg7QGo6OjZAL3AjLTAzYCMxNDNg&&bt=2188&ft=kLx3-yt4ZZo0PDQ9tG3aQ9FmbKA6JE.C~&mime_type=video_mp4&rc=PDo2NWU3M2U8ZTM1PGk2ZEBpM245aWhvZ3U4bjMzZzczM0AxL2BiXi8tNTExYF82YjYzYSMzc29gcGdnMXJfLS01MTZzcw%3D%3D&vvpl=1&l=202611170533166D4B6618E8D99453AAA4&btag=e000b0000",
+      "content_type": "video/mp4",
+      "error": "curl: (63) Maximum file size exceeded\n",
+      "meta": {}
+    },
+    {
+      "platform": "tiktok",
+      "name": "FixTikTok",
+      "host": "https://fixtiktok.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://fixtiktok.com/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fixtiktok.com/@scout2015/video/6718335390845095173",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Scout, Suki & Stella (@scout2015)",
+        "twitter:title": "Scout, Suki & Stella (@scout2015)",
+        "og:url": "https://www.tiktok.com/@scout2015/video/6718335390845095173",
+        "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+        "og:video": "https://offload.tnktok.com/generate/video/6718335390845095173.mp4"
+      }
+    },
+    {
+      "platform": "tiktok",
+      "name": "embeds.now",
+      "host": "https://tt.embeds.now",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tt.embeds.now/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://tt.embeds.now/@scout2015/video/6718335390845095173",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Scout, Suki & Stella (@scout2015)",
+        "og:url": "https://www.tiktok.com/@scout2015/video/6718335390845095173",
+        "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic\n\n35K likes · 5.6K comments · 1.5K shares · 160K plays",
+        "twitter:title": "Scout, Suki & Stella (@scout2015)",
+        "og:image": "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-p-0068/8ac0190d8ad54535bf823ed5f3202b6b~tplv-tiktokx-origin.image",
+        "twitter:image": "https://p16-common-sign.tiktokcdn-eu.com/tos-maliva-p-0068/8ac0190d8ad54535bf823ed5f3202b6b~tplv-tiktokx-origin.image",
+        "og:video": "https://embeds.now/media/tt/6718335390845095173.mp4"
+      }
+    },
+    {
+      "platform": "tumblr",
+      "name": "tpmblr.com",
+      "host": "https://tpmblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://tpmblr.com/staff/768250886787039233",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://tpmblr.com/staff/768250886787039233",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "staff",
+        "twitter:title": "staff",
+        "og:image": "https://tpmblr.com/_api/renders/post/staff/768250886787039233/render.png",
+        "twitter:image": "https://tpmblr.com/_api/renders/post/staff/768250886787039233/render.png"
+      }
+    },
+    {
+      "platform": "tumblr",
+      "name": "txtumblr.com",
+      "host": "https://txtumblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://txtumblr.com/staff/768250886787039233",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://txtumblr.com/staff/768250886787039233",
+      "content_type": "text/html;charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "staff (Tumblr Staff)",
+        "og:url": "https://staff.tumblr.com/post/768250886787039233/tumblr-tuesday-huevember",
+        "og:description": "Tags: #tumblr tuesday #huevember #huevember 2024 #artists on tumblr #art #fanart #ocs #art challenges #final fantasy #the magnus archives #dungeon meshi #totk #one piece #the locked tomb #frieren #my hero academia #shiguang dailiren #gravity falls #honkai star rail #the wild robot #long post\nTumblr Tuesday: Huevember\n\n↱Hues, colors, shades. From pi",
+        "twitter:title": "staff (Tumblr Staff)",
+        "og:image": "https://64.media.tumblr.com/d8ad1074f06397729fcd41f9a3e4531d/60f16fba444c3493-f6/s1280x1920/0c50de8360fa9cbc4665526bc279cb26deb02fb9.png",
+        "twitter:image": "https://64.media.tumblr.com/d8ad1074f06397729fcd41f9a3e4531d/60f16fba444c3493-f6/s1280x1920/0c50de8360fa9cbc4665526bc279cb26deb02fb9.png"
+      }
+    },
+    {
+      "platform": "twitch",
+      "name": "fxtwitch",
+      "host": "https://fxtwitch.seria.moe",
+      "original": "https://twitch.tv/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "embed": "https://fxtwitch.seria.moe/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fxtwitch.seria.moe/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "forsen - First time checking this game out!",
+        "og:url": "https://clips.twitch.tv/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+        "og:video": "https://spoo.me/h6Ji8Ml"
+      }
+    },
+    {
+      "platform": "weibo",
+      "name": "WeiboEZ",
+      "host": "https://weiboez.com",
+      "original": "https://weibo.com/6389423278/RrFnnA9r1",
+      "embed": "https://weiboez.com/6389423278/RrFnnA9r1",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://weibo.com/6389423278/RrFnnA9r1",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "王怡人yiren_18ar (@6389423278)",
+        "og:description": "小怡的十八宫格🍂🍁 落叶之秋，微风徐来，有怡刚好#独家记怡# #王怡人1229生日快乐# @王怡人yiren_\nQuoting: 王怡人yiren_\n看看秋天🍂#秋天的证据##生活有星意##独家记怡#王怡人超话 ​​​",
+        "og:url": "https://embedez.com/embed/search_6afc2043ea012ff5c5a6a46d",
+        "og:image": "https://embedez.com/api/v2/redirect/search_6afc2043ea012ff5c5a6a46d",
+        "twitter:title": "王怡人yiren_18ar (@6389423278)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6afc2043ea012ff5c5a6a46d"
+      }
+    },
+    {
+      "platform": "x",
+      "name": "BetterTwitFix",
+      "host": "https://fixvx.com",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://fixvx.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://vxtwitter.com/makkahregion/status/1902619525532512361",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "og:video": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "og:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي"
+      }
+    },
+    {
+      "platform": "x",
+      "name": "FxEmbed",
+      "host": "https://fixupx.com",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://fixupx.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://fixupx.com/makkahregion/status/1902619525532512361",
+      "content_type": "text/html; charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:url": "https://x.com/makkahregion/status/1902619525532512361",
+        "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي"
+      }
+    },
+    {
+      "platform": "x",
+      "name": "TwitterEZ",
+      "host": "https://twitterez.com",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://twitterez.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://embedez.com/download?q=https://twitter.com/makkahregion/status/1902619525532512361",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:description": "#فيديو\nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+        "og:url": "https://embedez.com/embed/search_6afbec31755298b2e3ebcc23",
+        "og:video": "https://embedez.com/api/v2/redirect/search_6afbec31755298b2e3ebcc23",
+        "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:image": "https://embedez.com/api/v2/redirect/search_6afbec31755298b2e3ebcc23"
+      }
+    },
+    {
+      "platform": "x",
+      "name": "embeds.now",
+      "host": "https://x.embeds.now",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://x.embeds.now/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://x.embeds.now/makkahregion/status/1902619525532512361",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:url": "https://x.com/makkahregion/status/1902619525532512361",
+        "og:description": "#فيديو\nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي\n\n1.3K likes · 57 replies",
+        "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "twitter:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "og:video": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/720x1280/U68HdKmMot3CQSJy.mp4"
+      }
+    },
+    {
+      "platform": "youtube",
+      "name": "Koutube",
+      "host": "https://koutube.com",
+      "original": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+      "embed": "https://koutube.com/watch?v=dQw4w9WgXcQ",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://koutube.com/watch?v=dQw4w9WgXcQ",
+      "content_type": "text/html",
+      "error": "",
+      "meta": {
+        "twitter:title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+        "og:video": "https://iv.igerman.cc/latest_version",
+        "twitter:image": "https://iv.igerman.cc/vi/dQw4w9WgXcQ/maxres.jpg",
+        "og:url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "og:image": "https://iv.igerman.cc/vi/dQw4w9WgXcQ/maxres.jpg",
+        "og:description": "The official video for “Never Gonna Give You Up” by Rick Astley. \n\nNever: The Autobiography 📚 OUT NOW! \nFollow this link to get your copy a..."
+      }
+    }
+  ],
+  "note": "Three initially inconclusive Tumblr/Weibo samples replaced with live post samples. Additional original-provider and sample evidence is in tumblr-rechecks.json and supplemental-checks.json."
+}

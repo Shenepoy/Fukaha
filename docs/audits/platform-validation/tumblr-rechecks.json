@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "platform": "tumblr",
+      "name": "Original",
+      "host": "https://www.tumblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://www.tumblr.com/staff/768250886787039233",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://www.tumblr.com/staff/768250886787039233/tumblr-tuesday-huevember",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "Post by @staff · 16 images",
+        "og:description": "💬 7  🔁 491  ❤️ 6412 · Tumblr Tuesday: Huevember · Hues, colors, shades. From pink to red to orange to yellow to green to blue to purple. You know what has those? Huevember. This Huevember, like oth…",
+        "og:image": "https://64.media.tumblr.com/2ff314f50e1eea29a887385cb01b4124/60f16fba444c3493-6d/s640x960/bf98a79132e44e8b0180a31a062272adb9b04f79.pnj",
+        "og:url": "https://www.tumblr.com/staff/768250886787039233/tumblr-tuesday-huevember"
+      }
+    },
+    {
+      "platform": "tumblr",
+      "name": "tpmblr.com",
+      "host": "https://tpmblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://tpmblr.com/staff/768250886787039233",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://tpmblr.com/staff/768250886787039233",
+      "content_type": "text/html; charset=utf-8",
+      "error": "",
+      "meta": {
+        "og:title": "staff",
+        "twitter:title": "staff",
+        "og:image": "https://tpmblr.com/_api/renders/post/staff/768250886787039233/render.png",
+        "twitter:image": "https://tpmblr.com/_api/renders/post/staff/768250886787039233/render.png"
+      }
+    },
+    {
+      "platform": "tumblr",
+      "name": "txtumblr.com",
+      "host": "https://txtumblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://txtumblr.com/staff/768250886787039233",
+      "http": 200,
+      "curl_exit": 0,
+      "final_url": "https://txtumblr.com/staff/768250886787039233",
+      "content_type": "text/html;charset=UTF-8",
+      "error": "",
+      "meta": {
+        "og:title": "staff (Tumblr Staff)",
+        "og:url": "https://staff.tumblr.com/post/768250886787039233/tumblr-tuesday-huevember",
+        "og:description": "Tags: #tumblr tuesday #huevember #huevember 2024 #artists on tumblr #art #fanart #ocs #art challenges #final fantasy #the magnus archives #dungeon meshi #totk #one piece #the locked tomb #frieren #my hero academia #shiguang dailiren #gravity falls #honkai star rail #the wild robot #long post\nTumblr Tuesday: Huevember\n\n↱Hues, colors, shades. From pi",
+        "twitter:title": "staff (Tumblr Staff)",
+        "og:image": "https://64.media.tumblr.com/d8ad1074f06397729fcd41f9a3e4531d/60f16fba444c3493-f6/s1280x1920/0c50de8360fa9cbc4665526bc279cb26deb02fb9.png",
+        "twitter:image": "https://64.media.tumblr.com/d8ad1074f06397729fcd41f9a3e4531d/60f16fba444c3493-f6/s1280x1920/0c50de8360fa9cbc4665526bc279cb26deb02fb9.png"
+      }
+    }
+  ]
+}

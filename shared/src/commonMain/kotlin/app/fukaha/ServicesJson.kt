@@ -2,7 +2,7 @@ package app.fukaha
 
 internal object ServicesJson {
     // Assembled from several community collections of embed-fixer lists.
-    // Broken entries kept; filtered at runtime.
+    // Keep this embedded copy in sync with commonMain/resources/services.json.
     val RAW: String = """
 {
   "bilibili": {
@@ -23,13 +23,6 @@ internal object ServicesJson {
         "host": "https://fxbilibili.seria.moe",
         "name": "fxBilibili",
         "repo": "https://github.com/seriaati/fxBilibili"
-      },
-      {
-        "author": null,
-        "description": "A service that simplifies the process of sharing social media posts.",
-        "host": "https://bilibliez.com",
-        "name": "BilibiliEZ",
-        "repo": null
       }
     ]
   },
@@ -81,11 +74,11 @@ internal object ServicesJson {
         "repo": "https://github.com/colduw/xbsky"
       },
       {
-        "author": "goeo-",
-        "description": "Bluesky embed fixer.",
-        "host": "https://cbsky.app",
-        "name": "cbsky",
-        "repo": "https://github.com/goeo-/cbsky.app"
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://bs.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -114,11 +107,26 @@ internal object ServicesJson {
         "repo": "https://github.com/4pii4/facebed"
       },
       {
+        "author": null,
+        "description": "Facebook post, Reel and video previews for messaging apps.",
+        "host": "https://facecot.com",
+        "name": "Facecot",
+        "repo": null,
+        "alternate_hosts": ["https://www.facecot.com"]
+      },
+      {
         "author": "seriaati",
-        "description": "Facebook embed fixer.",
-        "host": "https://fxfb.seria.moe",
-        "name": "fxfacebook",
-        "repo": "https://github.com/seriaati/fxfacebook"
+        "description": "Separately hosted facebed instance for public Facebook previews.",
+        "host": "https://facebed.seria.moe",
+        "name": "facebed (seria)",
+        "repo": "https://github.com/seriaati/facebed"
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://fb.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -141,20 +149,6 @@ internal object ServicesJson {
     "services": [
       {
         "author": "Akmal",
-        "description": "Fix Instagram embeds in Discord (and Telegram!)",
-        "host": "https://ddinstagram.com",
-        "name": "InstaFix",
-        "repo": "https://github.com/Wikidepia/InstaFix"
-      },
-      {
-        "author": null,
-        "description": "A service that simplifies the process of sharing social media posts.",
-        "host": "https://instagramez.com",
-        "name": "InstagramEZ",
-        "repo": null
-      },
-      {
-        "author": "Akmal",
         "description": "Unofficial InstaFix instance.",
         "host": "https://uuinstagram.com",
         "name": "uuinstagram",
@@ -165,13 +159,6 @@ internal object ServicesJson {
         "description": "Unofficial InstaFix instance.",
         "host": "https://eeinstagram.com",
         "name": "eeinstagram",
-        "repo": "https://github.com/Wikidepia/InstaFix"
-      },
-      {
-        "author": "Akmal",
-        "description": "Unofficial InstaFix instance.",
-        "host": "https://fxstagram.com",
-        "name": "fxstagram",
         "repo": "https://github.com/Wikidepia/InstaFix"
       },
       {
@@ -194,6 +181,20 @@ internal object ServicesJson {
         "host": "https://zzinstagram.com",
         "name": "zzinstagram",
         "repo": null
+      },
+      {
+        "author": "seirenkr",
+        "description": "Instagram post and Reel previews with media, captions and stats.",
+        "host": "https://oginstagram.com",
+        "name": "OGInstagram",
+        "repo": "https://github.com/seirenkr/OGInstagram"
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://ig.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -206,6 +207,13 @@ internal object ServicesJson {
         "description": "A service that simplifies the process of sharing social media posts.",
         "host": "https://pinterestez.com",
         "name": "PinterestEZ",
+        "repo": null
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://pi.embeds.now",
+        "name": "embeds.now",
         "repo": null
       }
     ]
@@ -229,20 +237,6 @@ internal object ServicesJson {
     "name": "Reddit",
     "services": [
       {
-        "author": "Florian Spieß",
-        "description": "Provides improved reddit embeds for services such as Discord.",
-        "host": "https://rxddit.com",
-        "name": "fxreddit",
-        "repo": "https://github.com/MinnDevelopment/fxreddit"
-      },
-      {
-        "author": "Marvin Witt",
-        "description": "s/e/xy Reddit embeds for Discord using Cloudflare Workers.",
-        "host": "https://rxyddit.com",
-        "name": "sexy-reddit",
-        "repo": "https://github.com/NurMarvin/sexy-reddit"
-      },
-      {
         "author": null,
         "description": "A service that simplifies the process of sharing social media posts.",
         "host": "https://redditez.com",
@@ -255,6 +249,13 @@ internal object ServicesJson {
         "host": "https://vxreddit.com",
         "name": "vxreddit",
         "repo": "https://github.com/dylanpdx/vxReddit"
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://r.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -263,11 +264,12 @@ internal object ServicesJson {
     "name": "Roblox",
     "services": [
       {
-        "author": "vys69",
-        "description": "Roblox embed fixer.",
-        "host": "https://fixroblox.com",
-        "name": "Rxblox2",
-        "repo": "https://github.com/vys69/Rxblox2"
+        "author": "false",
+        "description": "Roblox game and profile previews.",
+        "host": "https://www.fxroblox.com",
+        "name": "FxRoblox",
+        "repo": null,
+        "alternate_hosts": ["https://fxroblox.com"]
       }
     ]
   },
@@ -296,11 +298,11 @@ internal object ServicesJson {
         "repo": "https://github.com/dotconnexion/fxspotify"
       },
       {
-        "author": "gurrrrrrett3",
-        "description": "Spotify embed fixer.",
-        "host": "https://fixspotify.com",
-        "name": "FixSpotify",
-        "repo": "https://github.com/gurrrrrrett3/fixspotify"
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://sp.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -308,13 +310,6 @@ internal object ServicesJson {
     "href": "https://threads.net",
     "name": "Threads",
     "services": [
-      {
-        "author": "Milan Mehra",
-        "description": "Fixes Meta's Threads metadata for sites like Discord, Telegram, etc.",
-        "host": "https://fixthreads.net",
-        "name": "fixthreads",
-        "repo": "https://github.com/milanmdev/fixthreads"
-      },
       {
         "author": "seriaati",
         "description": "Unofficial fixthreads instance.",
@@ -328,6 +323,13 @@ internal object ServicesJson {
         "host": "https://vxthreads.net",
         "name": "vxThreads",
         "repo": "https://github.com/everettsouthwick/vxThreads"
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://th.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -343,25 +345,11 @@ internal object ServicesJson {
         "repo": "https://github.com/okdargy/fxtiktok"
       },
       {
-        "author": "Allan Fernando",
-        "description": "A better way to embed TikTok posts on Discord, Telegram, and more.",
-        "host": "https://tfxktok.com/",
-        "name": "TfxkTok",
-        "repo": null
-      },
-      {
         "author": "Stella",
         "description": "tiktxk TikTok embed fixer",
         "host": "https://tiktxk.com/",
         "name": "tiktxk",
         "repo": "https://github.com/Britmoji/tiktxk"
-      },
-      {
-        "author": "Dylan",
-        "description": "Web service that fixes TikTok links embedding on Discord",
-        "host": "https://vxtiktok.com/",
-        "name": "vxtiktok",
-        "repo": "https://github.com/dylanpdx/vxtiktok"
       },
       {
         "author": null,
@@ -383,6 +371,13 @@ internal object ServicesJson {
         "host": "https://fixtiktok.com",
         "name": "FixTikTok",
         "repo": "https://github.com/Xetera/fixtiktok"
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://tt.embeds.now",
+        "name": "embeds.now",
+        "repo": null
       }
     ]
   },
@@ -391,7 +386,6 @@ internal object ServicesJson {
     "name": "Tumblr",
     "services": [
       {
-        "alternate_hosts": ["https://fx.dissonant.dev"],
         "author": "knuxify",
         "description": "Make Tumblr embeds on other websites way better.",
         "host": "https://tpmblr.com/",
@@ -417,22 +411,6 @@ internal object ServicesJson {
         "host": "https://fxtwitch.seria.moe",
         "name": "fxtwitch",
         "repo": "https://github.com/seriaati/fxtwitch"
-      },
-      {
-        "author": null,
-        "brokenSince": "2024-11-10T15:33:04.676Z",
-        "description": null,
-        "host": "https://fxtwitch.tv",
-        "name": "FxTwitch",
-        "repo": null
-      },
-      {
-        "author": null,
-        "brokenSince": "2024-11-10T15:33:04.676Z",
-        "description": null,
-        "host": "https://txitch.tv/",
-        "name": "Txitch",
-        "repo": null
       }
     ]
   },
@@ -478,6 +456,13 @@ internal object ServicesJson {
         "description": "A service that simplifies the process of sharing social media posts.",
         "host": "https://twitterez.com",
         "name": "TwitterEZ",
+        "repo": null
+      },
+      {
+        "author": null,
+        "description": "Public-link previews from embeds.now; uses the same backend as its other platform domains.",
+        "host": "https://x.embeds.now",
+        "name": "embeds.now",
         "repo": null
       }
     ]

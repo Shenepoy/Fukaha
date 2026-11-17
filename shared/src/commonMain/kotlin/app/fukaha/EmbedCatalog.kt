@@ -64,8 +64,8 @@ class EmbedCatalog(
     }
 
     /**
-     * Fixer a link would really be sent to: the chosen one unless it is known dead,
-     * in which case a reachable service takes over. Mirrors [rewriteToEmbed] so the
+     * Explicit choices stay selected. With no choice, health guides the automatic
+     * selection. Mirrors [rewriteToEmbed] so the
      * settings list can show what sharing will actually use.
      */
     fun effectiveService(
@@ -87,9 +87,9 @@ class EmbedCatalog(
     fun serviceForHost(platformKey: String, host: String?): EmbedService? {
         val normalized = host?.trim()?.trimEnd('/')?.takeIf { it.isNotEmpty() } ?: return null
         return activeServices(platformKey).firstOrNull {
-            it.normalizedHost().equals(normalized, ignoreCase = true) ||
+            EmbedHealthKeys.normalize(it.normalizedHost()) == EmbedHealthKeys.normalize(normalized) ||
                 it.alternateHosts.any { alt ->
-                    alt.trim().trimEnd('/').equals(normalized, ignoreCase = true)
+                    EmbedHealthKeys.normalize(alt) == EmbedHealthKeys.normalize(normalized)
                 } ||
                 it.name.equals(normalized, ignoreCase = true)
         }
@@ -150,14 +150,14 @@ class EmbedCatalog(
             "deviantart" to "https://fixdeviantart.com",
             "facebook" to "https://facebed.com",
             "imgur" to "https://imgurez.com",
-            "instagram" to "https://ddinstagram.com",
+            "instagram" to "https://vxinstagram.com",
             "pinterest" to "https://pinterestez.com",
             "pixiv" to "https://phixiv.net",
-            "reddit" to "https://rxddit.com",
-            "roblox" to "https://fixroblox.com",
+            "reddit" to "https://vxreddit.com",
+            "roblox" to "https://www.fxroblox.com",
             "snapchat" to "https://snapchatez.com",
             "spotify" to "https://fxspotify.com",
-            "threads" to "https://fixthreads.net",
+            "threads" to "https://fixthreads.seria.moe",
             "tiktok" to "https://tnktok.com",
             "tumblr" to "https://tpmblr.com",
             "twitch" to "https://fxtwitch.seria.moe",

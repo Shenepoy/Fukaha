@@ -1,0 +1,235 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Type-safe project accessors is an incubating feature.
+Configuration 'jsNpmAggregated' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'jsTestNpmAggregated' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:androidPreBuild UP-TO-DATE
+> Task :shared:preAndroidMainBuild UP-TO-DATE
+> Task :shared:androidJar
+> Task :shared:preAndroidHostTestBuild UP-TO-DATE
+> Task :shared:processAndroidHostTestJavaRes NO-SOURCE
+> Task :composeApp:preBuild UP-TO-DATE
+> Task :composeApp:preDebugBuild UP-TO-DATE
+> Task :composeApp:generateDebugBuildConfig FROM-CACHE
+> Task :composeApp:generateDebugResources FROM-CACHE
+> Task :composeApp:packageDebugResources FROM-CACHE
+> Task :shared:generateAndroidMainEmptyResourceFiles
+> Task :composeApp:processDebugNavigationResources FROM-CACHE
+> Task :composeApp:parseDebugLocalResources FROM-CACHE
+> Task :composeApp:generateDebugRFile FROM-CACHE
+> Task :composeApp:javaPreCompileDebug FROM-CACHE
+> Task :shared:writeAndroidMainAarMetadata
+> Task :composeApp:checkDebugAarMetadata
+> Task :composeApp:mapDebugSourceSetPaths
+> Task :composeApp:compileDebugNavigationResources FROM-CACHE
+> Task :composeApp:mergeDebugResources FROM-CACHE
+> Task :composeApp:createDebugCompatibleScreenManifests
+> Task :composeApp:extractDeepLinksDebug FROM-CACHE
+> Task :shared:processAndroidMainManifest FROM-CACHE
+> Task :composeApp:processDebugMainManifest FROM-CACHE
+> Task :composeApp:processDebugManifest FROM-CACHE
+> Task :composeApp:processDebugManifestForPackage FROM-CACHE
+> Task :composeApp:processDebugResources FROM-CACHE
+> Task :composeApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :composeApp:javaPreCompileDebugUnitTest FROM-CACHE
+> Task :composeApp:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :composeApp:generateDebugAssets UP-TO-DATE
+> Task :composeApp:mergeDebugAssets
+> Task :composeApp:compressDebugAssets FROM-CACHE
+> Task :composeApp:generateDebugGlobalSynthetics FROM-CACHE
+> Task :composeApp:checkDebugDuplicateClasses
+> Task :composeApp:desugarDebugFileDependencies FROM-CACHE
+> Task :composeApp:mergeExtDexDebug FROM-CACHE
+> Task :composeApp:mergeDebugJniLibFolders
+> Task :shared:mergeAndroidMainJniLibFolders
+> Task :shared:mergeAndroidMainNativeLibs NO-SOURCE
+> Task :shared:copyAndroidMainJniLibsProjectOnly
+> Task :composeApp:mergeDebugNativeLibs
+> Task :composeApp:stripDebugDebugSymbols
+> Task :composeApp:validateSigningDebug
+> Task :composeApp:writeDebugAppMetadata
+> Task :composeApp:writeDebugSigningConfigVersions
+> Task :kotlinKotlinNpmCachesSetup
+> Task :kotlinNodeJsSetup
+> Task :kotlinRestoreYarnLock
+> Task :kotlinYarnSetup
+> Task :shared:jsPackageJson
+> Task :shared:jsTestPackageJson
+> Task :webApp:jsPackageJson
+> Task :webApp:jsTestPackageJson
+> Task :shared:jsPublicPackageJson
+> Task :shared:jsTestPublicPackageJson
+> Task :webApp:jsPublicPackageJson
+> Task :webApp:jsTestPublicPackageJson
+> Task :kotlinPackageJsonUmbrella
+> Task :rootPackageJson
+
+> Task :kotlinNpmInstall
+(node:3419753) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+warning Ignored scripts due to flag.
+
+> Task :kotlinStoreYarnLock
+
+> Task :shared:compileKotlinJs
+w: file:///tmp/build-job.xgZfSfa0/src/shared/src/commonMain/kotlin/app/fukaha/LinkProcessor.kt:285:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///tmp/build-job.xgZfSfa0/src/shared/src/jsMain/kotlin/app/fukaha/Platform.js.kt:5:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :webApp:kmpPartiallyResolvedDependenciesChecker
+> Task :webApp:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :webApp:generateBuildVersion
+
+> Task :shared:compileAndroidMain
+w: file:///tmp/build-job.xgZfSfa0/src/shared/src/androidMain/kotlin/app/fukaha/Platform.android.kt:5:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///tmp/build-job.xgZfSfa0/src/shared/src/commonMain/kotlin/app/fukaha/LinkProcessor.kt:285:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:bundleAndroidMainClassesToRuntimeJar
+> Task :shared:bundleAndroidMainClassesToCompileJar
+> Task :webApp:compileKotlinJs
+> Task :shared:compileAndroidHostTest
+> Task :shared:processAndroidMainJavaRes
+> Task :shared:testAndroidHostTest
+> Task :shared:bundleLibRuntimeToDirAndroidMain
+> Task :composeApp:mergeLibDexDebug
+> Task :webApp:jsProcessResources
+> Task :webApp:jsMainClasses
+> Task :webApp:compileTestKotlinJs
+> Task :webApp:jsTestProcessResources NO-SOURCE
+> Task :webApp:jsTestClasses
+> Task :composeApp:compileDebugKotlin
+> Task :composeApp:compileDebugJavaWithJavac
+> Task :composeApp:bundleDebugClassesToRuntimeJar
+> Task :composeApp:bundleDebugClassesToCompileJar
+> Task :composeApp:compileDebugUnitTestKotlin
+> Task :composeApp:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :composeApp:processDebugJavaRes
+> Task :composeApp:processDebugUnitTestJavaRes
+> Task :composeApp:testDebugUnitTest
+> Task :composeApp:mergeDebugJavaResource
+> Task :composeApp:dexBuilderDebug
+> Task :composeApp:mergeProjectDexDebug
+> Task :composeApp:packageDebug
+> Task :composeApp:createDebugApkListingFileRedirect
+> Task :composeApp:assembleDebug
+> Task :webApp:kotlinNodeJsSetup
+> Task :webApp:compileTestDevelopmentExecutableKotlinJs
+> Task :webApp:jsTestTestDevelopmentExecutableCompileSync
+
+> Task :webApp:compileProductionExecutableKotlinJs
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+404: /icons/icon.svg
+> Task :webApp:jsBrowserTest
+> Task :webApp:jsProductionExecutableCompileSync
+
+> Task :webApp:jsBrowserProductionWebpack
+asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
+This can impact web performance.
+Assets: 
+  fukaha.7b4afc8946fc.js (919 KiB)
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.
+Entrypoints:
+  main (919 KiB)
+      fukaha.7b4afc8946fc.js
+asset fukaha.7b4afc8946fc.js 919 KiB [emitted] [immutable] [minimized] [big] (name: main)
+asset fukaha.236.de360a751abd.js 231 bytes [emitted] [immutable] [minimized]
+runtime modules 8 KiB 10 modules
+modules by path ./kotlin/*.js 2.91 MiB
+  ./kotlin/Fukaha-webApp.js 367 KiB [built] [code generated]
+  ./kotlin/kotlin-kotlin-stdlib.js 597 KiB [built] [code generated]
+  ./kotlin/kotlinx-coroutines-core.js 324 KiB [built] [code generated]
+  ./kotlin/kotlin_org_jetbrains_kotlin_kotlin_dom_api_compat.js 1.79 KiB [built] [code generated]
+  ./kotlin/Fukaha-shared.js 171 KiB [built] [code generated]
+  ./kotlin/kotlinx-serialization-kotlinx-serialization-json.js 208 KiB [built] [code generated]
+  ./kotlin/kotlinx-serialization-kotlinx-serialization-core.js 227 KiB [built] [code generated]
+  ./kotlin/ktor-ktor-client-core.js 361 KiB [built] [code generated]
+  ./kotlin/kotlinx-atomicfu.js 9.47 KiB [built] [code generated]
+  ./kotlin/ktor-ktor-http.js 125 KiB [built] [code generated]
+  ./kotlin/ktor-ktor-io.js 122 KiB [built] [code generated]
+  + 10 modules
+../../node_modules/ws/browser.js 176 bytes [built] [code generated]
+webpack 5.101.3 compiled with 2 warnings in 15200 ms
+
+> Task :webApp:jsBrowserDistribution
+
+[Incubating] Problems report is available at: file:///tmp/build-job.xgZfSfa0/src/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 28s
+87 actionable tasks: 67 executed, 20 from cache

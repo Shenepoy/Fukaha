@@ -59,6 +59,9 @@ class ShareActivity : AppCompatActivity() {
 
             LaunchedEffect(sharedText) {
                 settings = app.settingsStore.get()
+                if (settings.deleteCacheAfterShare) {
+                    withContext(Dispatchers.IO) { MediaCache.deleteExpired(mediaCacheDir()) }
+                }
                 if (sharedText.isNullOrBlank()) {
                     error = getString(R.string.no_link)
                     loading = false
@@ -111,6 +114,7 @@ class ShareActivity : AppCompatActivity() {
                         error = error,
                         prepared = prepared,
                         mediaDownloadEnabled = settings.hasValidCobaltBaseUrl,
+                        previewsEnabled = settings.previewsEnabled,
                         onDismiss = { finish() },
                         onShareCleaned = {
                             prepared?.let {
@@ -181,7 +185,6 @@ class ShareActivity : AppCompatActivity() {
         return when (result) {
             is MediaDownloadResult.Success -> {
                 shareFile(result.filePath, result.mimeType)
-                if (settings.deleteCacheAfterShare) File(result.filePath).delete()
                 true
             }
             is MediaDownloadResult.Failure -> {

@@ -1,5 +1,6 @@
 import Combine
 import SwiftUI
+import Shared
 
 final class FukahaShareModel: ObservableObject {
     @Published var loading = true
@@ -16,6 +17,7 @@ struct FukahaShareScreen: View {
     @ObservedObject var model: FukahaShareModel
     let isArabic: Bool
     let mediaDownloadEnabled: Bool
+    var previewsEnabled: Bool = true
     let onDismiss: () -> Void
     let onShareCleaned: () -> Void
     let onShareEmbed: () -> Void
@@ -43,6 +45,8 @@ struct FukahaShareScreen: View {
                             url: originalUrl,
                             onShare: nil,
                             onCopy: onCopyOriginal,
+                            comparisonUrl: cleanedUrl,
+                            showRemoved: true,
                         )
                         linkBlock(
                             title: text(en: "Cleaned link", ar: "الرابط النظيف"),
@@ -50,6 +54,7 @@ struct FukahaShareScreen: View {
                             url: cleanedUrl,
                             onShare: onShareCleaned,
                             onCopy: onCopyCleaned,
+                            comparisonUrl: originalUrl,
                         )
                         if let embedUrl = model.embedUrl {
                             linkBlock(
@@ -58,7 +63,12 @@ struct FukahaShareScreen: View {
                                 url: embedUrl,
                                 onShare: onShareEmbed,
                                 onCopy: onCopyEmbed,
+                                comparisonUrl: cleanedUrl,
                             )
+                            if previewsEnabled {
+                                FukahaInlinePreview(originalUrl: cleanedUrl, embedUrl: embedUrl, isArabic: isArabic)
+                                    .id(embedUrl)
+                            }
                         }
                         if mediaDownloadEnabled {
                             mediaButton
@@ -164,6 +174,8 @@ struct FukahaShareScreen: View {
         url: String,
         onShare: (() -> Void)?,
         onCopy: @escaping () -> Void,
+        comparisonUrl: String? = nil,
+        showRemoved: Bool = false,
     ) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 6) {
@@ -181,7 +193,8 @@ struct FukahaShareScreen: View {
             .foregroundStyle(Color.fukahaSecondary)
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            linkCard(icon: icon, url: url, onShare: onShare, onCopy: onCopy)
+            linkCard(icon: icon, url: url, onShare: onShare, onCopy: onCopy,
+                     comparisonUrl: comparisonUrl, showRemoved: showRemoved)
         }
     }
 
@@ -190,6 +203,8 @@ struct FukahaShareScreen: View {
         url: String,
         onShare: (() -> Void)?,
         onCopy: @escaping () -> Void,
+        comparisonUrl: String?,
+        showRemoved: Bool,
     ) -> some View {
         ZStack(alignment: .trailing) {
             Image(systemName: icon)
@@ -204,9 +219,8 @@ struct FukahaShareScreen: View {
                         Image(systemName: "doc.on.doc")
                             .font(.system(size: 18, weight: .medium))
                             .foregroundStyle(Color.fukahaPrimary)
-                        Text(url)
+                        highlightedUrl(url, comparisonUrl: comparisonUrl, showRemoved: showRemoved)
                             .font(.system(size: 15))
-                            .foregroundStyle(Color.fukahaOnSurface)
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -221,11 +235,10 @@ struct FukahaShareScreen: View {
                         Image(systemName: "square.and.arrow.up")
                             .font(.system(size: 20, weight: .medium))
                             .frame(width: 52, height: 44)
+                            .contentShape(Rectangle())
                     }
-                    .frame(width: 52, height: 44)
-                    .foregroundStyle(Color.fukahaOnPrimary)
-                    .background(Color.fukahaPrimary)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color.fukahaPrimary)
                     .accessibilityLabel(text(en: "Share", ar: "مشاركة"))
                 }
             }
@@ -237,19 +250,30 @@ struct FukahaShareScreen: View {
         .environment(\.layoutDirection, .leftToRight)
     }
 
+    private func highlightedUrl(_ url: String, comparisonUrl: String?, showRemoved: Bool) -> Text {
+        guard let comparisonUrl else { return Text(url).foregroundColor(.fukahaOnSurface) }
+        let diff = UrlDiff.shared.compare(
+            before: showRemoved ? url : comparisonUrl,
+            after: showRemoved ? comparisonUrl : url
+        )
+        let parts = showRemoved ? diff.before : diff.after
+        return parts.reduce(Text("")) { result, part in
+            result + Text(part.text)
+                .foregroundColor(part.changed ? (showRemoved ? .fukahaError : .fukahaPrimary) : .fukahaOnSurface)
+                .strikethrough(part.changed && showRemoved)
+        }
+    }
+
     private var mediaButton: some View {
         Button(action: onShareMedia) {
-            HStack(spacing: 8) {
-                Image(systemName: "arrow.down.to.line")
-                    .font(.system(size: 19, weight: .medium))
-                Text(text(en: "Share media file", ar: "مشاركة ملف الوسائط"))
-                    .font(.system(size: 15, weight: .semibold))
-            }
-            .frame(maxWidth: .infinity, minHeight: 46)
+            Image(systemName: "arrow.down.to.line")
+                .font(.system(size: 19, weight: .medium))
+                .frame(width: 52, height: 46)
+                .contentShape(Rectangle())
         }
-        .foregroundStyle(Color.fukahaOnPrimaryContainer)
-        .background(Color.fukahaPrimaryContainer)
-        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .buttonStyle(.plain)
+        .foregroundStyle(Color.fukahaPrimary)
+        .accessibilityLabel(text(en: "Share media file", ar: "مشاركة ملف الوسائط"))
     }
 
     private func text(en: String, ar: String) -> String {

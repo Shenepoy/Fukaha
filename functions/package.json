@@ -1,0 +1,12 @@
+{
+  "name": "fukaha-preview-metadata",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "engines": { "node": "22" },
+  "scripts": {
+    "build": "node prepare.mjs",
+    "test": "node --test preview.test.mjs"
+  },
+  "dependencies": { "firebase-functions": "^7.4.0" }
+}

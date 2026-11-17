@@ -1,3 +1,4 @@
+import java.security.MessageDigest
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpack
 
 plugins {
@@ -26,6 +27,22 @@ check(webAppVersion == appVersion) {
 
 version = appVersion
 
+val testingBuild = providers.gradleProperty("testingBuild").orElse("").get()
+check(testingBuild.isEmpty() || Regex("[0-9]+|local").matches(testingBuild)) {
+    "Invalid testingBuild"
+}
+val displayVersion = if (testingBuild.isEmpty()) appVersion else "$appVersion-testing.$testingBuild"
+val generatedVersionDir = layout.buildDirectory.dir("generated/version")
+val generateBuildVersion by tasks.registering {
+    inputs.property("displayVersion", displayVersion)
+    outputs.dir(generatedVersionDir)
+    doLast {
+        val source = generatedVersionDir.get().file("WebBuildVersion.kt").asFile
+        source.parentFile.mkdirs()
+        source.writeText("package app.fukaha.web\nconst val WEB_DISPLAY_VERSION = \"$displayVersion\"\n")
+    }
+}
+
 kotlin {
     js {
         browser {
@@ -39,6 +56,7 @@ kotlin {
     }
 
     sourceSets {
+        jsMain { kotlin.srcDir(generateBuildVersion) }
         jsMain.dependencies {
             implementation(projects.shared)
             implementation(libs.kotlinx.coroutines.core)
@@ -60,6 +78,7 @@ tasks.withType<KotlinWebpack>().configureEach {
 }
 
 tasks.named("jsBrowserDistribution") {
+    inputs.property("testingBuild", testingBuild)
     doFirst {
         // The Kotlin distribution task is a Copy, not a Sync; without cleanup, obsolete hashed
         // bundles survive and can be deployed alongside the current one.
@@ -74,7 +93,6 @@ tasks.named("jsBrowserDistribution") {
             .singleOrNull { it.name.matches(Regex("""fukaha\.[0-9a-f]{12}\.js""")) }
             ?: error("Could not find exactly one content-hashed Fukaha production bundle")
         val bundlePath = "/${bundle.name}"
-        val buildHash = bundle.name.removePrefix("fukaha.").removeSuffix(".js")
 
         val index = outputDirectory.resolve("index.html")
         check(index.isFile) { "Missing production shell asset: index.html" }
@@ -83,6 +101,23 @@ tasks.named("jsBrowserDistribution") {
             "Production index did not receive the content-hashed bundle"
         }
 
+        if (testingBuild.isNotEmpty()) {
+            index.writeText(index.readText()
+                .replace("<title>Fukaha</title>", "<title>Fukaha Testing</title>")
+                .replace("</head>", "<meta name=\"robots\" content=\"noindex,nofollow\"></head>")
+                .replace("<body>", "<body><aside dir=\"ltr\" style=\"text-align:center;padding:8px;background:#ffd166;color:#171717;font:600 14px system-ui\">Fukaha Testing · $displayVersion</aside>"))
+            val manifest = outputDirectory.resolve("manifest.webmanifest")
+            manifest.writeText(manifest.readText().replace("\"Fukaha\"", "\"Fukaha Testing\""))
+        }
+
+        // CSS, HTML, icons and worker changes also need a fresh immutable shell.
+        val digest = MessageDigest.getInstance("SHA-256")
+        outputDirectory.walkTopDown().filter { it.isFile }.sortedBy { it.relativeTo(outputDirectory).path }
+            .forEach { asset ->
+                digest.update(asset.relativeTo(outputDirectory).path.toByteArray())
+                digest.update(asset.readBytes())
+            }
+        val buildHash = digest.digest().joinToString("") { "%02x".format(it) }.take(12)
         val serviceWorker = outputDirectory.resolve("sw.js")
         check(serviceWorker.isFile) { "Missing production shell asset: sw.js" }
         serviceWorker.writeText(
@@ -99,7 +134,11 @@ tasks.named("jsBrowserDistribution") {
 val pwaStaticTest by tasks.registering(Exec::class) {
     group = "verification"
     description = "Validates PWA assets, localization parity, CSS invariants, and hosting headers."
-    commandLine("node", "--test", layout.projectDirectory.file("src/staticTest/pwa-static.test.mjs"))
+    commandLine(
+        "node", "--test",
+        layout.projectDirectory.file("src/staticTest/pwa-static.test.mjs"),
+        layout.projectDirectory.file("src/staticTest/service-worker.test.mjs"),
+    )
 }
 
 tasks.named("check") {

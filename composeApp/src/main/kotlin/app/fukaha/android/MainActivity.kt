@@ -1,5 +1,7 @@
 package app.fukaha.android
 
+import app.fukaha.applyChangesFrom
+
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
@@ -140,6 +142,8 @@ class MainActivity : AppCompatActivity() {
                     withContext(Dispatchers.IO) {
                         ApkUpdater.install(this@MainActivity, apk)
                     }
+                    apkUpdateState = ApkUpdateUiState.Idle
+                    pendingRelease = null
                 } catch (e: CancellationException) {
                     apkUpdateState = ApkUpdateUiState.Idle
                     throw e
@@ -180,12 +184,13 @@ class MainActivity : AppCompatActivity() {
             val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
             fun persist(next: FukahaSettings) {
+                val before = settings
                 val languageChanged = next.language != settings.language
                 if (languageChanged && languageChangeInFlight) return
                 if (languageChanged) languageChangeInFlight = true
                 settings = next
                 scope.launch {
-                    app.settingsStore.update { next }
+                    app.settingsStore.update { it.applyChangesFrom(before, next) }
                     if (languageChanged) {
                         // Let the old content begin fading before AppCompat performs its usual
                         // locale recreation. A zero system animation scale skips this entirely.
@@ -205,6 +210,9 @@ class MainActivity : AppCompatActivity() {
 
             LaunchedEffect(Unit) {
                 settings = app.settingsStore.get()
+                if (settings.deleteCacheAfterShare) {
+                    withContext(Dispatchers.IO) { MediaCache.deleteExpired(File(cacheDir, "fukaha")) }
+                }
                 LocaleHelper.apply(settings.language)
                 settingsLoaded = true
                 // Opening the app is the only moment the 6h check may kick in, so a
@@ -213,15 +221,23 @@ class MainActivity : AppCompatActivity() {
             }
 
             suspend fun runUpdateCheck(manual: Boolean) {
+                if (BuildConfig.IS_TESTING) {
+                    if (manual) uriHandler.openUri("https://github.com/Shenepoy/Fukaha/actions/workflows/testing.yml")
+                    return
+                }
                 if (updateChecking) return
                 updateChecking = true
-                val result = withContext(Dispatchers.IO) {
-                    updateChecker.check(BuildConfig.VERSION_NAME)
+                val result = try {
+                    val checked = withContext(Dispatchers.IO) {
+                        updateChecker.check(BuildConfig.VERSION_NAME)
+                    }
+                    val checkedAt = PlatformClock.epochMillis()
+                    app.settingsStore.update { it.copy(lastUpdateCheckEpochMs = checkedAt) }
+                    settings = settings.copy(lastUpdateCheckEpochMs = checkedAt)
+                    checked
+                } finally {
+                    updateChecking = false
                 }
-                val checkedAt = PlatformClock.epochMillis()
-                app.settingsStore.update { it.copy(lastUpdateCheckEpochMs = checkedAt) }
-                settings = settings.copy(lastUpdateCheckEpochMs = checkedAt)
-                updateChecking = false
                 when (result) {
                     is UpdateCheckResult.Available -> {
                         if (manual || AppUpdatePolicy.shouldPrompt(result.release, settings.skippedUpdateVersion)) {

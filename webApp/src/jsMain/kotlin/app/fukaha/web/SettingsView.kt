@@ -5,6 +5,7 @@ import app.fukaha.EmbedHealthPolicy
 import app.fukaha.EmbedHealthStatus
 import app.fukaha.EmbedService
 import app.fukaha.ShareAction
+import kotlinx.browser.document
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLInputElement
@@ -17,6 +18,12 @@ fun renderSettings(app: App, parent: HTMLElement) {
     val s = app.strings
 
     renderDefaultAction(app, parent)
+    parent.preferenceToggle("media-previews", s.mediaPreviews, s.mediaPreviewsHint, app.settings.previewsEnabled) { enabled ->
+        app.updateSettings(afterRender = { (document.getElementById("media-previews") as? HTMLElement)?.focus() }) { it.copy(previewsEnabled = enabled) }
+    }
+    parent.preferenceToggle("official-short-links", s.officialShortLinks, s.officialShortLinksHint, app.settings.useOfficialShortLinks) { enabled ->
+        app.updateSettings(afterRender = { (document.getElementById("official-short-links") as? HTMLElement)?.focus() }) { it.copy(useOfficialShortLinks = enabled) }
+    }
     renderEmbedders(app, parent)
     renderAbout(app, parent)
 
@@ -118,6 +125,7 @@ private fun renderEmbedders(app: App, parent: HTMLElement) {
                 }
             }
 
+            el("p", "body-small on-surface-variant source-check-hint", s.embedHealthHint)
             el("div", "divider")
             el("div", "fixer-list") {
                 app.catalogPlatformKeys().forEach { key ->
@@ -158,6 +166,15 @@ private fun renderEmbedders(app: App, parent: HTMLElement) {
                         )
                     }
                 }
+                el("div", "source-toolbar") {
+                    el("p", "body-small on-surface-variant", s.sourceSavedHint)
+                    button(if (app.editingSourceOrder) s.sourceDone else s.sourceOrganize, ButtonStyle.Text) {
+                        app.toggleSourceOrder()
+                    }.also {
+                        it.id = "source-order-toggle"
+                        it.setAttribute("aria-pressed", app.editingSourceOrder.toString())
+                    }
+                }
                 el("div", "picker-options") {
                     val services = app.servicesFor(platformKey)
                     val picked = app.pickedFixer(platformKey)
@@ -167,7 +184,13 @@ private fun renderEmbedders(app: App, parent: HTMLElement) {
                     } else {
                         s.fixerCatalogDefault
                     }
+                    var previousFavorite: Boolean? = null
                     services.forEach { service ->
+                        val favorite = app.sourcePreferences.isFavorite(platformKey, service.normalizedHost())
+                        if (previousFavorite != favorite) {
+                            el("h3", "title-small source-group-title", if (favorite) s.sourceFavorites else s.sourceOthers)
+                            previousFavorite = favorite
+                        }
                         renderFixerOption(
                             app = app,
                             parent = this,
@@ -189,10 +212,12 @@ private fun healthSummary(app: App): String {
     app.healthProgress?.let { progress ->
         return s.embedHealthProgress(progress.completedCount, progress.total)
     }
-    val checkedAt = app.health.checkedAtEpochMs ?: return s.embedHealthNever
-    val counts = s.embedHealthCounts(app.health.aliveCount, app.health.deadCount)
-    val cooldown = EmbedHealthPolicy.cooldownRemainingMs(checkedAt)
-    return if (cooldown > 0L) "$counts · ${s.embedHealthCooldownToast(app.minutesOf(cooldown))}" else counts
+    val attemptedAt = app.healthAttemptAt ?: app.health.checkedAtEpochMs ?: return s.embedHealthNever
+    val date = kotlin.js.Date(attemptedAt.toDouble()).toLocaleString()
+    val lastCheck = "${s.embedHealthLastAttempt}: $date"
+    if (app.healthAttemptFailed) return "$lastCheck · ${s.embedHealthOffline}"
+    val counts = s.embedHealthCounts(app.health.aliveCount, app.health.deadCount, app.health.unknownCount)
+    return "$lastCheck · $counts"
 }
 
 private fun renderFixerRow(
@@ -200,18 +225,37 @@ private fun renderFixerRow(
     parent: HTMLElement,
     platformKey: String,
 ) {
-    parent.el("button", "fixer-row state") {
-        setAttribute("type", "button")
-        setAttribute("data-fixer-row", platformKey)
-        renderFixerRowContents(app, this, platformKey)
-        onclick = { app.toggleFixerPicker(platformKey); Unit }
+    parent.el("div", "fixer-list-row") {
+        el("button", "fixer-row state") {
+            setAttribute("type", "button")
+            setAttribute("data-fixer-row", platformKey)
+            renderFixerRowContents(app, this, platformKey)
+            onclick = { app.toggleFixerPicker(platformKey); Unit }
+        }
+        el("label", "fixer-embed-switch") {
+            val label = "${app.strings.embedLinksEnabled} · ${platformLabel(platformKey)}"
+            setAttribute("title", app.strings.embedLinksEnabledHint)
+            el("span", "sr-only", label)
+            val input = el("input", "preference-checkbox") {
+                id = "embed-enabled-$platformKey"
+                setAttribute("type", "checkbox")
+                setAttribute("role", "switch")
+            } as HTMLInputElement
+            input.checked = platformKey !in app.settings.disabledEmbedPlatforms
+            input.onchange = {
+                val enabled = input.checked
+                app.updateSettings(afterRender = { (document.getElementById("embed-enabled-$platformKey") as? HTMLElement)?.focus() }) {
+                    it.copy(disabledEmbedPlatforms = if (enabled) it.disabledEmbedPlatforms - platformKey else it.disabledEmbedPlatforms + platformKey)
+                }
+                Unit
+            }
+        }
     }
 }
 
 private fun renderFixerRowContents(app: App, row: HTMLElement, platformKey: String) {
     val s = app.strings
-    // The pick is what the user stored; the effective fixer is what a share would really use.
-    // They part ways once a completed check marks the pick dead.
+    // The effective source matches sharing, including automatic choices when no pick is saved.
     val picked = app.pickedFixer(platformKey)
     val inUse = app.effectiveFixer(platformKey)
     val standingInFor = picked?.takeIf { inUse != null && inUse != it }
@@ -265,44 +309,82 @@ private fun renderFixerOption(
     pickedLabel: String,
 ) {
     val s = app.strings
-    parent.el("button", if (isInUse) "fixer-option fixer-option-selected state" else "fixer-option state") {
-        setAttribute("type", "button")
-        setAttribute("aria-pressed", isInUse.toString())
-        if (isInUse) setAttribute("aria-current", "true")
-        if (isInUse) {
-            icon(Icon.CHECK, "icon fixer-radio fixer-radio-selected")
-        } else {
-            el("span", "fixer-radio")
-        }
-        el("div", "list-item-text") {
-            el("span", "title-small", service.name)
-            el("span", "fixer-host") {
-                dir = "ltr"
-                textContent = EmbedHealthKeys.displayHost(service.normalizedHost())
-            }
-            service.description?.takeIf { it.isNotBlank() }?.let {
-                el("span", "body-small on-surface-variant fixer-description", it)
-            }
-            service.author?.let { el("span", "body-small on-surface-variant", s.fixerByAuthor(it)) }
-        }
-        el("div", "list-item-trailing") {
-            if (isPicked && !isInUse) el("span", "chip chip-small chip-outline", pickedLabel)
-            if (isInUse) el("span", "chip chip-small action-selected-chip", s.selected)
-            el("span", healthLabelClasses(app, service), healthLabel(app, service)) {
-                setAttribute("data-fixer-health-host", service.normalizedHost())
-            }
-        }
-        onclick = {
-            app.updateSettings(
-                transform = { current ->
-                    current.copy(
-                        preferredFixers = current.preferredFixers +
-                            (platformKey to service.normalizedHost()),
+    val host = service.normalizedHost()
+    val favorite = app.sourcePreferences.isFavorite(platformKey, host)
+    val controlId = "source-$platformKey-${EmbedHealthKeys.displayHost(host)}"
+    parent.el("div", "source-option-row") {
+        setAttribute("data-source-host", host)
+        el("div", "source-option-main") {
+            el("button", if (isInUse) "fixer-option fixer-option-selected state" else "fixer-option state") {
+                setAttribute("type", "button")
+                setAttribute("aria-pressed", isInUse.toString())
+                if (isInUse) setAttribute("aria-current", "true")
+                if (isInUse) {
+                    icon(Icon.CHECK, "icon fixer-radio fixer-radio-selected")
+                } else {
+                    el("span", "fixer-radio")
+                }
+                el("div", "list-item-text") {
+                    el("span", "title-small", service.name)
+                    el("span", "fixer-host") {
+                        dir = "ltr"
+                        textContent = EmbedHealthKeys.displayHost(service.normalizedHost())
+                    }
+                    service.description?.takeIf { it.isNotBlank() }?.let {
+                        el("span", "body-small on-surface-variant fixer-description", it)
+                    }
+                    service.author?.let { el("span", "body-small on-surface-variant", s.fixerByAuthor(it)) }
+                }
+                el("div", "list-item-trailing") {
+                    if (isPicked && !isInUse) el("span", "chip chip-small chip-outline", pickedLabel)
+                    if (isInUse) el("span", "chip chip-small action-selected-chip", s.selected)
+                    el("span", healthLabelClasses(app, service), healthLabel(app, service)) {
+                        setAttribute("data-fixer-health-host", service.normalizedHost())
+                    }
+                }
+                onclick = {
+                    app.updateSettings(
+                        transform = { current ->
+                            current.copy(
+                                preferredFixers = current.preferredFixers +
+                                    (platformKey to service.normalizedHost()),
+                            )
+                        },
+                        afterRender = { app.toggleFixerPicker(null) },
                     )
-                },
-                afterRender = { app.toggleFixerPicker(null) },
-            )
-            Unit
+                    Unit
+                }
+            }
+        }
+        el("div", "source-option-controls") {
+            iconButton(Icon.FAVORITE, "${if (favorite) s.sourceFavoriteRemove else s.sourceFavoriteAdd}: ${service.name}",
+                if (favorite) "source-favorite-active" else "") {
+                app.changeSourcePreferences(app.sourcePreferences.toggleFavorite(platformKey, host), "$controlId-star")
+            }.also {
+                it.id = "$controlId-star"
+                it.setAttribute("data-source-favorite", host)
+                it.setAttribute("aria-pressed", favorite.toString())
+            }
+            if (app.editingSourceOrder) {
+                val group = app.servicesFor(platformKey).filter {
+                    app.sourcePreferences.isFavorite(platformKey, it.normalizedHost()) == favorite
+                }
+                val index = group.indexOf(service)
+                listOf(-1, 1).forEach { direction ->
+                    val label = if (direction < 0) s.sourceMoveUp else s.sourceMoveDown
+                    button(if (direction < 0) "↑" else "↓", ButtonStyle.Text, extraClasses = "source-move") {
+                        app.changeSourcePreferences(
+                            app.sourcePreferences.move(platformKey, host, direction, app.servicesFor(platformKey)),
+                            "$controlId-move-$direction",
+                        )
+                    }.also {
+                        it.id = "$controlId-move-$direction"
+                        it.setAttribute("aria-label", "$label: ${service.name}")
+                        it.setAttribute("title", "$label: ${service.name}")
+                        it.disabled = if (direction < 0) index <= 0 else index >= group.lastIndex
+                    }
+                }
+            }
         }
     }
 }
@@ -323,7 +405,7 @@ private fun healthLabel(app: App, service: EmbedService): String {
     return when (app.statusOf(service.normalizedHost())) {
         EmbedHealthStatus.Alive -> s.embedHealthAlive
         EmbedHealthStatus.Dead -> s.embedHealthDead
-        EmbedHealthStatus.Unknown -> ""
+        EmbedHealthStatus.Unknown -> s.embedHealthUnknown
     }
 }
 
@@ -388,7 +470,7 @@ internal fun updateEmbedHealthUi(app: App): Boolean {
             }
             EmbedHealthStatus.Unknown -> {
                 label.className = "body-small"
-                label.textContent = ""
+                label.textContent = app.strings.embedHealthUnknown
             }
         }
     }
@@ -425,5 +507,21 @@ private fun HTMLElement.radioItem(
                 selectedLabel,
             )
         }
+    }
+}
+
+private fun HTMLElement.preferenceToggle(idValue: String, title: String, hint: String, enabled: Boolean, onChange: (Boolean) -> Unit) {
+    el("label", "list-item preference-toggle") {
+        el("div", "list-item-text") {
+            el("span", "body-large", title)
+            el("span", "body-small on-surface-variant", hint)
+        }
+        val input = el("input", "preference-checkbox") {
+            id = idValue
+            setAttribute("type", "checkbox")
+            setAttribute("role", "switch")
+        } as HTMLInputElement
+        input.checked = enabled
+        input.onchange = { onChange(input.checked); Unit }
     }
 }

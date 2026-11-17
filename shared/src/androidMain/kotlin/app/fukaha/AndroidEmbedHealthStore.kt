@@ -21,6 +21,7 @@ class AndroidEmbedHealthStore(private val context: Context) : EmbedHealthStore {
     private val json = Json { ignoreUnknownKeys = true }
 
     private object Keys {
+        val details = stringPreferencesKey("embed_health_details")
         val statuses = stringPreferencesKey("embed_health_statuses")
         val checkedAt = longPreferencesKey("embed_health_checked_at")
     }
@@ -34,6 +35,7 @@ class AndroidEmbedHealthStore(private val context: Context) : EmbedHealthStore {
     override suspend fun save(
         statuses: Map<String, EmbedHealthStatus>,
         checkedAtEpochMs: Long,
+        details: Map<String, SourceCheckDetail>,
     ) {
         val normalized = statuses.mapKeys { EmbedHealthKeys.normalize(it.key) }
         context.fukahaHealthDataStore.edit { prefs ->
@@ -41,6 +43,7 @@ class AndroidEmbedHealthStore(private val context: Context) : EmbedHealthStore {
                 normalized.mapValues { it.value.name },
             )
             prefs[Keys.checkedAt] = checkedAtEpochMs
+            prefs[Keys.details] = json.encodeToString(details)
         }
     }
 
@@ -57,6 +60,9 @@ class AndroidEmbedHealthStore(private val context: Context) : EmbedHealthStore {
         return EmbedHealthSnapshot(
             statuses = statuses,
             checkedAtEpochMs = this[Keys.checkedAt],
+            details = this[Keys.details]?.let { raw ->
+                runCatching { json.decodeFromString<Map<String, SourceCheckDetail>>(raw) }.getOrDefault(emptyMap())
+            }.orEmpty(),
         )
     }
 }

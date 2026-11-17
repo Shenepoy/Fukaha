@@ -1,8 +1,20 @@
 {
   "hosting": {
     "public": "webApp/build/dist/js/productionExecutable",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**", "**/*.map"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.map"
+    ],
     "rewrites": [
+      {
+        "source": "/api/preview",
+        "function": {
+          "functionId": "previewMetadata",
+          "region": "us-central1"
+        }
+      },
       {
         "source": "**",
         "destination": "/index.html"
@@ -71,7 +83,25 @@
             "value": "public,max-age=3600,must-revalidate"
           }
         ]
+      },
+      {
+        "source": "/legal.css",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public,max-age=0,must-revalidate"
+          }
+        ]
       }
     ]
-  }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "preview",
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    }
+  ]
 }

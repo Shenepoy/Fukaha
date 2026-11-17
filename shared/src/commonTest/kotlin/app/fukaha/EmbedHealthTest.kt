@@ -31,7 +31,7 @@ class EmbedHealthTest {
     }
 
     @Test
-    fun skipsDeadPreferredForAliveAlternative() {
+    fun explicitPickIsKeptEvenWhenAnotherHostIsAlive() {
         val preferred = service("https://dead.example")
         val alive = service("https://alive.example")
         val health = mapOf(
@@ -44,11 +44,11 @@ class EmbedHealthTest {
             default = preferred,
             health = health,
         )
-        assertEquals(alive.normalizedHost(), picked?.normalizedHost())
+        assertEquals(preferred.normalizedHost(), picked?.normalizedHost())
     }
 
     @Test
-    fun prefersUnprobedOverKnownDead() {
+    fun automaticSelectionPrefersUnprobedOverDead() {
         val preferred = service("https://dead.example")
         val unprobed = service("https://unprobed.example")
         val health = mapOf(
@@ -56,7 +56,7 @@ class EmbedHealthTest {
         )
         val picked = EmbedHealthPolicy.pickService(
             services = listOf(preferred, unprobed),
-            preferred = preferred,
+            preferred = null,
             default = preferred,
             health = health,
         )
@@ -64,7 +64,7 @@ class EmbedHealthTest {
     }
 
     @Test
-    fun deadPickHandsOverToTheNextAliveService() {
+    fun explicitPickDoesNotMoveToNextAliveService() {
         val services = listOf(
             service("https://alive-before.example"),
             service("https://dead.example"),
@@ -81,11 +81,11 @@ class EmbedHealthTest {
             default = services[0],
             health = health,
         )
-        assertEquals(services[2].normalizedHost(), picked?.normalizedHost())
+        assertEquals(services[1].normalizedHost(), picked?.normalizedHost())
     }
 
     @Test
-    fun deadPickAtTheEndWrapsToTheFrontOfTheList() {
+    fun explicitPickDoesNotWrapToFront() {
         val services = listOf(
             service("https://alive-first.example"),
             service("https://dead-middle.example"),
@@ -102,11 +102,11 @@ class EmbedHealthTest {
             default = services[1],
             health = health,
         )
-        assertEquals(services[0].normalizedHost(), picked?.normalizedHost())
+        assertEquals(services[2].normalizedHost(), picked?.normalizedHost())
     }
 
     @Test
-    fun aliveEarlierInTheListBeatsAnUnknownRightAfterTheDeadPick() {
+    fun automaticSelectionPrefersAliveOverUnknown() {
         val services = listOf(
             service("https://alive-first.example"),
             service("https://dead.example"),
@@ -118,7 +118,7 @@ class EmbedHealthTest {
         )
         val picked = EmbedHealthPolicy.pickService(
             services = services,
-            preferred = services[1],
+            preferred = null,
             default = services[2],
             health = health,
         )
@@ -185,7 +185,7 @@ class EmbedHealthTest {
     }
 
     @Test
-    fun effectiveServiceReportsTheStandInForADeadPick() {
+    fun effectiveServiceReportsTheExplicitPickDespiteFailedProbe() {
         val services = catalog.activeServices("threads")
         assertTrue(services.size >= 2)
         val dead = services.first()
@@ -195,7 +195,7 @@ class EmbedHealthTest {
             EmbedHealthKeys.normalize(alive.normalizedHost()) to EmbedHealthStatus.Alive,
         )
         val effective = catalog.effectiveService("threads", dead.normalizedHost(), health)
-        assertEquals(alive.normalizedHost(), effective?.normalizedHost())
+        assertEquals(dead.normalizedHost(), effective?.normalizedHost())
         assertEquals(
             effective?.normalizedHost(),
             catalog.rewriteToEmbed(
@@ -231,7 +231,7 @@ class EmbedHealthTest {
     }
 
     @Test
-    fun rewriteSkipsDeadPreferredTwitterFixer() {
+    fun rewriteKeepsExplicitTwitterFixer() {
         val health = mapOf(
             EmbedHealthKeys.normalize("https://fixvx.com") to EmbedHealthStatus.Dead,
             EmbedHealthKeys.normalize("https://fixupx.com") to EmbedHealthStatus.Dead,
@@ -244,7 +244,7 @@ class EmbedHealthTest {
             preferredFixerHost = "https://fixvx.com",
             health = health,
         )
-        assertEquals("https://twitterez.com/foo/status/99", embed)
+        assertEquals("https://fixvx.com/foo/status/99", embed)
     }
 
     @Test
@@ -286,11 +286,11 @@ class EmbedHealthTest {
     }
 
     @Test
-    fun httpErrorProbeIsDead() = runTest {
+    fun missingHomepageIsUnverified() = runTest {
         val checker = EmbedHealthChecker.createForTests(testCatalog("https://dead.example")) { _, _ -> 404 }
 
         try {
-            assertEquals(EmbedHealthStatus.Dead, checker.probe("https://dead.example"))
+            assertEquals(EmbedHealthStatus.Unknown, checker.probe("https://dead.example"))
         } finally {
             checker.close()
         }
@@ -390,8 +390,8 @@ class EmbedHealthTest {
             deadCount = 3,
         )
         assertEquals("koutube.com", progress.displayHost)
-        assertEquals(11, progress.completedCount)
-        assertEquals(11f / 40f, progress.fraction)
+        assertEquals(12, progress.completedCount)
+        assertEquals(12f / 40f, progress.fraction)
         assertEquals(2, EmbedHealthSnapshot(
             statuses = mapOf(
                 "https://a.example" to EmbedHealthStatus.Alive,

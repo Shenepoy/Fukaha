@@ -1,0 +1,105 @@
+{
+  "beforePlayMediaRequests": 0,
+  "idle": {
+    "hasVideo": true,
+    "activeSource": null,
+    "preload": "none",
+    "poster": "https://media.preview.test/poster.svg",
+    "playButton": true
+  },
+  "playing": {
+    "readyState": 4,
+    "activeSource": "https://media.preview.test/fixture.mp4",
+    "paused": false
+  },
+  "closed": true,
+  "requests": [
+    {
+      "url": "http://127.0.0.1:18769/",
+      "resourceType": "Document"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap",
+      "resourceType": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:18769/manifest.webmanifest",
+      "resourceType": "Other"
+    },
+    {
+      "url": "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_back,arrow_forward,check,chevron_right,cleaning_services,close,code,content_copy,content_paste,dark_mode,expand_more,favorite,info,install_mobile,language,light_mode,link,open_in_browser,open_in_new,person,public,refresh,routine,science,settings,share,visibility&display=block",
+      "resourceType": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:18769/styles.css",
+      "resourceType": "Stylesheet"
+    },
+    {
+      "url": "http://127.0.0.1:18769/fukaha.9abfa5d1e2d4.js",
+      "resourceType": "Script"
+    },
+    {
+      "url": "https://fonts.gstatic.com/s/cairo/v31/SLXVc1nY6HkvangtZmpQdkhzfH5lkSscRiyS.woff2",
+      "resourceType": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:18769/icons/icon.svg",
+      "resourceType": "Image"
+    },
+    {
+      "url": "https://fonts.gstatic.com/l/font?kit=syl0-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvDmUSVOK7BDB_Qb9vUSzq3wzLK-P0J-V_Zs-QtQth3-jOcbTCVpeRL2w5rwZu2rIelXxeRNMcDe81u7DANSS1DH1lE6hjYcjkbXcFSQKIC47fv4TKOCcEnC_T8TR45Op8izQONn8JOzm23t3a6kTX9yX8&skey=70ddea8fe54d532e&v=v386",
+      "resourceType": "Font"
+    },
+    {
+      "url": "http://127.0.0.1:18769/icons/icon.svg",
+      "resourceType": "Other"
+    },
+    {
+      "url": "http://127.0.0.1:18769/icons/icon-192.png",
+      "resourceType": "Image"
+    },
+    {
+      "url": "http://127.0.0.1:18769/icons/icon.svg",
+      "resourceType": "Image"
+    },
+    {
+      "url": "https://fixvx.com/example/status/123",
+      "resourceType": "XHR"
+    },
+    {
+      "url": "http://127.0.0.1:18769/api/preview",
+      "resourceType": "XHR"
+    },
+    {
+      "url": "https://media.preview.test/poster.svg?fixture=1",
+      "resourceType": "Image"
+    },
+    {
+      "url": "https://media.preview.test/fixture.mp4",
+      "range": "bytes=0-",
+      "resourceType": "Media"
+    },
+    {
+      "url": "https://media.preview.test/fixture.mp4",
+      "range": "bytes=65536-",
+      "resourceType": "Media"
+    }
+  ],
+  "networkFailures": [
+    {
+      "error": "net::ERR_FAILED",
+      "canceled": false
+    },
+    {
+      "error": "net::ERR_NAME_NOT_RESOLVED",
+      "canceled": false
+    },
+    {
+      "error": "net::ERR_ABORTED",
+      "canceled": true
+    }
+  ],
+  "fixtureBytes": 90950,
+  "servedVideoBytes": 65536,
+  "notes": "Controlled HTTPS request interception; first partial video range served, remainder held to observe streaming and closure. Real provider metadata is separately tested."
+}

@@ -1,0 +1,45 @@
+{
+  "beforePlay": {
+    "hasVideo": true,
+    "activeSource": false,
+    "readyState": 0,
+    "paused": true,
+    "currentTime": 0,
+    "hidden": true
+  },
+  "playing": {
+    "hasVideo": true,
+    "activeSource": true,
+    "readyState": 4,
+    "paused": false,
+    "currentTime": 1.5185,
+    "hidden": false
+  },
+  "afterPause": {
+    "hasVideo": true,
+    "activeSource": false,
+    "readyState": 0,
+    "paused": true,
+    "currentTime": 0,
+    "hidden": true
+  },
+  "requests": [
+    {
+      "host": "vxinstagram.com",
+      "range": "bytes=0-"
+    },
+    {
+      "host": "vxinstagram.com",
+      "range": "bytes=65536-"
+    }
+  ],
+  "failures": [
+    {
+      "error": "net::ERR_ABORTED",
+      "canceled": true
+    }
+  ],
+  "fixtureBytes": 90950,
+  "servedVideoBytes": 65536,
+  "notes": "Validation-only WebView debugging; CDP network interception serves a partial fixture instead of the external CDN. All taps use PolyScreen. No production debugging enabled."
+}

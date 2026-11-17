@@ -52,11 +52,20 @@
 |---|---|
 | **Share sheet** | Appears in Android’s system share menu for text/links — overlay sheet, not a full browser app. |
 | **Clean link** | Strips `utm_*`, `fbclid`, `igshid`, and similar noise; normalizes hosts. |
-| **Embed link** | Rewrites to fixer hosts (fixvx, ddinstagram, fxTikTok, …) from several community collections of embed-fixer lists. |
+| **Embed link** | Rewrites to fixer hosts (fixvx, vxinstagram, fxTikTok, …) from several community collections of embed-fixer lists. |
 | **Media file** | Optional download via your own Cobalt instance, then re-share as a file. |
 | **Settings** | Default action, per-network fixer, Cobalt URL/key, short-link resolve, EN/AR, theme, update check. |
 | **Lite** | No background sync, no accounts — network only when you share. |
 | **Web app** | The same core at [fukaha.shenepoy.com](https://fukaha.shenepoy.com) — installable, offline, and it joins the Android share sheet once installed. |
+
+In Settings, turn **Embed links** off for individual sites to make the Embed action
+share a cleaned link instead. Your preferred fixer remains saved for when you
+re-enable the site. These preferences stay on the device/browser.
+
+**Use official shorter links** is optional and off by default. It converts YouTube
+watch URLs to the official `youtu.be` format while preserving timestamps, playlists,
+and fragments. Other sites and embed-provider URLs stay unchanged. Conversion is
+local and works on web, Android, and iOS without calling a shortening service.
 
 **Default actions**
 
@@ -99,7 +108,7 @@
 
 ### iOS
 
-Not on the App Store yet. CI builds an **unsigned Simulator app** (no Apple Developer account required). To run locally or later ship with a paid team, see [iosApp/README.md](iosApp/README.md). Linux users can use the local xtool path documented in [iosXtool/README.md](iosXtool/README.md).
+Not on the App Store yet. You can build an **unsigned Simulator app** on a Mac (no Apple Developer account required). To run locally or later ship with a paid team, see [iosApp/README.md](iosApp/README.md). Linux users can use the local xtool path documented in [iosXtool/README.md](iosXtool/README.md).
 
 ### Web / PWA
 
@@ -132,13 +141,13 @@ Open **Fukaha** for Settings / About, or share any social URL into it from anoth
 |--------|------|
 | `shared` | URL clean, embed catalog, Cobalt download, settings models (Android + iOS + web) |
 | `composeApp` | Android UI — share sheet + Settings/About |
-| `iosApp` / `iosShareExtension` | SwiftUI Settings + Share Extension (XcodeGen + Simulator CI) |
+| `iosApp` / `iosShareExtension` | SwiftUI Settings + Share Extension (XcodeGen + local Simulator builds) |
 | `iosXtool` | SwiftPM/xtool device build path using a reusable KMP framework artifact |
 | `webApp` | Kotlin/JS PWA — plain DOM UI over `shared`, no Compose |
 
 **Web:** `./gradlew :webApp:jsBrowserDevelopmentRun --continuous` serves it on `localhost:8080` and rebuilds on save. The service worker only registers off localhost, so a dev server never fights a stale cache. `./gradlew :webApp:jsBrowserDistribution` writes the deployable output to `webApp/build/dist/js/productionExecutable`. Icons are committed; regenerate them from the logo with `webApp/scripts/generate-icons.sh` (needs `rsvg-convert`).
 
-**Media download:** set your own self-hosted Cobalt instance URL (and API key if required) under the collapsible Media download section in Settings (collapsed by default). There is no working public default — the public `cobalt.tools` API will not work with this app. Download options stay visible but disabled until a valid `http(s)` instance URL is configured.
+**Media download:** set your own self-hosted Cobalt instance URL (and API key if required) under the collapsible Media download section in Settings (collapsed by default). There is no working public default — the public `cobalt.tools` API will not work with this app. Download options stay visible but disabled until a valid `https://` instance URL is configured. HTTP endpoints are not supported. On Android, automatic media cleanup removes files older than 24 hours on a later launch, allowing receiving apps time to read shared files.
 
 ---
 
@@ -159,18 +168,18 @@ Share menu → Fukaha → clean | embed | file → system share again
 
 | Workflow | Trigger | What it does |
 |----------|---------|----------------|
-| [CI](.github/workflows/ci.yml) | push / PR to `main`, or manual | Shared unit tests, debug APK, web bundle, unsigned iOS Simulator app |
+| [CI](.github/workflows/ci.yml) | push / PR to `main`, or manual | Shared, Android and browser tests, Android lint, PWA checks, debug APK, web bundle |
 | [iOS Shared Framework](.github/workflows/ios-shared-framework.yml) | manual | Device-only `Shared.xcframework` artifact for local xtool builds |
 | [Release](.github/workflows/release.yml) | tag `v*` / manual | Release APK artifact + GitHub Release |
 | [Deploy Web](.github/workflows/deploy-web.yml) | push / PR touching `webApp` or `shared`, or manual | Firebase Hosting — preview channel on PRs, live on `main` |
 
-Versions follow Lamha-style CalVer: `YY.0M.MICRO` (the current version is `26.09.0`). The canonical value lives in `VERSION`; use `bash scripts/ci/next_version.sh` to calculate the next version for the current UTC month.
+Versions follow Lamha-style CalVer: `YY.0M.MICRO` (the current version is `26.10.0`). The canonical value lives in `VERSION`; use `bash scripts/ci/next_version.sh` to calculate the next version for the current UTC month.
 
 Tag a release:
 
 ```bash
-git tag v26.09.0
-git push origin v26.09.0
+git tag v26.10.0
+git push origin v26.10.0
 ```
 
 ---

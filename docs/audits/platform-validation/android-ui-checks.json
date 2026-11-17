@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-17",
+  "serial": "emulator-5556",
+  "logicalDisplayId": 0,
+  "validationPackage": "app.fukaha.validation",
+  "method": "PolyScreen semantic discovery and display-targeted input; ADB used only for APK installation and cleanup",
+  "checks": [
+    {
+      "name": "Source selection",
+      "provider": "OGInstagram",
+      "host": "https://oginstagram.com",
+      "result": "Selected in native picker; persisted choice shown on main screen"
+    },
+    {
+      "name": "Preparation",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://oginstagram.com/reel/DfF3eqGSKKc",
+      "result": "Displayed in native share sheet"
+    },
+    {
+      "name": "Live native preview check",
+      "result": "Matching preview metadata found. Playback may still vary by app. (HTTP 200)"
+    },
+    {
+      "name": "Native clipboard round trip",
+      "result": "Tapped embed Copy, returned to main screen, cleared input, pasted clipboard; exact generated URL appeared in EditText",
+      "observed": {
+        "matches": [
+          {
+            "nodeIndex": 12,
+            "parentIndex": 11,
+            "className": "android.widget.EditText",
+            "text": "https://oginstagram.com/reel/DfF3eqGSKKc",
+            "packageName": "app.fukaha.validation",
+            "flags": [
+              "clickable",
+              "longClickable",
+              "enabled",
+              "focusable",
+              "focused"
+            ],
+            "bounds": {
+              "left": 96,
+              "top": 580,
+              "right": 1248,
+              "bottom": 808
+            },
+            "center": {
+              "x": 672,
+              "y": 694
+            },
+            "tap": {
+              "x": 672,
+              "y": 694,
+              "nodeIndex": 12,
+              "via": "self",
+              "adjusted": false
+            }
+          }
+        ],
+        "count": 1
+      }
+    }
+  ]
+}

@@ -73,16 +73,16 @@ class EmbedCatalogTest {
     fun prefersCustomFixer() {
         val embed = catalog.rewriteToEmbed(
             "https://tiktok.com/@a/video/1",
-            preferredFixerHost = "https://vxtiktok.com",
+            preferredFixerHost = "https://tiktxk.com",
         )
-        assertEquals("https://vxtiktok.com/@a/video/1", embed)
+        assertEquals("https://tiktxk.com/@a/video/1", embed)
     }
 
     @Test
-    fun skipsBrokenTwitchServicesAndUsesSeria() {
+    fun omitsRetiredTwitchServicesAndUsesSeria() {
         val twitch = catalog.platform("twitch")
         assertNotNull(twitch)
-        assertTrue(twitch.services.any { it.isBroken && it.host.contains("fxtwitch.tv") })
+        assertEquals(listOf("https://fxtwitch.seria.moe"), twitch.services.map { it.normalizedHost() })
         assertTrue(catalog.activeServices("twitch").any { it.normalizedHost() == "https://fxtwitch.seria.moe" })
         assertEquals("https://fxtwitch.seria.moe/somechannel", catalog.rewriteToEmbed("https://twitch.tv/somechannel"))
     }
@@ -90,9 +90,26 @@ class EmbedCatalogTest {
     @Test
     fun listsActiveInstagramServices() {
         val services = catalog.activeServices("instagram")
-        assertTrue(services.any { it.name == "InstaFix" })
+        assertFalse(services.any { it.normalizedHost() == "https://ddinstagram.com" })
         assertTrue(services.any { it.normalizedHost() == "https://vxinstagram.com" })
         assertNotNull(catalog.defaultFixerHost("instagram"))
+    }
+
+    @Test
+    fun retiredPreferencesFallBackToCurrentDefaults() {
+        val replacements = listOf(
+            Triple("https://instagram.com/reel/ABC123", "https://ddinstagram.com", "https://vxinstagram.com/reel/ABC123"),
+            Triple("https://instagram.com/reel/ABC123", "InstaFix", "https://vxinstagram.com/reel/ABC123"),
+            Triple("https://reddit.com/r/flags/comments/1hqed7c", "https://rxddit.com", "https://vxreddit.com/r/flags/comments/1hqed7c"),
+            Triple("https://threads.com/@zuck/post/DTa3-B1EbTp", "https://fixthreads.net", "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp"),
+            Triple("https://tiktok.com/@scout2015/video/6718335390845095173", "https://vxtiktok.com", "https://tnktok.com/@scout2015/video/6718335390845095173"),
+        )
+        for ((original, retired, replacement) in replacements) {
+            assertEquals(replacement, catalog.rewriteToEmbed(original, preferredFixerHost = retired))
+        }
+        for ((platform, host) in EmbedCatalog.DEFAULT_FIXERS) {
+            assertNotNull(catalog.serviceForHost(platform, host), "Missing default for $platform")
+        }
     }
 
     @Test

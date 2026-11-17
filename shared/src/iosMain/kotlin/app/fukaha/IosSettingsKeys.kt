@@ -5,11 +5,14 @@ package app.fukaha
  * Swift mirrors keys used by [IosSettingsStore].
  */
 object IosSettingsKeys {
-    const val APP_GROUP = "group.app.fukaha"
+    const val APP_GROUP = "group.com.shenepoy.fukaha"
     const val DEFAULT_ACTION = "default_action"
     const val PREFERRED_FIXERS = "preferred_fixers"
     const val COBALT = "cobalt_base_url"
     const val COBALT_API_KEY = "cobalt_api_key"
+    const val DISABLED_EMBED_PLATFORMS = "disabled_embed_platforms"
+    const val OFFICIAL_SHORT_LINKS = "use_official_short_links"
+    const val PREVIEWS_ENABLED = "previews_enabled"
     const val RESOLVE_SHORT = "resolve_short_links"
     const val LANGUAGE = "language"
     const val THEME = "theme"

@@ -1,0 +1,7 @@
+<unknown>:0: warning: libc not found for 'x86_64-unknown-linux-gnu'; C stdlib may be unavailable
+PASS: iOS source preferences (duplicates, malformed input, whitespace, round trip, stable order, invalid separators)
+PASS: iOS shared preference format preserves all 50 catalog sources
+<unknown>:0: warning: libc not found for 'x86_64-unknown-linux-gnu'; C stdlib may be unavailable
+PASS: iOS favorites and ranking (star order, drag moves, section boundaries, normalization, new/removed sources, persistence, platform and selection isolation)
+<unknown>:0: warning: libc not found for 'x86_64-unknown-linux-gnu'; C stdlib may be unavailable
+PASS: iOS source-health decoding, status labels, persistence, failed-run preservation, retry, isolated preferences and corrupt-cache recovery

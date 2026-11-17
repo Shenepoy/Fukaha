@@ -1,0 +1,40 @@
+{
+  "serial": "emulator-5556",
+  "displayId": 0,
+  "disabledPreviewControl": {
+    "matches": [],
+    "count": 0
+  },
+  "capture": {
+    "serial": "emulator-5556",
+    "display": {
+      "logicalId": 0,
+      "evidence": [
+        {
+          "source": "dumpsys display",
+          "confidence": "high"
+        },
+        {
+          "source": "DisplayInfo.uniqueId",
+          "confidence": "high"
+        }
+      ],
+      "uniqueId": "local:4619827259835644672",
+      "name": "Built-in Screen",
+      "state": "ON",
+      "width": 1344,
+      "height": 2992,
+      "densityDpi": 480,
+      "rotation": 0,
+      "physicalId": "4619827259835644672",
+      "focusedWindow": "app.fukaha.validation/app.fukaha.android.ShareActivity",
+      "focusedActivity": "app.fukaha.validation/app.fukaha.android.ShareActivity",
+      "focusedPackage": "app.fukaha.validation"
+    },
+    "mimeType": "image/png",
+    "sizeBytes": 157423,
+    "durationMs": 480,
+    "artifactUri": "mobile://artifacts/display-0-1794912242721-fe62b69c-cbdf-47e7-bbb7-ac95efb2c915.png"
+  },
+  "notes": "Disabled the Settings Media previews switch, relaunched the isolated app, confirmed embed links remained available and Show preview was absent. Re-enabled the switch and visually checked the compact player. Inputs used PolyScreen; CDP inspected geometry in a validation-only debug WebView."
+}

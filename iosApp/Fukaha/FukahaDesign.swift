@@ -143,9 +143,6 @@ struct FukahaBrandAppBar: View {
             Button { language = "System" } label: { Text("⚙︎  System") }
             Button { language = "English" } label: { Text("🇬🇧  English") }
             Button { language = "Arabic" } label: { Text("🇸🇦  العربية") }
-            Button { language = "Japanese" } label: { Text("🇯🇵  日本語") }
-            Button { language = "SimplifiedChinese" } label: { Text("🇨🇳  简体中文") }
-            Button { language = "Spanish" } label: { Text("🇪🇸  Español") }
         } label: {
             Image(systemName: "globe")
                 .font(.system(size: 28, weight: .medium))

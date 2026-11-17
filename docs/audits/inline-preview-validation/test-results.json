@@ -1,0 +1,163 @@
+[
+  {
+    "path": "webApp/build/test-results/jsBrowserTest/TEST-jsBrowserTest.app.fukaha.web.WebDomTest.xml",
+    "suite": "jsBrowserTest.app.fukaha.web.WebDomTest",
+    "tests": 16,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "webApp/build/test-results/jsBrowserTest/TEST-jsBrowserTest.app.fukaha.web.WebSettingsStoreTest.xml",
+    "suite": "jsBrowserTest.app.fukaha.web.WebSettingsStoreTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "webApp/build/test-results/jsBrowserTest/TEST-jsBrowserTest.app.fukaha.web.WebPreviewCheckerTest.xml",
+    "suite": "jsBrowserTest.app.fukaha.web.WebPreviewCheckerTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "webApp/build/test-results/jsBrowserTest/TEST-jsBrowserTest.app.fukaha.web.OutsideTapFocusDismissalTest.xml",
+    "suite": "jsBrowserTest.app.fukaha.web.OutsideTapFocusDismissalTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "webApp/build/test-results/jsBrowserTest/TEST-jsBrowserTest.app.fukaha.web.WebSourcesTest.xml",
+    "suite": "jsBrowserTest.app.fukaha.web.WebSourcesTest",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "webApp/build/test-results/jsBrowserTest/TEST-jsBrowserTest.app.fukaha.web.WebUiLogicTest.xml",
+    "suite": "jsBrowserTest.app.fukaha.web.WebUiLogicTest",
+    "tests": 14,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "composeApp/build/test-results/testDebugUnitTest/TEST-app.fukaha.android.AndroidResourceParityTest.xml",
+    "suite": "app.fukaha.android.AndroidResourceParityTest",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "composeApp/build/test-results/testDebugUnitTest/TEST-app.fukaha.android.MediaCacheTest.xml",
+    "suite": "app.fukaha.android.MediaCacheTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "composeApp/build/test-results/testDebugUnitTest/TEST-app.fukaha.android.LocaleHelperTest.xml",
+    "suite": "app.fukaha.android.LocaleHelperTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.CobaltDownloadTest.xml",
+    "suite": "app.fukaha.CobaltDownloadTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.EmbedHealthTest.xml",
+    "suite": "app.fukaha.EmbedHealthTest",
+    "tests": 23,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.LinkPreferencesTest.xml",
+    "suite": "app.fukaha.LinkPreferencesTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.AndroidSettingsStoreConcurrencyTest.xml",
+    "suite": "app.fukaha.AndroidSettingsStoreConcurrencyTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.AppUpdateTest.xml",
+    "suite": "app.fukaha.AppUpdateTest",
+    "tests": 10,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.EmbedCatalogTest.xml",
+    "suite": "app.fukaha.EmbedCatalogTest",
+    "tests": 12,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.CatalogSourceSelectionTest.xml",
+    "suite": "app.fukaha.CatalogSourceSelectionTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.LinkProcessorTest.xml",
+    "suite": "app.fukaha.LinkProcessorTest",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.UrlCleanerTest.xml",
+    "suite": "app.fukaha.UrlCleanerTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.UrlSafetyTest.xml",
+    "suite": "app.fukaha.UrlSafetyTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.EmbedPreviewCheckTest.xml",
+    "suite": "app.fukaha.EmbedPreviewCheckTest",
+    "tests": 9,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.EmbedPreviewMediaTest.xml",
+    "suite": "app.fukaha.EmbedPreviewMediaTest",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.SourceSelectionRegressionTest.xml",
+    "suite": "app.fukaha.SourceSelectionRegressionTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "path": "shared/build/test-results/testAndroidHostTest/TEST-app.fukaha.FukahaSettingsTest.xml",
+    "suite": "app.fukaha.FukahaSettingsTest",
+    "tests": 10,
+    "failures": 0,
+    "errors": 0
+  }
+]

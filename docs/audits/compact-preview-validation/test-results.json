@@ -1,0 +1,140 @@
+[
+  {
+    "suite": "jsBrowserTest.app.fukaha.web.WebDomTest",
+    "tests": 17,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "jsBrowserTest.app.fukaha.web.WebSettingsStoreTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "jsBrowserTest.app.fukaha.web.WebPreviewCheckerTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "jsBrowserTest.app.fukaha.web.OutsideTapFocusDismissalTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "jsBrowserTest.app.fukaha.web.WebSourcesTest",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "jsBrowserTest.app.fukaha.web.WebUiLogicTest",
+    "tests": 14,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.android.AndroidResourceParityTest",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.android.MediaCacheTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.android.LocaleHelperTest",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.CobaltDownloadTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.EmbedHealthTest",
+    "tests": 23,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.LinkPreferencesTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.AndroidSettingsStoreConcurrencyTest",
+    "tests": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.AppUpdateTest",
+    "tests": 10,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.EmbedCatalogTest",
+    "tests": 12,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.CatalogSourceSelectionTest",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.LinkProcessorTest",
+    "tests": 7,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.UrlCleanerTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.UrlSafetyTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.EmbedPreviewCheckTest",
+    "tests": 9,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.EmbedPreviewMediaTest",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.SourceSelectionRegressionTest",
+    "tests": 4,
+    "failures": 0,
+    "errors": 0
+  },
+  {
+    "suite": "app.fukaha.FukahaSettingsTest",
+    "tests": 10,
+    "failures": 0,
+    "errors": 0
+  }
+]

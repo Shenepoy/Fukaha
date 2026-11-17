@@ -1,0 +1,118 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Type-safe project accessors is an incubating feature.
+Configuration 'jsNpmAggregated' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'jsTestNpmAggregated' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+> Task :shared:kmpPartiallyResolvedDependenciesChecker
+> Task :shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :shared:androidPreBuild UP-TO-DATE
+> Task :shared:preAndroidMainBuild UP-TO-DATE
+> Task :shared:androidJar
+> Task :shared:preAndroidHostTestBuild UP-TO-DATE
+> Task :shared:processAndroidHostTestJavaRes NO-SOURCE
+> Task :composeApp:preBuild UP-TO-DATE
+> Task :composeApp:preDebugBuild UP-TO-DATE
+> Task :composeApp:generateDebugBuildConfig FROM-CACHE
+> Task :composeApp:generateDebugResources
+> Task :composeApp:packageDebugResources
+> Task :shared:generateAndroidMainEmptyResourceFiles
+> Task :composeApp:processDebugNavigationResources
+> Task :composeApp:parseDebugLocalResources
+> Task :composeApp:generateDebugRFile
+> Task :composeApp:javaPreCompileDebug FROM-CACHE
+> Task :shared:writeAndroidMainAarMetadata
+> Task :composeApp:checkDebugAarMetadata
+> Task :composeApp:mapDebugSourceSetPaths
+> Task :composeApp:compileDebugNavigationResources FROM-CACHE
+> Task :composeApp:mergeDebugResources
+> Task :composeApp:createDebugCompatibleScreenManifests
+> Task :composeApp:extractDeepLinksDebug FROM-CACHE
+> Task :shared:processAndroidMainManifest FROM-CACHE
+> Task :composeApp:processDebugMainManifest FROM-CACHE
+> Task :composeApp:processDebugManifest FROM-CACHE
+> Task :composeApp:processDebugManifestForPackage FROM-CACHE
+> Task :composeApp:processDebugResources
+> Task :composeApp:preDebugUnitTestBuild UP-TO-DATE
+> Task :composeApp:javaPreCompileDebugUnitTest FROM-CACHE
+> Task :composeApp:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :composeApp:generateDebugAssets UP-TO-DATE
+> Task :composeApp:mergeDebugAssets
+> Task :composeApp:compressDebugAssets FROM-CACHE
+> Task :composeApp:generateDebugGlobalSynthetics FROM-CACHE
+> Task :composeApp:checkDebugDuplicateClasses
+> Task :composeApp:desugarDebugFileDependencies FROM-CACHE
+> Task :composeApp:mergeExtDexDebug FROM-CACHE
+> Task :composeApp:mergeDebugJniLibFolders
+> Task :shared:mergeAndroidMainJniLibFolders
+> Task :shared:mergeAndroidMainNativeLibs NO-SOURCE
+> Task :shared:copyAndroidMainJniLibsProjectOnly
+> Task :composeApp:mergeDebugNativeLibs
+> Task :composeApp:stripDebugDebugSymbols
+> Task :composeApp:validateSigningDebug
+> Task :composeApp:writeDebugAppMetadata
+> Task :composeApp:writeDebugSigningConfigVersions
+> Task :kotlinKotlinNpmCachesSetup
+> Task :kotlinNodeJsSetup
+> Task :kotlinRestoreYarnLock
+> Task :kotlinYarnSetup
+> Task :shared:jsPackageJson
+> Task :shared:jsTestPackageJson
+> Task :webApp:jsPackageJson
+> Task :webApp:jsTestPackageJson
+> Task :shared:jsPublicPackageJson
+> Task :shared:jsTestPublicPackageJson
+> Task :webApp:jsPublicPackageJson
+> Task :webApp:jsTestPublicPackageJson
+> Task :kotlinPackageJsonUmbrella
+> Task :rootPackageJson
+
+> Task :kotlinNpmInstall
+(node:3395590) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+warning Ignored scripts due to flag.
+
+> Task :kotlinStoreYarnLock
+
+> Task :shared:compileAndroidMain
+w: file:///tmp/build-job.5Q4DAJ6p/src/shared/src/androidMain/kotlin/app/fukaha/Platform.android.kt:5:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///tmp/build-job.5Q4DAJ6p/src/shared/src/commonMain/kotlin/app/fukaha/LinkProcessor.kt:285:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:bundleAndroidMainClassesToRuntimeJar
+> Task :shared:bundleAndroidMainClassesToCompileJar
+
+> Task :shared:compileKotlinJs
+w: file:///tmp/build-job.5Q4DAJ6p/src/shared/src/commonMain/kotlin/app/fukaha/LinkProcessor.kt:285:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+w: file:///tmp/build-job.5Q4DAJ6p/src/shared/src/jsMain/kotlin/app/fukaha/Platform.js.kt:5:1 'expect'/'actual' classes (including interfaces, objects, annotations, enums, and 'actual' typealiases) are in Beta. Consider using the '-Xexpect-actual-classes' flag to suppress this warning. Also see: https://youtrack.jetbrains.com/issue/KT-61573
+
+> Task :shared:processAndroidMainJavaRes
+> Task :shared:compileAndroidHostTest
+
+> Task :shared:testAndroidHostTest
+
+EmbedPreviewMediaTest > directVideoPreviewDoesNotReadOrDownloadItsBody FAILED
+    java.lang.AssertionError at EmbedPreviewMediaTest.kt:50
+
+96 tests completed, 1 failed
+
+> Task :shared:testAndroidHostTest FAILED
+> Task :composeApp:compileDebugKotlin
+
+[Incubating] Problems report is available at: file:///tmp/build-job.5Q4DAJ6p/src/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':shared:testAndroidHostTest'.
+> There were failing tests. See the report at: file:///tmp/build-job.5Q4DAJ6p/src/shared/build/reports/tests/testAndroidHostTest/index.html
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 35s
+60 actionable tasks: 47 executed, 13 from cache

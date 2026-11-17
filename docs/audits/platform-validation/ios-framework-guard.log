@@ -1,0 +1,2 @@
+Shared.xcframework is incompatible with the current Swift sources.
+Rebuild the iOS Shared Framework from this source revision on macOS, then prepare again.

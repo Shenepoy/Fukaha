@@ -1,16 +1,16 @@
 //
-// Fukaha iOS container app — Android-parity settings screen
+// Fukaha iOS container app and settings screen
 //
 
 import Foundation
 import SwiftUI
-import Shared
 
 @main
 struct FukahaApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .background(FukahaKeyboardDismissal().allowsHitTesting(false))
         }
     }
 }
@@ -24,7 +24,7 @@ struct ContentView: View {
     @State private var quickShareDetent: PresentationDetent = .medium
     @State private var updateChannel: IosUpdateChannel?
     @Environment(\.openURL) private var openURL
-    private let facade = FukahaIosFacade()
+    @State private var quickShareClient: FukahaClient?
 
     private var isArabic: Bool {
         switch settings.language {
@@ -41,6 +41,8 @@ struct ContentView: View {
             onClearCache: clearCache,
             onCheckUpdates: { Task { await runUpdateCheck(manual: true) } },
             onOpenQuickLink: {
+                quickShareClient?.close()
+                quickShareClient = FukahaClient()
                 quickShareDetent = .medium
                 quickShareText = $0
             },
@@ -76,15 +78,15 @@ struct ContentView: View {
         }
         .sheet(isPresented: Binding(
             get: { quickShareText != nil },
-            set: { if !$0 { quickShareText = nil } },
+            set: { if !$0 { dismissQuickShare() } },
         )) {
             Group {
-                if let text = quickShareText {
+                if let text = quickShareText, let quickShareClient {
                     FukahaQuickShareView(
                         text: text,
                         settings: settings,
-                        facade: facade,
-                        onDismiss: { quickShareText = nil },
+                        client: quickShareClient,
+                        onDismiss: dismissQuickShare,
                     )
                 }
             }
@@ -107,10 +109,19 @@ struct ContentView: View {
         }
     }
 
+    private func dismissQuickShare() {
+        quickShareClient?.close()
+        quickShareClient = nil
+        quickShareText = nil
+    }
+
     private func clearCache() {
-        let cache = FileManager.default.temporaryDirectory.appendingPathComponent("fukaha")
-        try? FileManager.default.removeItem(at: cache)
-        updateMessage = isArabic ? "تم مسح ملفات الوسائط المؤقتة" : "Media cache cleared"
+        do {
+            try FukahaMediaCache.clear()
+            updateMessage = isArabic ? "تم مسح ملفات الوسائط المؤقتة" : "Media cache cleared"
+        } catch {
+            updateMessage = error.localizedDescription
+        }
     }
 
     private func currentVersion() -> String {
@@ -239,107 +250,5 @@ struct UpdateAvailableView: View {
                 }
             }
         }
-    }
-}
-
-struct SettingsSnapshot {
-    var defaultAction: String = "Ask"
-    var cobaltBaseUrl: String = ""
-    var cobaltApiKey: String = ""
-    var resolveShortLinks: Bool = true
-    var deleteCacheAfterShare: Bool = true
-    var language: String = "System"
-    var theme: String = "System"
-    var preferredFixers: [String: String] = [:]
-    var checkUpdatesOnLaunch: Bool = true
-    var skippedUpdateVersion: String = ""
-    var lastUpdateCheckEpochMs: Int64 = 0
-
-    static let suite = UserDefaults(suiteName: IosSettingsKeys.shared.APP_GROUP) ?? .standard
-    private static let legacyPublicCobalt = "https://api.cobalt.tools"
-    private static let cobaltPublicClearedKey = "cobalt_public_default_cleared"
-
-    var hasValidCobaltBaseUrl: Bool {
-        let trimmed = cobaltBaseUrl.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return false }
-        let lower = trimmed.lowercased()
-        return lower.hasPrefix("http://") || lower.hasPrefix("https://")
-    }
-
-    static func load() -> SettingsSnapshot {
-        let d = suite
-        migrateCobaltPublicDefaultIfNeeded(d)
-        var s = SettingsSnapshot()
-        s.defaultAction = d.string(forKey: IosSettingsKeys.shared.DEFAULT_ACTION) ?? "Ask"
-        s.cobaltBaseUrl = d.string(forKey: IosSettingsKeys.shared.COBALT) ?? ""
-        s.cobaltApiKey = d.string(forKey: IosSettingsKeys.shared.COBALT_API_KEY) ?? ""
-        if d.object(forKey: IosSettingsKeys.shared.RESOLVE_SHORT) != nil {
-            s.resolveShortLinks = d.bool(forKey: IosSettingsKeys.shared.RESOLVE_SHORT)
-        }
-        if d.object(forKey: IosSettingsKeys.shared.DELETE_CACHE) != nil {
-            s.deleteCacheAfterShare = d.bool(forKey: IosSettingsKeys.shared.DELETE_CACHE)
-        }
-        s.language = d.string(forKey: IosSettingsKeys.shared.LANGUAGE) ?? "System"
-        s.theme = d.string(forKey: IosSettingsKeys.shared.THEME) ?? "System"
-        if d.object(forKey: IosSettingsKeys.shared.CHECK_UPDATES) != nil {
-            s.checkUpdatesOnLaunch = d.bool(forKey: IosSettingsKeys.shared.CHECK_UPDATES)
-        }
-        s.skippedUpdateVersion = d.string(forKey: "ios.appStore.skippedVersion") ?? ""
-        if let stored = d.object(forKey: "ios.appStore.lastCheckEpochMs") as? NSNumber {
-            s.lastUpdateCheckEpochMs = stored.int64Value
-        }
-        if let raw = d.string(forKey: IosSettingsKeys.shared.PREFERRED_FIXERS) {
-            s.preferredFixers = Dictionary(
-                uniqueKeysWithValues: raw.split(separator: "\n").compactMap { line -> (String, String)? in
-                    let parts = line.split(separator: "\t", maxSplits: 1).map(String.init)
-                    guard parts.count == 2 else { return nil }
-                    return (parts[0], parts[1])
-                }
-            )
-        }
-        if s.defaultAction == "Download" && !s.hasValidCobaltBaseUrl {
-            s.defaultAction = "Ask"
-        }
-        return s
-    }
-
-    private static func migrateCobaltPublicDefaultIfNeeded(_ d: UserDefaults) {
-        if d.bool(forKey: cobaltPublicClearedKey) { return }
-        let stored = d.string(forKey: IosSettingsKeys.shared.COBALT)
-        let normalized = stored?.trimmingCharacters(in: .whitespacesAndNewlines)
-            .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-        if stored == nil || normalized?.caseInsensitiveCompare(legacyPublicCobalt) == .orderedSame {
-            d.set("", forKey: IosSettingsKeys.shared.COBALT)
-        }
-        let url = d.string(forKey: IosSettingsKeys.shared.COBALT) ?? ""
-        let valid = {
-            let trimmed = url.trimmingCharacters(in: .whitespacesAndNewlines)
-            let lower = trimmed.lowercased()
-            return !trimmed.isEmpty && (lower.hasPrefix("http://") || lower.hasPrefix("https://"))
-        }()
-        if d.string(forKey: IosSettingsKeys.shared.DEFAULT_ACTION) == "Download" && !valid {
-            d.set("Ask", forKey: IosSettingsKeys.shared.DEFAULT_ACTION)
-        }
-        d.set(true, forKey: cobaltPublicClearedKey)
-    }
-
-    func save() {
-        let d = Self.suite
-        var action = defaultAction
-        if action == "Download" && !hasValidCobaltBaseUrl {
-            action = "Ask"
-        }
-        d.set(action, forKey: IosSettingsKeys.shared.DEFAULT_ACTION)
-        d.set(cobaltBaseUrl, forKey: IosSettingsKeys.shared.COBALT)
-        d.set(cobaltApiKey, forKey: IosSettingsKeys.shared.COBALT_API_KEY)
-        d.set(resolveShortLinks, forKey: IosSettingsKeys.shared.RESOLVE_SHORT)
-        d.set(deleteCacheAfterShare, forKey: IosSettingsKeys.shared.DELETE_CACHE)
-        d.set(language, forKey: IosSettingsKeys.shared.LANGUAGE)
-        d.set(theme, forKey: IosSettingsKeys.shared.THEME)
-        d.set(checkUpdatesOnLaunch, forKey: IosSettingsKeys.shared.CHECK_UPDATES)
-        d.set(skippedUpdateVersion, forKey: "ios.appStore.skippedVersion")
-        d.set(NSNumber(value: lastUpdateCheckEpochMs), forKey: "ios.appStore.lastCheckEpochMs")
-        let raw = preferredFixers.map { "\($0.key)\t\($0.value)" }.joined(separator: "\n")
-        d.set(raw, forKey: IosSettingsKeys.shared.PREFERRED_FIXERS)
     }
 }

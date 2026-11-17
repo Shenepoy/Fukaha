@@ -50,6 +50,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.key
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -65,9 +66,14 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.window.Dialog
 import app.fukaha.EmbedHealthStatus
 import app.fukaha.PreparedLink
+import app.fukaha.UrlDiff
 import app.fukaha.R
 import app.fukaha.android.theme.asLtrUrl
 import kotlinx.coroutines.launch
@@ -80,6 +86,7 @@ fun ShareSheet(
     error: String?,
     prepared: PreparedLink?,
     mediaDownloadEnabled: Boolean = true,
+    previewsEnabled: Boolean = true,
     onDismiss: () -> Unit,
     onShareCleaned: () -> Unit,
     onShareEmbed: () -> Unit,
@@ -212,6 +219,7 @@ fun ShareSheet(
                         url = link.detected.originalUrl,
                         platform = platform,
                         onCopy = onCopyOriginal,
+                        comparisonUrl = link.detected.cleanedUrl,
                     )
 
                     LinkActionRow(
@@ -220,6 +228,7 @@ fun ShareSheet(
                         sectionIcon = Icons.Outlined.CleaningServices,
                         onShare = onShareCleaned,
                         onCopy = onCopyCleaned,
+                        comparisonUrl = link.detected.originalUrl,
                     )
 
                     if (link.embedUrl != null) {
@@ -233,12 +242,17 @@ fun ShareSheet(
                             sectionIcon = Icons.Outlined.Visibility,
                             onShare = onShareEmbed,
                             onCopy = onCopyEmbed,
+                            comparisonUrl = link.detected.cleanedUrl,
                             titleTrailing = if (link.embedHealth == EmbedHealthStatus.Dead) {
                                 stringResource(R.string.embed_health_dead)
                             } else {
                                 null
                             },
                         )
+                    }
+
+                    link.embedUrl?.takeIf { previewsEnabled }?.let { embed ->
+                        key(embed) { EmbedPreviewCheckControl(link.detected.cleanedUrl, embed) }
                     }
 
                     // Without a Cobalt URL the download can only fail, so drop the
@@ -340,6 +354,7 @@ private fun OriginalLinkBlock(
     url: String,
     platform: String,
     onCopy: () -> Unit,
+    comparisonUrl: String,
 ) {
     LinkActionRow(
         title = stringResource(R.string.original_preview),
@@ -348,6 +363,8 @@ private fun OriginalLinkBlock(
         titleTrailing = platform,
         onShare = null,
         onCopy = onCopy,
+        comparisonUrl = comparisonUrl,
+        showRemoved = true,
     )
 }
 
@@ -359,9 +376,24 @@ private fun LinkActionRow(
     onShare: (() -> Unit)?,
     onCopy: () -> Unit,
     titleTrailing: String? = null,
+    comparisonUrl: String? = null,
+    showRemoved: Boolean = false,
 ) {
     val colors = MaterialTheme.colorScheme
     val shareShape = RoundedCornerShape(14.dp)
+    val parts = remember(url, comparisonUrl, showRemoved) {
+        comparisonUrl?.let {
+            if (showRemoved) UrlDiff.compare(url, it).before else UrlDiff.compare(it, url).after
+        }
+    }
+    val highlighted = buildAnnotatedString {
+        if (parts == null) append(url) else parts.forEach { part ->
+            withStyle(SpanStyle(
+                color = if (part.changed) { if (showRemoved) colors.error else colors.primary } else colors.onSurface,
+                textDecoration = if (part.changed && showRemoved) TextDecoration.LineThrough else TextDecoration.None,
+            )) { append(part.text) }
+        }
+    }
 
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         SectionLabel(text = title, icon = sectionIcon, trailing = titleTrailing)
@@ -413,7 +445,7 @@ private fun LinkActionRow(
                                 tint = colors.primary,
                             )
                             Text(
-                                text = url,
+                                text = highlighted,
                                 style = MaterialTheme.typography.bodyMedium.asLtrUrl(),
                                 color = colors.onSurface,
                                 softWrap = true,

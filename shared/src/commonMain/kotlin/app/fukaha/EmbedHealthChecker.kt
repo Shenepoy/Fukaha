@@ -2,8 +2,8 @@ package app.fukaha
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.request.get
-import io.ktor.client.request.head
+import io.ktor.client.request.prepareGet
+import io.ktor.client.request.prepareHead
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -18,9 +18,12 @@ internal enum class EmbedHealthRequestMethod {
     Get,
 }
 
+internal data class SourceResponse(val status: Int, val finalHost: String?)
+internal data class SourceProbe(val status: EmbedHealthStatus, val detail: SourceCheckDetail)
+
 class EmbedHealthChecker private constructor(
     private val catalog: EmbedCatalog,
-    private val requestStatus: suspend (String, EmbedHealthRequestMethod) -> Int,
+    private val requestStatus: suspend (String, EmbedHealthRequestMethod) -> SourceResponse,
     private val closeRequest: () -> Unit,
 ) {
     /** The catalog never changes at runtime, so the probe list is built once. */
@@ -35,6 +38,9 @@ class EmbedHealthChecker private constructor(
 
     fun uniqueHosts(): List<String> = hosts
 
+    private val runDetails = mutableMapOf<String, SourceCheckDetail>()
+    fun details(): Map<String, SourceCheckDetail> = runDetails.toMap()
+
     /**
      * Probes unique fixer hosts with a small bounded worker pool.
      * [onProgress] is invoked as each result is recorded.
@@ -46,6 +52,7 @@ class EmbedHealthChecker private constructor(
         val hosts = uniqueHosts()
         if (hosts.isEmpty()) return@coroutineScope emptyMap()
 
+        runDetails.clear()
         val results = mutableMapOf<String, EmbedHealthStatus>()
         val cursorMutex = Mutex()
         val resultsMutex = Mutex()
@@ -66,10 +73,13 @@ class EmbedHealthChecker private constructor(
                 while (true) {
                     coroutineContext.ensureActive()
                     val host = takeNextHost() ?: break
-                    val status = probe(host)
+                    val probe = probeWithDetail(host)
+                    val status = probe.status
                     resultsMutex.withLock {
                         results[host] = status
-                        if (status == EmbedHealthStatus.Alive) alive++ else dead++
+                        runDetails[host] = probe.detail
+                        if (status == EmbedHealthStatus.Alive) alive++
+                        if (status == EmbedHealthStatus.Dead) dead++
                         onProgress?.invoke(
                             EmbedHealthProgress(
                                 currentHost = host,
@@ -87,27 +97,35 @@ class EmbedHealthChecker private constructor(
         hosts.associateWith { results.getValue(it) }
     }
 
-    suspend fun probe(host: String): EmbedHealthStatus {
-        val url = EmbedHealthKeys.probeUrl(host)
-        val headStatus = requestStatusOrNull(url, EmbedHealthRequestMethod.Head)
-        val status = when {
-            headStatus == null -> requestStatusOrNull(url, EmbedHealthRequestMethod.Get)
-            headStatus == HEAD_NOT_SUPPORTED || headStatus == METHOD_NOT_ALLOWED ->
-                requestStatusOrNull(url, EmbedHealthRequestMethod.Get)
-            else -> headStatus
-        }
-        return classifyHttpStatus(status)
-    }
+    suspend fun probe(host: String): EmbedHealthStatus = probeWithDetail(host).status
 
-    private suspend fun requestStatusOrNull(
-        url: String,
-        method: EmbedHealthRequestMethod,
-    ): Int? = try {
-        requestStatus(url, method)
-    } catch (error: CancellationException) {
-        throw error
-    } catch (_: Throwable) {
-        null
+    internal suspend fun probeWithDetail(host: String): SourceProbe {
+        val url = EmbedHealthKeys.probeUrl(host)
+        var failure = SourceCheckReason.NetworkError
+        suspend fun request(method: EmbedHealthRequestMethod): SourceResponse? = try {
+            requestStatus(url, method)
+        } catch (error: CancellationException) {
+            throw error
+        } catch (error: Throwable) {
+            failure = if (error::class.simpleName.orEmpty().contains("Timeout")) SourceCheckReason.TimedOut
+                else SourceCheckReason.NetworkError
+            null
+        }
+        val head = request(EmbedHealthRequestMethod.Head)
+        val response = if (head?.status in 200..299) head else request(EmbedHealthRequestMethod.Get) ?: head
+        if (response == null) return SourceProbe(EmbedHealthStatus.Dead, SourceCheckDetail(failure))
+        val redirected = response.finalHost != null &&
+            response.finalHost.removePrefix("www.") != UrlCleaner.hostOf(url)?.removePrefix("www.")
+        val reason = when {
+            redirected -> SourceCheckReason.Redirected
+            response.status == 401 || response.status == 403 || response.status == 429 -> SourceCheckReason.Blocked
+            response.status in 200..299 -> SourceCheckReason.Responded
+            else -> SourceCheckReason.HttpError
+        }
+        return SourceProbe(
+            if (redirected) EmbedHealthStatus.Unknown else classifyHttpStatus(response.status),
+            SourceCheckDetail(reason, response.status, response.finalHost),
+        )
     }
 
     fun close() {
@@ -121,8 +139,8 @@ class EmbedHealthChecker private constructor(
                     catalog = catalog,
                     requestStatus = { url, method ->
                         when (method) {
-                            EmbedHealthRequestMethod.Head -> client.head(url).status.value
-                            EmbedHealthRequestMethod.Get -> client.get(url).status.value
+                            EmbedHealthRequestMethod.Head -> client.prepareHead(url).execute { SourceResponse(it.status.value, it.call.request.url.host) }
+                            EmbedHealthRequestMethod.Get -> client.prepareGet(url).execute { SourceResponse(it.status.value, it.call.request.url.host) }
                         }
                     },
                     closeRequest = client::close,
@@ -132,10 +150,20 @@ class EmbedHealthChecker private constructor(
         internal fun createForTests(
             catalog: EmbedCatalog,
             requestStatus: suspend (String, EmbedHealthRequestMethod) -> Int,
-        ): EmbedHealthChecker = EmbedHealthChecker(catalog, requestStatus, {})
+        ): EmbedHealthChecker = EmbedHealthChecker(catalog, { url, method -> SourceResponse(requestStatus(url, method), UrlCleaner.hostOf(url)) }, {})
+
+        internal fun createWithResponsesForTests(
+            catalog: EmbedCatalog,
+            request: suspend (String, EmbedHealthRequestMethod) -> SourceResponse,
+        ) = EmbedHealthChecker(catalog, request, {})
 
         internal fun classifyHttpStatus(statusCode: Int?): EmbedHealthStatus =
-            if (statusCode in 200..299) EmbedHealthStatus.Alive else EmbedHealthStatus.Dead
+            when (statusCode) {
+                in 200..299 -> EmbedHealthStatus.Alive
+                null, in 500..599 -> EmbedHealthStatus.Dead
+                // A challenge, rate limit, or absent homepage says nothing about post embeds.
+                else -> EmbedHealthStatus.Unknown
+            }
 
         fun probeHttpClient(): HttpClient = HttpClient {
             expectSuccess = false
@@ -150,8 +178,5 @@ class EmbedHealthChecker private constructor(
         /** Pure helper for tests: HTTP layer succeeded → Alive, else Dead. */
         fun classifyProbeResult(succeeded: Boolean): EmbedHealthStatus =
             if (succeeded) EmbedHealthStatus.Alive else EmbedHealthStatus.Dead
-
-        private const val HEAD_NOT_SUPPORTED = 501
-        private const val METHOD_NOT_ALLOWED = 405
     }
 }

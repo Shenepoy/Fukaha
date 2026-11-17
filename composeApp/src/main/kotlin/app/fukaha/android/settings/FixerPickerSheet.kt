@@ -59,12 +59,16 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.graphics.graphicsLayer
 import app.fukaha.EmbedHealthSnapshot
+import app.fukaha.SourceCheckDetail
+import app.fukaha.SourceCheckReason
 import app.fukaha.EmbedHealthStatus
 import app.fukaha.EmbedService
 import app.fukaha.R
@@ -80,6 +84,8 @@ fun PreferredFixerRow(
     healthStatus: EmbedHealthStatus = EmbedHealthStatus.Unknown,
     infoUrl: String?,
     onClick: () -> Unit,
+    embedEnabled: Boolean,
+    onEmbedEnabledChange: (Boolean) -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
     val hostLabel = host.removePrefix("https://").removePrefix("http://").trimEnd('/')
@@ -134,6 +140,12 @@ fun PreferredFixerRow(
                 contentDescription = stringResource(R.string.preferred_fixer_pick_title),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(20.dp),
+            )
+            val embedLabel = "${stringResource(R.string.embed_links_enabled)} · $platformName"
+            androidx.compose.material3.Switch(
+                checked = embedEnabled,
+                onCheckedChange = onEmbedEnabledChange,
+                modifier = Modifier.semantics { contentDescription = embedLabel },
             )
         }
     }
@@ -233,6 +245,7 @@ fun PreferredFixerPickerSheet(
                             service = service,
                             selected = selected,
                             healthStatus = health.statusOf(service.normalizedHost()),
+                            detail = health.details[app.fukaha.EmbedHealthKeys.normalize(service.normalizedHost())],
                             onClick = {
                                 onSelect(service)
                                 dismissSheet()
@@ -280,6 +293,7 @@ private fun FixerOptionCard(
     service: EmbedService,
     selected: Boolean,
     healthStatus: EmbedHealthStatus,
+    detail: SourceCheckDetail?,
     onClick: () -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
@@ -396,6 +410,21 @@ private fun FixerOptionCard(
                         modifier = Modifier.weight(1f, fill = false),
                     )
                     HealthStatusChip(status = healthStatus)
+                }
+
+                detail?.let { evidence ->
+                    val description = when (evidence.reason) {
+                        SourceCheckReason.Responded -> null
+                        SourceCheckReason.Redirected -> stringResource(R.string.source_redirected) + " " + evidence.finalHost.orEmpty()
+                        SourceCheckReason.Blocked -> stringResource(R.string.preview_blocked)
+                        SourceCheckReason.HttpError -> stringResource(R.string.preview_http_error)
+                        SourceCheckReason.TimedOut -> stringResource(R.string.preview_timed_out)
+                        SourceCheckReason.NetworkError -> stringResource(R.string.preview_network_error)
+                    }
+                    description?.let {
+                        Text(it + (evidence.httpStatus?.let { code -> " (HTTP $code)" } ?: ""),
+                            style = MaterialTheme.typography.bodySmall, color = muted)
+                    }
                 }
 
                 service.description?.takeIf { it.isNotBlank() }?.let { description ->

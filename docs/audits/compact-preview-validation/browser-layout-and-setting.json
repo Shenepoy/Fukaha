@@ -1,0 +1,21 @@
+{
+  "layout": {
+    "width": 457,
+    "height": 257,
+    "bodyHeight": 257,
+    "buttonCenter": {
+      "x": 228.5,
+      "y": 128.5
+    },
+    "imageHeight": 257,
+    "bodyText": "▶",
+    "videoHasSource": false
+  },
+  "persistedSetting": false,
+  "afterReload": {
+    "hasEmbed": true,
+    "hasPreviewButton": false,
+    "hasPlayer": false
+  },
+  "mediaRequests": 0
+}

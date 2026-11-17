@@ -19,19 +19,20 @@ actual object PlatformClock {
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 actual fun writeCacheFile(cacheDirPath: String, fileName: String, bytes: ByteArray): String {
+    require(bytes.isNotEmpty()) { "Empty media response" }
     val fm = NSFileManager.defaultManager
     if (!fm.fileExistsAtPath(cacheDirPath)) {
-        fm.createDirectoryAtPath(
+        check(fm.createDirectoryAtPath(
             cacheDirPath,
             withIntermediateDirectories = true,
             attributes = null,
             error = null,
-        )
+        )) { "Could not create media cache" }
     }
     val path = cacheDirPath.trimEnd('/') + "/" + fileName
     bytes.usePinned { pinned ->
         val data = NSData.create(bytes = pinned.addressOf(0), length = bytes.size.toULong())
-        data.writeToFile(path, atomically = true)
+        check(data.writeToFile(path, atomically = true)) { "Could not save media file" }
     }
     return path
 }

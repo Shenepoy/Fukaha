@@ -95,7 +95,8 @@ test("service worker shell contains existing static assets and production rewrit
   assert.ok(shellUrls.includes("/index.html"));
   assert.ok(shellUrls.includes("/manifest.webmanifest"));
   assert.ok(shellUrls.includes("/icons/icon.svg"));
-  assert.match(serviceWorker, /request\.mode === "navigate" \? "\/index\.html" : request/);
+  // Navigation fallback behavior is exercised by service-worker.test.mjs.
+  assert.match(serviceWorker, /const cacheKey = request\.mode === "navigate"/);
   assert.match(serviceWorker, /url\.origin !== self\.location\.origin/);
 
   assert.match(productionWebpack, /filename:\s*"fukaha\.\[contenthash:12\]\.js"/);
@@ -244,7 +245,10 @@ test("Firebase hosting keeps dynamic shell revalidated and hashed bundles immuta
   const firebase = JSON.parse(read(resolve(repoRoot, "firebase.json")));
   assert.equal(firebase.hosting.public, "webApp/build/dist/js/productionExecutable");
   assert.ok(!firebase.hosting.redirects, "path canonicalization must not use a catch-all redirect");
-  assert.deepEqual(firebase.hosting.rewrites, [{ source: "**", destination: "/index.html" }]);
+  assert.deepEqual(firebase.hosting.rewrites, [
+    { source: "/api/preview", function: { functionId: "previewMetadata", region: "us-central1" } },
+    { source: "**", destination: "/index.html" },
+  ]);
 
   // Firebase serves an existing static file before evaluating rewrites. These deployed resource
   // paths therefore remain themselves; only a path with no emitted file reaches the SPA shell.
@@ -259,7 +263,7 @@ test("Firebase hosting keeps dynamic shell revalidated and hashed bundles immuta
     "/fukaha.236.abcdef012345.js",
   ]);
   const hostedDestination = (path) =>
-    emittedAssets.has(path) ? path : firebase.hosting.rewrites[0].destination;
+    emittedAssets.has(path) ? path : firebase.hosting.rewrites.at(-1).destination;
   for (const asset of emittedAssets) {
     assert.equal(hostedDestination(asset), asset, `${asset} must bypass the SPA rewrite`);
   }

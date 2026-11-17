@@ -3,9 +3,12 @@ package app.fukaha.web
 import app.fukaha.AppLanguage
 import app.fukaha.AppTheme
 import app.fukaha.EmbedHealthStatus
+import app.fukaha.EmbedPreviewDocument
 import app.fukaha.THEME_SYSTEM_HOLD_MS
 import app.fukaha.UrlCleaner
+import app.fukaha.UrlDiff
 import kotlinx.browser.window
+import kotlinx.browser.document
 import org.w3c.dom.HTMLElement
 
 private const val GITHUB_URL = "https://github.com/Zyzto/Fukaha"
@@ -417,6 +420,8 @@ private fun renderShare(app: App, parent: HTMLElement) {
         sectionIcon = Icon.PUBLIC,
         titleTrailing = prepared.detected.platformName ?: s.unknownPlatform,
         shareable = false,
+        comparisonUrl = prepared.detected.cleanedUrl,
+        showRemoved = true,
     )
 
     linkActionRow(
@@ -426,6 +431,7 @@ private fun renderShare(app: App, parent: HTMLElement) {
         url = prepared.detected.cleanedUrl,
         sectionIcon = Icon.CLEAN,
         shareable = true,
+        comparisonUrl = prepared.detected.originalUrl,
     )
 
     prepared.embedUrl?.let { embed ->
@@ -438,7 +444,52 @@ private fun renderShare(app: App, parent: HTMLElement) {
             sectionIcon = Icon.PREVIEW,
             titleTrailing = if (dead) s.embedHealthDead else null,
             shareable = true,
+            comparisonUrl = prepared.detected.cleanedUrl,
         )
+        renderPreviewSection(app, parent)
+    }
+}
+
+/** Async previews update their region without replacing the URL rows or stealing focus. */
+internal fun updatePreviewSection(app: App, root: HTMLElement): Boolean {
+    val current = root.querySelector(".preview-check-section") ?: return false
+    val holder = document.createElement("div") as HTMLElement
+    renderPreviewSection(app, holder)
+    val replacement = holder.firstElementChild ?: return false
+    current.querySelector("iframe")?.setAttribute("srcdoc", "")
+    current.parentNode?.replaceChild(replacement, current) ?: return false
+    return true
+}
+
+private fun renderPreviewSection(app: App, parent: HTMLElement) {
+    val s = app.strings
+    if (app.settings.previewsEnabled) parent.el("div", "preview-check-section") {
+        val media = app.previewResult?.preview
+        button(when {
+            media != null -> s.previewClose
+            app.previewChecking -> s.checkingPreview
+            app.previewResult != null -> s.previewRetry
+            else -> s.checkPreview
+        }, ButtonStyle.Text) {
+            if (media != null) app.closePreview() else app.checkPreview()
+        }.also {
+            it.id = if (media != null) "preview-close" else "preview-check"
+            it.disabled = app.previewChecking
+        }
+        if (media != null) {
+            el("iframe", "inline-media-preview") {
+                id = "inline-media-preview"
+                setAttribute("title", s.embedPreview)
+                setAttribute("sandbox", "allow-scripts")
+                setAttribute("referrerpolicy", "no-referrer")
+                setAttribute("srcdoc", EmbedPreviewDocument.render(media, s.previewPlay, s.previewPlaybackError))
+            }
+        } else {
+            el("p", "body-small on-surface-variant", app.previewResult?.let(s::previewResult) ?: s.previewCheckHint) {
+                setAttribute("role", "status")
+                setAttribute("aria-live", "polite")
+            }
+        }
     }
 }
 
@@ -451,6 +502,8 @@ private fun linkActionRow(
     sectionIcon: String,
     shareable: Boolean,
     titleTrailing: String? = null,
+    comparisonUrl: String? = null,
+    showRemoved: Boolean = false,
 ) {
     val s = app.strings
     parent.el("div", "share-section") {
@@ -468,7 +521,16 @@ private fun linkActionRow(
                     setAttribute("title", s.actionCopyShort)
                     onclick = { app.copy(url); Unit }
                     icon(Icon.COPY)
-                    urlText(url, "share-url")
+                    el("span", "share-url") {
+                        dir = "ltr"
+                        setAttribute("lang", "en")
+                        val parts = comparisonUrl?.let {
+                            if (showRemoved) UrlDiff.compare(url, it).before else UrlDiff.compare(it, url).after
+                        }
+                        if (parts == null) textContent = url else parts.forEach { part ->
+                            el("span", if (!part.changed) null else if (showRemoved) "url-diff-removed" else "url-diff-added", part.text)
+                        }
+                    }
                 }
                 if (shareable) {
                     el("button", "share-send state") {
@@ -520,13 +582,13 @@ fun renderAbout(app: App, parent: HTMLElement) {
                 }
             }
             el("div", "list-item static-list-item version-row") {
-                setAttribute("aria-label", "${s.version}: $WEB_APP_VERSION")
+                setAttribute("aria-label", "${s.version}: $WEB_DISPLAY_VERSION")
                 icon(Icon.INFO)
                 el("div", "list-item-text") {
                     el("span", "body-large", s.version)
-                    el("span", "body-small on-surface-variant", WEB_APP_VERSION) {
+                    el("span", "body-small on-surface-variant", WEB_DISPLAY_VERSION) {
                         dir = "ltr"
-                        setAttribute("data-app-version", WEB_APP_VERSION)
+                        setAttribute("data-app-version", WEB_DISPLAY_VERSION)
                     }
                 }
             }

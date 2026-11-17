@@ -1,0 +1,5 @@
+Fukaha cleans shared social links by removing tracking parameters and can rewrite supported links for richer previews in messaging apps.
+
+Open Fukaha to paste a link and choose your preferred source, or share a link from Safari or another app using the Fukaha share extension or Clean with Fukaha action.
+
+Choose whether to ask each time, share a cleaned link, or share an embed link. Optional media downloading requires your own compatible HTTPS Cobalt server. No Fukaha account is required. The iOS interface supports English and Arabic.

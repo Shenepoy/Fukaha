@@ -4,6 +4,40 @@ All notable changes to Fukaha are documented here.
 
 ## [Unreleased]
 
+## [26.11.1] — 2026-11-17
+
+### Added
+- Automatic image/video previews in the share window, with a saved switch to disable them.
+- Colored URL differences showing removed text and new embed domains without changing copied links.
+- Verified replacement preview sources, including restored Roblox support.
+- TestFlight external-group distribution after build processing.
+
+### Fixed
+- Videos stream only after Play and release their source on pause, hiding, or closure.
+- Preview windows contain media and overlay controls without caption/footer space.
+- Retired or failing preview sources and false redirect detection for configured www hosts.
+- Web metadata fallback deployment and native/browser preview cancellation.
+
+### Changed
+- Android version code 18; all platforms use version 26.11.1.
+
+## [26.11.0] — 2026-11-06
+
+### Added
+- Per-site embedding switches in the source list. Disabled sites share the cleaned link instead.
+- Optional official compact YouTube links, preserving timestamps and playlists.
+- Saved source checks, source favorites and ranking on web and iOS, and an iOS source refresh control.
+- Tag-based testing builds for Android, web, and iOS TestFlight.
+
+### Fixed
+- Source checks preserve the chosen source and distinguish unavailable hosts from unverified responses.
+- iOS 17 discovers Fukaha when a shared URL includes a preview image.
+- Sharing, preference persistence, media-cache cleanup, and input focus dismissal across platforms.
+
+### Changed
+- iOS sharing controls use plain icons, and the Action extension uses a transparent Fukaha glyph.
+- Android release build number is 17; all platforms use version 26.11.0.
+
 ## [26.09.0] — 2026-09-02
 
 ### Fixed

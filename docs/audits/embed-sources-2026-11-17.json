@@ -1,0 +1,4036 @@
+{
+  "checked_at_utc": "2026-11-17T05:55:01.435692+00:00",
+  "user_agent": "Discordbot/2.0 (+https://discordapp.com)",
+  "results": [
+    {
+      "platform": "bilibili",
+      "name": "BiliFix",
+      "host": "https://vxbilibili.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://vxbilibili.com/",
+          "http": 200,
+          "final_url": "https://vxbilibili.com/",
+          "ip": "172.67.187.149",
+          "curl_exit": 0,
+          "error": "",
+          "title": "BiliFix — Embed Bilibili Links",
+          "meta": {
+            "og:title": "BiliFix — Embed Bilibili Links",
+            "og:description": "Fix Bilibili link previews! Inline video playback on Discord & Telegram, rich cards, translation & AI dubbing. Just add \"vx\" to any Bilibili link.",
+            "og:site_name": "BiliFix",
+            "og:type": "website",
+            "og:url": "https://www.vxbilibili.com/en-US"
+          },
+          "bytes": 129319,
+          "seconds": 0.612306
+        },
+        {
+          "url": "https://vxbilibili.com/video/BV1GJ411x7h7",
+          "http": 404,
+          "final_url": "https://vxbilibili.com/video/BV1GJ411x7h7",
+          "ip": "2606:4700:3031::ac43:bb95",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 15,
+          "seconds": 0.599621
+        }
+      ]
+    },
+    {
+      "platform": "bilibili",
+      "name": "fxBilibili",
+      "host": "https://fxbilibili.seria.moe",
+      "repo": "https://github.com/seriaati/fxBilibili",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fxbilibili.seria.moe/",
+          "http": 200,
+          "final_url": "https://github.com/seriaati/fxBilibili",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - seriaati/fxBilibili: Fix Bilibili link embeds on Discord · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/0e938791554db844ab9c3078d704d257991572d0361b222e9fea1f3e689a81e3/seriaati/fxBilibili",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - seriaati/fxBilibili: Fix Bilibili link embeds on Discord",
+            "twitter:description": "Fix Bilibili link embeds on Discord. Contribute to seriaati/fxBilibili development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/0e938791554db844ab9c3078d704d257991572d0361b222e9fea1f3e689a81e3/seriaati/fxBilibili",
+            "og:image:alt": "Fix Bilibili link embeds on Discord. Contribute to seriaati/fxBilibili development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - seriaati/fxBilibili: Fix Bilibili link embeds on Discord",
+            "og:url": "https://github.com/seriaati/fxBilibili",
+            "og:description": "Fix Bilibili link embeds on Discord. Contribute to seriaati/fxBilibili development by creating an account on GitHub."
+          },
+          "bytes": 219466,
+          "seconds": 1.52112
+        },
+        {
+          "url": "https://fxbilibili.seria.moe/video/BV1GJ411x7h7",
+          "http": 200,
+          "final_url": "https://fxbilibili.seria.moe/video/BV1GJ411x7h7",
+          "ip": "2a06:98c1:3121::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Error",
+          "meta": {
+            "og:title": "Error - Video Not Found",
+            "og:description": "啥都木有",
+            "twitter:card": "summary",
+            "twitter:title": "Error - Video Not Found",
+            "twitter:description": "啥都木有"
+          },
+          "bytes": 929,
+          "seconds": 0.686442
+        }
+      ]
+    },
+    {
+      "platform": "bilibili",
+      "name": "BilibiliEZ",
+      "host": "https://bilibliez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://bilibliez.com/",
+          "http": 0,
+          "final_url": "https://bilibliez.com/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: bilibliez.com",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.160504
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "VixBluesky",
+      "host": "https://bskx.app",
+      "repo": "https://github.com/Lexedia/VixBluesky",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://bskx.app/",
+          "http": 200,
+          "final_url": "https://github.com/Lexedia/VixBluesky",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - Lexedia/VixBluesky: VixBluesky: Embed Bluesky links in Discord! · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/22356ef278a5e73cec6288b79b81946aa118688862dc88ac8829cbddcbd1395c/Lexedia/VixBluesky",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - Lexedia/VixBluesky: VixBluesky: Embed Bluesky links in Discord!",
+            "twitter:description": " VixBluesky: Embed Bluesky links in Discord! Contribute to Lexedia/VixBluesky development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/22356ef278a5e73cec6288b79b81946aa118688862dc88ac8829cbddcbd1395c/Lexedia/VixBluesky",
+            "og:image:alt": " VixBluesky: Embed Bluesky links in Discord! Contribute to Lexedia/VixBluesky development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - Lexedia/VixBluesky: VixBluesky: Embed Bluesky links in Discord!",
+            "og:url": "https://github.com/Lexedia/VixBluesky",
+            "og:description": " VixBluesky: Embed Bluesky links in Discord! Contribute to Lexedia/VixBluesky development by creating an account on GitHub."
+          },
+          "bytes": 247695,
+          "seconds": 1.221613
+        },
+        {
+          "url": "https://bskx.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "http": 200,
+          "final_url": "https://bskx.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "ip": "2606:4700:3035::ac43:afe0",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:url": "https://bsky.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+            "og:site_name": "VixBluesky",
+            "og:description": "Sorry, this post doesn't seem to exist, has it been deleted?\nThough, here's a cat to lighten up your mood; ᓚᘏᗢ"
+          },
+          "bytes": 1099,
+          "seconds": 1.064141
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "FixBluesky",
+      "host": "https://bsyy.app",
+      "repo": "https://github.com/ThornbushHQ/FixBluesky",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://bsyy.app/",
+          "http": 404,
+          "final_url": "https://bsyy.app/",
+          "ip": "104.21.24.214",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 13,
+          "seconds": 1.264141
+        },
+        {
+          "url": "https://bsyy.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "http": 500,
+          "final_url": "https://bsyy.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "ip": "2606:4700:3037::ac43:dcd6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 21,
+          "seconds": 1.245999
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "bskye",
+      "host": "https://bskye.app",
+      "repo": "https://github.com/FerroEduardo/bskye",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://bskye.app/",
+          "http": 200,
+          "final_url": "https://github.com/FerroEduardo/bskye",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - FerroEduardo/bskye: Fix Bluesky embeds on Discord · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/6d158f01ed42042b6b3ca28890383666786bed9d3475a5c0ff06d303515f3bb0/FerroEduardo/bskye",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - FerroEduardo/bskye: Fix Bluesky embeds on Discord",
+            "twitter:description": "Fix Bluesky embeds on Discord. Contribute to FerroEduardo/bskye development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/6d158f01ed42042b6b3ca28890383666786bed9d3475a5c0ff06d303515f3bb0/FerroEduardo/bskye",
+            "og:image:alt": "Fix Bluesky embeds on Discord. Contribute to FerroEduardo/bskye development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - FerroEduardo/bskye: Fix Bluesky embeds on Discord",
+            "og:url": "https://github.com/FerroEduardo/bskye",
+            "og:description": "Fix Bluesky embeds on Discord. Contribute to FerroEduardo/bskye development by creating an account on GitHub."
+          },
+          "bytes": 254192,
+          "seconds": 1.50681
+        },
+        {
+          "url": "https://bskye.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "http": 400,
+          "final_url": "https://bskye.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "ip": "2606:4700:3036::6815:3a7b",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 49,
+          "seconds": 0.615375
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "vxBsky",
+      "host": "https://vxbsky.app",
+      "repo": "https://github.com/dylanpdx/vxBsky",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://vxbsky.app/",
+          "http": 200,
+          "final_url": "https://github.com/dylanpdx/vxBsky",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - dylanpdx/vxBsky · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/e765a766a48c516976b66d25393b9fb9ef02bba1e135cddcc0ec1907ed3f1ea3/dylanpdx/vxBsky",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - dylanpdx/vxBsky",
+            "twitter:description": "Contribute to dylanpdx/vxBsky development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/e765a766a48c516976b66d25393b9fb9ef02bba1e135cddcc0ec1907ed3f1ea3/dylanpdx/vxBsky",
+            "og:image:alt": "Contribute to dylanpdx/vxBsky development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - dylanpdx/vxBsky",
+            "og:url": "https://github.com/dylanpdx/vxBsky",
+            "og:description": "Contribute to dylanpdx/vxBsky development by creating an account on GitHub."
+          },
+          "bytes": 222913,
+          "seconds": 1.376411
+        },
+        {
+          "url": "https://vxbsky.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "http": 500,
+          "final_url": "https://vxbsky.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "ip": "2a06:98c1:3120::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 21,
+          "seconds": 0.622032
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "FxBluesky",
+      "host": "https://fxbsky.app",
+      "repo": "https://github.com/FxEmbed/FxEmbed",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fxbsky.app/",
+          "http": 200,
+          "final_url": "https://bsky.app/profile/fxbsky.app",
+          "ip": "3.136.15.164",
+          "curl_exit": 0,
+          "error": "",
+          "title": "@fxbsky.app on Bluesky",
+          "meta": {
+            "og:site_name": "Bluesky Social",
+            "og:logo": "https://web-cdn.bsky.app/static/favicon.png",
+            "twitter:site": "@bluesky",
+            "og:type": "profile",
+            "og:url": "https://bsky.app/profile/fxbsky.app",
+            "og:title": "FxBluesky (@fxbsky.app)",
+            "twitter:label1": "Account DID",
+            "twitter:value1": "did:plc:e7qliy2b2kmwwglhcreydm44",
+            "og:description": "Embed Bluesky videos, photos, and more on Discord and Telegram. Not affiliated with Bluesky Social.",
+            "twitter:card": "summary"
+          },
+          "bytes": 33240,
+          "seconds": 1.605907
+        },
+        {
+          "url": "https://fxbsky.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "http": 200,
+          "final_url": "https://fxbsky.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "ip": "2a06:98c1:3121::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "FxBluesky",
+            "og:description": "Sorry, that post doesn't exist :("
+          },
+          "bytes": 982,
+          "seconds": 0.44344
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "xbsky",
+      "host": "https://xbsky.app",
+      "repo": "https://github.com/colduw/xbsky",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://xbsky.app/",
+          "http": 200,
+          "final_url": "https://github.com/colduw/xbsky",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - colduw/xbsky: A simple Bluesky embed fixer for Telegram and Discord, written in Go · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/6f967a455d74e3207920d5ae73fb663ca882950f14557293b8e0d6f636daeb4c/colduw/xbsky",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - colduw/xbsky: A simple Bluesky embed fixer for Telegram and Discord, written in Go",
+            "twitter:description": "A simple Bluesky embed fixer for Telegram and Discord, written in Go - colduw/xbsky",
+            "og:image": "https://opengraph.githubassets.com/6f967a455d74e3207920d5ae73fb663ca882950f14557293b8e0d6f636daeb4c/colduw/xbsky",
+            "og:image:alt": "A simple Bluesky embed fixer for Telegram and Discord, written in Go - colduw/xbsky",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - colduw/xbsky: A simple Bluesky embed fixer for Telegram and Discord, written in Go",
+            "og:url": "https://github.com/colduw/xbsky",
+            "og:description": "A simple Bluesky embed fixer for Telegram and Discord, written in Go - colduw/xbsky"
+          },
+          "bytes": 253586,
+          "seconds": 1.756253
+        },
+        {
+          "url": "https://xbsky.app/profile/bsky.app/post/3l5a7lb6j3s2r",
+          "http": 200,
+          "final_url": "https://xbsky.app/profile/bsky.app/post/3l5a7lb6j3s2r/",
+          "ip": "2606:4700:3030::6815:1989",
+          "curl_exit": 0,
+          "error": "",
+          "title": "xbsky.app",
+          "meta": {
+            "og:site_name": "xbsky.app",
+            "og:title": "An error occurred",
+            "og:url": "https://xbsky.app",
+            "og:description": "Uh-oh, that's an error.\nIf you believe this is a genuine error (and not a typo), notify me:\ngithub.com/colduw/xbsky\n@coldunwanted.net on Bsky\n@reallycoldunwanted on Discord\nThe error you encountered is: getPost: Unexpected status (400 Bad Request)"
+          },
+          "bytes": 1626,
+          "seconds": 0.752266
+        }
+      ]
+    },
+    {
+      "platform": "bluesky",
+      "name": "cbsky",
+      "host": "https://cbsky.app",
+      "repo": "https://github.com/goeo-/cbsky.app",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://cbsky.app/",
+          "http": 0,
+          "final_url": "https://cbsky.app/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: cbsky.app",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.127875
+        }
+      ]
+    },
+    {
+      "platform": "deviantart",
+      "name": "fixDeviantArt",
+      "host": "https://fixdeviantart.com",
+      "repo": "https://github.com/Tschrock/fixdeviantart",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixdeviantart.com/",
+          "http": 200,
+          "final_url": "https://fixdeviantart.com/",
+          "ip": "104.21.6.120",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "Oops, something went wrong",
+            "og:description": "Yell at @CyberPon3 to fix this\nStatus: 404 Not Found\nResponse: 404 Not Found (https://deviantart.com/) The URL https://deviantart.com/ is not a deviation URL",
+            "og:site_name": "fixdeviantart.com",
+            "twitter:card": "summary",
+            "twitter:title": "Oops, something went wrong",
+            "twitter:description": "Yell at @CyberPon3 to fix this\nStatus: 404 Not Found\nResponse: 404 Not Found (https://deviantart.com/) The URL https://deviantart.com/ is not a deviation URL",
+            "twitter:creator": "@CyberPon3"
+          },
+          "bytes": 1384,
+          "seconds": 1.118777
+        },
+        {
+          "url": "https://fixdeviantart.com/loish/art/Cozy-804689207",
+          "http": 200,
+          "final_url": "https://fixdeviantart.com/loish/art/Cozy-804689207",
+          "ip": "2606:4700:3033::6815:678",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "Oops, something went wrong",
+            "og:description": "Yell at @CyberPon3 to fix this\nStatus: 404 Not Found\nResponse: 404 Not Found (https://deviantart.com/loish/art/Cozy-804689207) Deviation id not found",
+            "og:site_name": "fixdeviantart.com",
+            "twitter:card": "summary",
+            "twitter:title": "Oops, something went wrong",
+            "twitter:description": "Yell at @CyberPon3 to fix this\nStatus: 404 Not Found\nResponse: 404 Not Found (https://deviantart.com/loish/art/Cozy-804689207) Deviation id not found",
+            "twitter:creator": "@CyberPon3"
+          },
+          "bytes": 1416,
+          "seconds": 0.790137
+        }
+      ]
+    },
+    {
+      "platform": "facebook",
+      "name": "facebed",
+      "host": "https://facebed.com",
+      "repo": "https://github.com/4pii4/facebed",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://facebed.com/",
+          "http": 200,
+          "final_url": "https://facebed.com/",
+          "ip": "104.21.15.74",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Facebed",
+          "meta": {
+            "og:title": "facebed by pi.kt",
+            "og:image": "/banner.png",
+            "twitter:card": "summary_large_image",
+            "og:description": "A better Facebook embed provider for messaging apps."
+          },
+          "bytes": 2443,
+          "seconds": 1.244005
+        },
+        {
+          "url": "https://facebed.com/NASA/posts/10157054997941772",
+          "http": 200,
+          "final_url": "https://facebed.com/NASA/posts/10157054997941772",
+          "ip": "2606:4700:3033::ac43:a1ee",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "Log in or sign up to view",
+            "og:description": "See posts, photos and more on Facebook."
+          },
+          "bytes": 787,
+          "seconds": 4.168491
+        }
+      ]
+    },
+    {
+      "platform": "facebook",
+      "name": "fxfacebook",
+      "host": "https://fxfb.seria.moe",
+      "repo": "https://github.com/seriaati/fxfacebook",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fxfb.seria.moe/",
+          "http": 502,
+          "final_url": "https://fxfb.seria.moe/",
+          "ip": "2a06:98c1:3121::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 16,
+          "seconds": 0.633828
+        },
+        {
+          "url": "https://fxfb.seria.moe/NASA/posts/10157054997941772",
+          "http": 502,
+          "final_url": "https://fxfb.seria.moe/NASA/posts/10157054997941772",
+          "ip": "2a06:98c1:3121::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 16,
+          "seconds": 0.292905
+        }
+      ]
+    },
+    {
+      "platform": "imgur",
+      "name": "ImgurEZ",
+      "host": "https://imgurez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://imgurez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/",
+          "ip": "104.21.95.36",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 1.620424
+        },
+        {
+          "url": "https://imgurez.com/gallery/5U3T6ji",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://imgur.com/gallery/5U3T6ji",
+          "ip": "104.21.95.36",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Failed to Get Post | EmbedEZ",
+          "meta": {},
+          "bytes": 918,
+          "seconds": 1.527579
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "InstaFix",
+      "host": "https://ddinstagram.com",
+      "repo": "https://github.com/Wikidepia/InstaFix",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://ddinstagram.com/",
+          "http": 0,
+          "final_url": "https://ddinstagram.com/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: ddinstagram.com",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.136391
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "InstagramEZ",
+      "host": "https://instagramez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://instagramez.com/",
+          "http": 200,
+          "final_url": "https://www.effectivegatecpm.com/nf52nwk7?key=bd2c457b75ed50c2925807e89c0ac161",
+          "ip": "15.197.172.60",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 151,
+          "seconds": 1.200236
+        },
+        {
+          "url": "https://instagramez.com/p/CvVzyS4NAXH/",
+          "http": 200,
+          "final_url": "https://www.effectivegatecpm.com/nf52nwk7?key=bd2c457b75ed50c2925807e89c0ac161",
+          "ip": "15.197.172.60",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 151,
+          "seconds": 0.470171
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "uuinstagram",
+      "host": "https://uuinstagram.com",
+      "repo": "https://github.com/Wikidepia/InstaFix",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://uuinstagram.com/",
+          "http": 200,
+          "final_url": "https://uuinstagram.com/",
+          "ip": "188.114.97.6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "InstaFix",
+          "meta": {
+            "og:title": "InstaFix",
+            "og:site_name": "InstaFix",
+            "og:description": "Fix Instagram embeds in Discord (and Telegram!)"
+          },
+          "bytes": 3136,
+          "seconds": 0.435966
+        },
+        {
+          "url": "https://uuinstagram.com/p/CvVzyS4NAXH/",
+          "http": 200,
+          "final_url": "https://www.instagram.com/p/CvVzyS4NAXH/",
+          "ip": "57.144.120.34",
+          "curl_exit": 63,
+          "error": "curl: (63) Exceeded the maximum allowed file size (524288) with 524288 bytes",
+          "title": "Instagram",
+          "meta": {},
+          "bytes": 524288,
+          "seconds": 1.660384
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "eeinstagram",
+      "host": "https://eeinstagram.com",
+      "repo": "https://github.com/Wikidepia/InstaFix",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://eeinstagram.com/",
+          "http": 200,
+          "final_url": "https://eeinstagram.com/",
+          "ip": "172.67.203.213",
+          "curl_exit": 0,
+          "error": "",
+          "title": "FixEmbeds",
+          "meta": {
+            "og:title": "FixEmbeds",
+            "og:site_name": "FixEmbeds",
+            "og:description": "Fix Instagram embeds in Discord (and Telegram!)"
+          },
+          "bytes": 2663,
+          "seconds": 0.423069
+        },
+        {
+          "url": "https://eeinstagram.com/p/CvVzyS4NAXH/",
+          "http": 200,
+          "final_url": "https://eeinstagram.com/p/CvVzyS4NAXH/",
+          "ip": "2606:4700:3030::ac43:cbd5",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "twitter:title": "fix instagram embeds",
+            "og:url": "https://instagram.com/p/CvVzyS4NAXH/",
+            "og:description": "Post not found"
+          },
+          "bytes": 877,
+          "seconds": 1.071993
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "fxstagram",
+      "host": "https://fxstagram.com",
+      "repo": "https://github.com/Wikidepia/InstaFix",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fxstagram.com/",
+          "http": 0,
+          "final_url": "https://fxstagram.com/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: fxstagram.com",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.11539
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "InstagramEmbed",
+      "host": "https://vxinstagram.com",
+      "repo": "https://github.com/Lainmode/InstagramEmbed-vxinstagram",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://vxinstagram.com/",
+          "http": 200,
+          "final_url": "https://vxinstagram.com/",
+          "ip": "107.175.251.20",
+          "curl_exit": 0,
+          "error": "",
+          "title": "vxinstagram – Instagram embeds for Discord & Telegram",
+          "meta": {},
+          "bytes": 5254,
+          "seconds": 0.624625
+        },
+        {
+          "url": "https://vxinstagram.com/p/CvVzyS4NAXH/",
+          "http": 404,
+          "final_url": "https://vxinstagram.com/p/CvVzyS4NAXH/",
+          "ip": "107.175.251.20",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 2.381516
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "kkScript",
+      "host": "https://kkinstagram.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://kkinstagram.com/",
+          "http": 0,
+          "final_url": "https://kkinstagram.com/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: kkinstagram.com",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.020238
+        }
+      ]
+    },
+    {
+      "platform": "instagram",
+      "name": "zzinstagram",
+      "host": "https://zzinstagram.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://zzinstagram.com/",
+          "http": 0,
+          "final_url": "https://zzinstagram.com/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: zzinstagram.com",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.025693
+        }
+      ]
+    },
+    {
+      "platform": "pinterest",
+      "name": "PinterestEZ",
+      "host": "https://pinterestez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://pinterestez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 1.13578
+        },
+        {
+          "url": "https://pinterestez.com/pin/99360735500167749/",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://pinterest.com/pin/99360735500167749/",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ",
+          "meta": {
+            "og:title": "Kent Brewster (@kentbrew)",
+            "og:description": "Love my Pinterest t-shirt!",
+            "og:url": "https://embedez.com/embed/search_6a5b29712ab966517eaa167b",
+            "og:site_name": "EmbedEZ • 1 - 1 of 1",
+            "og:image": "https://embedez.com/api/v2/redirect/search_6a5b29712ab966517eaa167b?path=content.media.0.source",
+            "og:image:width": "640",
+            "og:image:height": "478",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "Kent Brewster (@kentbrew)",
+            "twitter:description": "Love my Pinterest t-shirt!",
+            "twitter:image": "https://embedez.com/api/v2/redirect/search_6a5b29712ab966517eaa167b?path=content.media.0.source",
+            "twitter:image:width": "640",
+            "twitter:image:height": "478"
+          },
+          "bytes": 2201,
+          "seconds": 0.664694
+        }
+      ]
+    },
+    {
+      "platform": "pixiv",
+      "name": "phixiv",
+      "host": "https://phixiv.net/",
+      "repo": "https://github.com/thelaao/phixiv",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://phixiv.net/",
+          "http": 200,
+          "final_url": "https://github.com/thelaao/phixiv",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - thelaao/phixiv: pixiv embed fixer. · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/fa83dc430c210d0c6d733ecbb82ced7d656c052ee8dbfc08ab01d4353fb6223b/thelaao/phixiv",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - thelaao/phixiv: pixiv embed fixer.",
+            "twitter:description": "pixiv embed fixer. Contribute to thelaao/phixiv development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/fa83dc430c210d0c6d733ecbb82ced7d656c052ee8dbfc08ab01d4353fb6223b/thelaao/phixiv",
+            "og:image:alt": "pixiv embed fixer. Contribute to thelaao/phixiv development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - thelaao/phixiv: pixiv embed fixer.",
+            "og:url": "https://github.com/thelaao/phixiv",
+            "og:description": "pixiv embed fixer. Contribute to thelaao/phixiv development by creating an account on GitHub."
+          },
+          "bytes": 226355,
+          "seconds": 1.244595
+        },
+        {
+          "url": "https://phixiv.net/en/artworks/107700041",
+          "http": 500,
+          "final_url": "https://phixiv.net/en/artworks/107700041",
+          "ip": "194.127.178.29",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 190,
+          "seconds": 1.725564
+        }
+      ]
+    },
+    {
+      "platform": "reddit",
+      "name": "fxreddit",
+      "host": "https://rxddit.com",
+      "repo": "https://github.com/MinnDevelopment/fxreddit",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://rxddit.com/",
+          "http": 200,
+          "final_url": "https://github.com/MinnDevelopment/fxreddit",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - MinnDevelopment/fxreddit: Provides improved reddit embeds for services such as Discord. · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/39b814143d63dc73fc01660d7e182db6df3b712eab8666a66c4f700b9dbcda8b/MinnDevelopment/fxreddit",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - MinnDevelopment/fxreddit: Provides improved reddit embeds for services such as Discord.",
+            "twitter:description": "Provides improved reddit embeds for services such as Discord. - MinnDevelopment/fxreddit",
+            "og:image": "https://opengraph.githubassets.com/39b814143d63dc73fc01660d7e182db6df3b712eab8666a66c4f700b9dbcda8b/MinnDevelopment/fxreddit",
+            "og:image:alt": "Provides improved reddit embeds for services such as Discord. - MinnDevelopment/fxreddit",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - MinnDevelopment/fxreddit: Provides improved reddit embeds for services such as Discord.",
+            "og:url": "https://github.com/MinnDevelopment/fxreddit",
+            "og:description": "Provides improved reddit embeds for services such as Discord. - MinnDevelopment/fxreddit"
+          },
+          "bytes": 255211,
+          "seconds": 1.470637
+        },
+        {
+          "url": "https://rxddit.com/r/aww/comments/1hqed7c/",
+          "http": 502,
+          "final_url": "https://rxddit.com/r/aww/comments/1hqed7c/",
+          "ip": "2606:4700:3037::ac43:b581",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 10,
+          "seconds": 0.428216
+        }
+      ]
+    },
+    {
+      "platform": "reddit",
+      "name": "sexy-reddit",
+      "host": "https://rxyddit.com",
+      "repo": "https://github.com/NurMarvin/sexy-reddit",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://rxyddit.com/",
+          "http": 200,
+          "final_url": "https://nurmarv.in/",
+          "ip": "104.21.74.168",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Marvin Witt - Software Engineer from Hamburg, Germany",
+          "meta": {
+            "og:title": "Marvin Witt - Software Engineer from Hamburg, Germany",
+            "og:description": "I'm Marvin Witt, a software engineer with a focus on web development based near Hamburg, Germany. In my free time I also like to contribute to the Discord Datamining GitHub repository.",
+            "og:type": "website",
+            "og:url": "https://nurmarv.in",
+            "og:image": "https://nurmarv.in/favicon.webp",
+            "og:image:width": "1200",
+            "og:image:height": "630",
+            "twitter:card": "summary_large_image",
+            "twitter:site": "@NurM4rvin",
+            "twitter:creator": "@NurM4rvin",
+            "twitter:title": "Marvin Witt - Software Engineer from Hamburg, Germany",
+            "twitter:description": "I'm Marvin Witt, a software engineer with a focus on web development based near Hamburg, Germany. In my free time I also like to contribute to the Discord Datamining GitHub repository.",
+            "twitter:image": "https://nurmarv.in/favicon.webp"
+          },
+          "bytes": 106042,
+          "seconds": 1.475529
+        },
+        {
+          "url": "https://rxyddit.com/r/aww/comments/1hqed7c/",
+          "http": 404,
+          "final_url": "https://rxyddit.com/r/aww/comments/1hqed7c/",
+          "ip": "2606:4700:3033::6815:9ca",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 249,
+          "seconds": 0.276183
+        }
+      ]
+    },
+    {
+      "platform": "reddit",
+      "name": "RedditEZ",
+      "host": "https://redditez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://redditez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/?ref=reddit",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 1.18425
+        },
+        {
+          "url": "https://redditez.com/r/aww/comments/1hqed7c/",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://reddit.com/r/aww/comments/1hqed7c/",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ",
+          "meta": {
+            "og:title": "JapKumintang1991 (@r/flags)",
+            "og:description": "Learn about the purpose of EmbedEZ and how we strive to provide the best embedding services for your content.",
+            "og:url": "https://embedez.com/embed/search_6afbec2a755298b2e3ebcc0e",
+            "og:site_name": "EmbedEZ • 1 - 1 of 1",
+            "og:image": "https://embedez.com/api/v2/redirect/search_6afbec2a755298b2e3ebcc0e?path=content.media.0.source",
+            "og:image:width": "0",
+            "og:image:height": "0",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "JapKumintang1991 (@r/flags)",
+            "twitter:description": "Learn about the purpose of EmbedEZ and how we strive to provide the best embedding services for your content.",
+            "twitter:image": "https://embedez.com/api/v2/redirect/search_6afbec2a755298b2e3ebcc0e?path=content.media.0.source",
+            "twitter:image:width": "0",
+            "twitter:image:height": "0"
+          },
+          "bytes": 2362,
+          "seconds": 1.036943
+        }
+      ]
+    },
+    {
+      "platform": "reddit",
+      "name": "vxreddit",
+      "host": "https://vxreddit.com",
+      "repo": "https://github.com/dylanpdx/vxReddit",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://vxreddit.com/",
+          "http": 200,
+          "final_url": "https://github.com/dylanpdx/vxReddit",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - dylanpdx/vxReddit: Improve Reddit embeds on Discord and Telegram · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/3c0fed7ece3f0ef5439e43f5a7b27800a294c79007ce6d59bfbe7ab58f5da4e3/dylanpdx/vxReddit",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - dylanpdx/vxReddit: Improve Reddit embeds on Discord and Telegram",
+            "twitter:description": "Improve Reddit embeds on Discord and Telegram. Contribute to dylanpdx/vxReddit development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/3c0fed7ece3f0ef5439e43f5a7b27800a294c79007ce6d59bfbe7ab58f5da4e3/dylanpdx/vxReddit",
+            "og:image:alt": "Improve Reddit embeds on Discord and Telegram. Contribute to dylanpdx/vxReddit development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - dylanpdx/vxReddit: Improve Reddit embeds on Discord and Telegram",
+            "og:url": "https://github.com/dylanpdx/vxReddit",
+            "og:description": "Improve Reddit embeds on Discord and Telegram. Contribute to dylanpdx/vxReddit development by creating an account on GitHub."
+          },
+          "bytes": 233904,
+          "seconds": 1.686131
+        },
+        {
+          "url": "https://vxreddit.com/r/aww/comments/1hqed7c/",
+          "http": 200,
+          "final_url": "https://vxreddit.com/r/aww/comments/1hqed7c/",
+          "ip": "2606:4700:3037::ac43:d36e",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:site_name": "u/JapKumintang1991 on r/flags - ⬆️ 1 | 💬 1",
+            "og:url": "https://www.reddit.com/comments/1hqed7c",
+            "og:title": "Flag of Seychelles",
+            "og:type": "website",
+            "twitter:card": "summary_large_image",
+            "og:image": "https://i.redd.it/ovdeih1p4b681.png",
+            "twitter:image": "https://i.redd.it/ovdeih1p4b681.png"
+          },
+          "bytes": 2158,
+          "seconds": 0.921169
+        }
+      ]
+    },
+    {
+      "platform": "roblox",
+      "name": "Rxblox2",
+      "host": "https://fixroblox.com",
+      "repo": "https://github.com/vys69/Rxblox2",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixroblox.com/",
+          "http": 200,
+          "final_url": "https://www.fixroblox.com/",
+          "ip": "216.150.1.65",
+          "curl_exit": 0,
+          "error": "",
+          "title": "vortex",
+          "meta": {},
+          "bytes": 2799,
+          "seconds": 3.280659
+        },
+        {
+          "url": "https://fixroblox.com/games/920587237/Adopt-Me",
+          "http": 200,
+          "final_url": "https://www.fixroblox.com/games/920587237/Adopt-Me",
+          "ip": "216.150.16.65",
+          "curl_exit": 0,
+          "error": "",
+          "title": "vortex",
+          "meta": {},
+          "bytes": 2799,
+          "seconds": 0.71169
+        }
+      ]
+    },
+    {
+      "platform": "snapchat",
+      "name": "SnapchatEZ",
+      "host": "https://snapchatez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://snapchatez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/?ref=snapchat",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 1.139259
+        },
+        {
+          "url": "https://snapchatez.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaWFqcGJ6cGJzAYeJZtkaAYeJZtkaAAAAAQ",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaWFqcGJ6cGJzAYeJZtkaAYeJZtkaAAAAAQ",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Failed to Get Post | EmbedEZ",
+          "meta": {},
+          "bytes": 1017,
+          "seconds": 1.400649
+        }
+      ]
+    },
+    {
+      "platform": "spotify",
+      "name": "fxspotify",
+      "host": "https://fxspotify.com",
+      "repo": "https://github.com/dotconnexion/fxspotify",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fxspotify.com/",
+          "http": 200,
+          "final_url": "https://fxspotify.com/",
+          "ip": "216.24.57.18",
+          "curl_exit": 0,
+          "error": "",
+          "title": "FxSpotify",
+          "meta": {},
+          "bytes": 1413,
+          "seconds": 0.845776
+        },
+        {
+          "url": "https://fxspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+          "http": 200,
+          "final_url": "https://fxspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+          "ip": "216.24.57.16",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Never Gonna Give You Up by Rick Astley",
+          "meta": {
+            "og:description": "Song · Rick Astley",
+            "og:image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b273baf89eb11ec7c657805d2da0",
+            "og:site_name": "FxSpotify",
+            "og:title": "Never Gonna Give You Up",
+            "og:video": "https://p.scdn.co/mp3-preview/40a780b231e5ed130483bec7917b6c9a4f8a4708",
+            "og:type": "video.other",
+            "og:url": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=fxspotify",
+            "og:video:height": "640",
+            "og:video:secure_url": "https://p.scdn.co/mp3-preview/40a780b231e5ed130483bec7917b6c9a4f8a4708",
+            "og:video:type": "video/mp4",
+            "og:video:width": "640",
+            "og:video:release_date": "1987-11-12T00:00:00Z",
+            "twitter:card": "player",
+            "twitter:description": "Song · Rick Astley",
+            "twitter:image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d0000b273baf89eb11ec7c657805d2da0",
+            "twitter:player": "https://open.spotify.com/embed/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=fxspotify",
+            "twitter:player:height": "640",
+            "twitter:player:stream": "https://p.scdn.co/mp3-preview/40a780b231e5ed130483bec7917b6c9a4f8a4708",
+            "twitter:player:stream:content_type": "audio/mp3",
+            "twitter:player:width": "640",
+            "twitter:site": "spotify",
+            "twitter:title": "Never Gonna Give You Up",
+            "twitter:url": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT?utm_source=fxspotify"
+          },
+          "bytes": 3087,
+          "seconds": 0.623112
+        }
+      ]
+    },
+    {
+      "platform": "spotify",
+      "name": "FixSpotify",
+      "host": "https://fixspotify.com",
+      "repo": "https://github.com/gurrrrrrett3/fixspotify",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixspotify.com/",
+          "http": 200,
+          "final_url": "https://fixspotify.com/",
+          "ip": "2606:4700:3034::6815:5f3a",
+          "curl_exit": 0,
+          "error": "",
+          "title": "fixSpotify",
+          "meta": {
+            "og:site_name": "fixSpotify",
+            "og:title": "fixSpotify",
+            "og:description": "Enhances Spotify link sharing by improving how links appear on platforms like Discord. "
+          },
+          "bytes": 2970,
+          "seconds": 2.069902
+        },
+        {
+          "url": "https://fixspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+          "http": 404,
+          "final_url": "https://fixspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+          "ip": "2606:4700:3034::6815:5f3a",
+          "curl_exit": 0,
+          "error": "",
+          "title": "fixSpotify | error",
+          "meta": {
+            "og:site_name": "fixSpotify",
+            "og:title": "Whoops!",
+            "og:description": "We couldn't find that one, sorry!"
+          },
+          "bytes": 2751,
+          "seconds": 0.360535
+        }
+      ]
+    },
+    {
+      "platform": "threads",
+      "name": "fixthreads",
+      "host": "https://fixthreads.net",
+      "repo": "https://github.com/milanmdev/fixthreads",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixthreads.net/",
+          "http": 0,
+          "final_url": "https://fixthreads.net/",
+          "ip": "2a01:7e01::f03c:95ff:feed:783e",
+          "curl_exit": 60,
+          "error": "curl: (60) SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the webpage mentioned above.",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.63327
+        }
+      ]
+    },
+    {
+      "platform": "threads",
+      "name": "fixthreads (seria)",
+      "host": "https://fixthreads.seria.moe",
+      "repo": "https://github.com/milanmdev/fixthreads",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixthreads.seria.moe/",
+          "http": 200,
+          "final_url": "https://github.com/seriaati/fixthreads",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - seriaati/fixthreads: Fixes Meta's Threads metadata for sites like Discord, Telegram, etc. · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/4ab3a965049bfb6ef0efc5387ea5e613dc9aaa7ef83a784434aca69258832834/seriaati/fixthreads",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - seriaati/fixthreads: Fixes Meta's Threads metadata for sites like Discord, Telegram, etc.",
+            "twitter:description": "Fixes Meta's Threads metadata for sites like Discord, Telegram, etc. - seriaati/fixthreads",
+            "og:image": "https://opengraph.githubassets.com/4ab3a965049bfb6ef0efc5387ea5e613dc9aaa7ef83a784434aca69258832834/seriaati/fixthreads",
+            "og:image:alt": "Fixes Meta's Threads metadata for sites like Discord, Telegram, etc. - seriaati/fixthreads",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - seriaati/fixthreads: Fixes Meta's Threads metadata for sites like Discord, Telegram, etc.",
+            "og:url": "https://github.com/seriaati/fixthreads",
+            "og:description": "Fixes Meta's Threads metadata for sites like Discord, Telegram, etc. - seriaati/fixthreads"
+          },
+          "bytes": 221879,
+          "seconds": 1.204984
+        },
+        {
+          "url": "https://fixthreads.seria.moe/@zuck/post/CuP48SgaaxA",
+          "http": 200,
+          "final_url": "https://www.threads.com/?error=invalid_post",
+          "ip": "57.144.120.192",
+          "curl_exit": 63,
+          "error": "curl: (63) Exceeded the maximum allowed file size (524288) with 524288 bytes",
+          "title": "Threads",
+          "meta": {
+            "og:site_name": "Threads",
+            "og:type": "article",
+            "og:title": "Threads • Log in",
+            "og:description": "Join Threads to share ideas, ask questions, post random thoughts, find your people and more. Log in with your Instagram.",
+            "og:url": "https://www.threads.com/",
+            "og:image": "https://static.cdninstagram.com/rsrc.php/yd/r/kHwIMM5b8PW.webp",
+            "twitter:card": "summary",
+            "twitter:title": "Threads • Log in",
+            "twitter:description": "Join Threads to share ideas, ask questions, post random thoughts, find your people and more. Log in with your Instagram.",
+            "twitter:image": "https://static.cdninstagram.com/rsrc.php/yd/r/kHwIMM5b8PW.webp"
+          },
+          "bytes": 524288,
+          "seconds": 1.647988
+        }
+      ]
+    },
+    {
+      "platform": "threads",
+      "name": "vxThreads",
+      "host": "https://vxthreads.net",
+      "repo": "https://github.com/everettsouthwick/vxThreads",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://vxthreads.net/",
+          "http": 0,
+          "final_url": "https://vxthreads.net/",
+          "ip": "",
+          "curl_exit": 28,
+          "error": "curl: (28) Connection timed out after 5000 milliseconds",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 5.000834
+        },
+        {
+          "url": "https://vxthreads.net/@zuck/post/CuP48SgaaxA",
+          "http": 0,
+          "final_url": "https://vxthreads.net/@zuck/post/CuP48SgaaxA",
+          "ip": "",
+          "curl_exit": 28,
+          "error": "curl: (28) Connection timed out after 5001 milliseconds",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 5.001053
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "fxTikTok",
+      "host": "https://tnktok.com",
+      "repo": "https://github.com/okdargy/fxtiktok",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://tnktok.com/",
+          "http": 200,
+          "final_url": "https://github.com/okdargy/fxtiktok",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - okdargy/fxTikTok: Fix stale and unresponsive TikTok embeds on Discord with just s/i/n · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/f0540ec8d7af79374a056cf0ae79955315b9da6e9cd1731b79a8adc149363178/okdargy/fxTikTok",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - okdargy/fxTikTok: Fix stale and unresponsive TikTok embeds on Discord with just s/i/n",
+            "twitter:description": "Fix stale and unresponsive TikTok embeds on Discord with just s/i/n - okdargy/fxTikTok",
+            "og:image": "https://opengraph.githubassets.com/f0540ec8d7af79374a056cf0ae79955315b9da6e9cd1731b79a8adc149363178/okdargy/fxTikTok",
+            "og:image:alt": "Fix stale and unresponsive TikTok embeds on Discord with just s/i/n - okdargy/fxTikTok",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - okdargy/fxTikTok: Fix stale and unresponsive TikTok embeds on Discord with just s/i/n",
+            "og:url": "https://github.com/okdargy/fxTikTok",
+            "og:description": "Fix stale and unresponsive TikTok embeds on Discord with just s/i/n - okdargy/fxTikTok"
+          },
+          "bytes": 265294,
+          "seconds": 1.509855
+        },
+        {
+          "url": "https://tnktok.com/@scout2015/video/6718335390845095173",
+          "http": 200,
+          "final_url": "https://tnktok.com/@scout2015/video/6718335390845095173",
+          "ip": "2606:4700:3032::ac43:cf91",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:site_name": "fxTikTok",
+            "og:title": "Scout, Suki & Stella (@scout2015)",
+            "twitter:site": "@scout2015",
+            "twitter:creator": "@scout2015",
+            "twitter:title": "Scout, Suki & Stella (@scout2015)",
+            "og:url": "https://www.tiktok.com/@scout2015/video/6718335390845095173",
+            "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+            "og:video": "https://tnktok.com/generate/video/6718335390845095173.mp4",
+            "og:video:type": "video/mp4",
+            "og:video:width": "576",
+            "og:video:height": "1024",
+            "og:type": "video.other",
+            "twitter:player:height": "1024",
+            "twitter:player:width": "576",
+            "twitter:player": "https://tnktok.com/generate/video/6718335390845095173.mp4",
+            "twitter:player:stream": "https://tnktok.com/generate/video/6718335390845095173.mp4",
+            "twitter:player:stream:content_type": "video/mp4"
+          },
+          "bytes": 2020,
+          "seconds": 0.37283
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "TfxkTok",
+      "host": "https://tfxktok.com/",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://tfxktok.com/",
+          "http": 200,
+          "final_url": "https://tfxktok.com/",
+          "ip": "104.21.65.183",
+          "curl_exit": 0,
+          "error": "",
+          "title": "FxTikTok",
+          "meta": {
+            "og:title": "FxTikTok",
+            "og:site_name": "FxTikTok",
+            "og:image": "https://cdn.discordapp.com/icons/958942151817977906/7a220767640cbedbf780767585eaa10d.png?size=96",
+            "twitter:image": "https://cdn.discordapp.com/icons/958942151817977906/7a220767640cbedbf780767585eaa10d.png?size=96"
+          },
+          "bytes": 3807,
+          "seconds": 1.051122
+        },
+        {
+          "url": "https://tfxktok.com/@scout2015/video/6718335390845095173",
+          "http": 500,
+          "final_url": "https://tfxktok.com/@scout2015/video/6718335390845095173",
+          "ip": "2606:4700:3034::ac43:a54d",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 21,
+          "seconds": 0.679126
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "tiktxk",
+      "host": "https://tiktxk.com/",
+      "repo": "https://github.com/Britmoji/tiktxk",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://tiktxk.com/",
+          "http": 200,
+          "final_url": "https://tiktxk.com/",
+          "ip": "104.21.73.14",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "TikTxk",
+            "og:site_name": "TikTxk - Prettier Embeds",
+            "og:description": "TikTxk fixes TikTok's broken embeds in Discord, allowing you to play videos directly without leaving the app. To get started, send any TikTok link, and type s/o/x to fix its stupid lil' embed. Enjoy!"
+          },
+          "bytes": 837,
+          "seconds": 0.55758
+        },
+        {
+          "url": "https://tiktxk.com/@scout2015/video/6718335390845095173",
+          "http": 200,
+          "final_url": "https://tiktxk.com/@scout2015/video/6718335390845095173",
+          "ip": "2606:4700:3037::ac43:8944",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "❤️ 35.2k 💬 5.5k",
+            "og:site_name": "TikTxk - Prettier Embeds",
+            "og:url": "https://tiktok.com/@scout2015/video/6718335390845095173",
+            "og:video": "https://tiktxk.com/meta/6718335390845095173/video",
+            "og:video:type": "video/mp4",
+            "og:video:width": "576",
+            "og:video:height": "1024",
+            "og:type": "video.other"
+          },
+          "bytes": 1150,
+          "seconds": 0.775403
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "vxtiktok",
+      "host": "https://vxtiktok.com/",
+      "repo": "https://github.com/dylanpdx/vxtiktok",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://vxtiktok.com/",
+          "http": 200,
+          "final_url": "https://vxtiktok.com/",
+          "ip": "2a06:98c1:3121::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "Notice",
+            "og:description": "Due to a legal request, this service is no longer available."
+          },
+          "bytes": 883,
+          "seconds": 0.729951
+        },
+        {
+          "url": "https://vxtiktok.com/@scout2015/video/6718335390845095173",
+          "http": 200,
+          "final_url": "https://vxtiktok.com/@scout2015/video/6718335390845095173",
+          "ip": "2a06:98c1:3121::6",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:title": "Notice",
+            "og:description": "Due to a legal request, this service is no longer available."
+          },
+          "bytes": 883,
+          "seconds": 0.276321
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "TikTokEZ",
+      "host": "https://tiktokez.com/",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://tiktokez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 1.032059
+        },
+        {
+          "url": "https://tiktokez.com/@scout2015/video/6718335390845095173",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://tiktok.com/@scout2015/video/6718335390845095173",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ",
+          "meta": {
+            "og:title": "Scout, Suki & Stella (@scout2015)",
+            "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+            "og:url": "https://embedez.com/embed/search_6a4f661ffd58409a60a40345",
+            "og:site_name": "EmbedEZ • 1 - 1 of 1",
+            "og:video": "https://embedez.com/api/v2/redirect/search_6a4f661ffd58409a60a40345?path=content.media.0.source",
+            "og:video:width": "576",
+            "og:video:height": "1024",
+            "og:video:type": "video/mp4",
+            "og:type": "video.other",
+            "twitter:card": "player",
+            "twitter:title": "Scout, Suki & Stella (@scout2015)",
+            "twitter:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+            "twitter:image": "https://embedez.com/api/v2/redirect/search_6a4f661ffd58409a60a40345?path=content.media.0.thumbnail&pv=2",
+            "twitter:player": "https://embedez.com/watch/search_6a4f661ffd58409a60a40345",
+            "twitter:player:stream": "https://embedez.com/api/v2/redirect/search_6a4f661ffd58409a60a40345?path=content.media.0.source",
+            "twitter:player:width": "576",
+            "twitter:player:height": "1024"
+          },
+          "bytes": 2695,
+          "seconds": 0.655655
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "kkScript",
+      "host": "https://kktiktok.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://kktiktok.com/",
+          "http": 404,
+          "final_url": "https://kktiktok.com/",
+          "ip": "2a06:98c1:58::60",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.449541
+        },
+        {
+          "url": "https://kktiktok.com/@scout2015/video/6718335390845095173",
+          "http": 200,
+          "final_url": "https://v16m.tiktokcdn-us.com/1a90c49610d6947f7f49104ecf6510b6/6afc3b86/video/tos/useast5/tos-useast5-pve-0068-tx/a9d18e19b850455597ce9421ea84a228/",
+          "ip": "23.218.216.144",
+          "curl_exit": 63,
+          "error": "curl: (63) Maximum file size exceeded",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.651893
+        }
+      ]
+    },
+    {
+      "platform": "tiktok",
+      "name": "FixTikTok",
+      "host": "https://fixtiktok.com",
+      "repo": "https://github.com/Xetera/fixtiktok",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixtiktok.com/",
+          "http": 200,
+          "final_url": "https://github.com/someaspy/fixtiktok.com",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - SomeAspy/fixtiktok.com: Mirror of okdargy/fxTikTok · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/490f54542cf1bdd5ae8f407d2056d50af2863bf799e3039564079d8eed2acbe9/SomeAspy/fixtiktok.com",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - SomeAspy/fixtiktok.com: Mirror of okdargy/fxTikTok",
+            "twitter:description": "Mirror of okdargy/fxTikTok. Contribute to SomeAspy/fixtiktok.com development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/490f54542cf1bdd5ae8f407d2056d50af2863bf799e3039564079d8eed2acbe9/SomeAspy/fixtiktok.com",
+            "og:image:alt": "Mirror of okdargy/fxTikTok. Contribute to SomeAspy/fixtiktok.com development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - SomeAspy/fixtiktok.com: Mirror of okdargy/fxTikTok",
+            "og:url": "https://github.com/SomeAspy/fixtiktok.com",
+            "og:description": "Mirror of okdargy/fxTikTok. Contribute to SomeAspy/fixtiktok.com development by creating an account on GitHub."
+          },
+          "bytes": 229242,
+          "seconds": 1.530026
+        },
+        {
+          "url": "https://fixtiktok.com/@scout2015/video/6718335390845095173",
+          "http": 200,
+          "final_url": "https://fixtiktok.com/@scout2015/video/6718335390845095173",
+          "ip": "2606:4700:3031::6815:979",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:site_name": "fxTikTok",
+            "og:title": "Scout, Suki & Stella (@scout2015)",
+            "twitter:site": "@scout2015",
+            "twitter:creator": "@scout2015",
+            "twitter:title": "Scout, Suki & Stella (@scout2015)",
+            "og:url": "https://www.tiktok.com/@scout2015/video/6718335390845095173",
+            "og:description": "Scramble up ur name & I’ll try to guess it😍❤️ #foryoupage #petsoftiktok #aesthetic",
+            "og:video": "https://offload.tnktok.com/generate/video/6718335390845095173.mp4",
+            "og:video:type": "video/mp4",
+            "og:video:width": "576",
+            "og:video:height": "1024",
+            "og:type": "video.other",
+            "twitter:player:height": "1024",
+            "twitter:player:width": "576",
+            "twitter:player": "https://offload.tnktok.com/generate/video/6718335390845095173.mp4",
+            "twitter:player:stream": "https://offload.tnktok.com/generate/video/6718335390845095173.mp4",
+            "twitter:player:stream:content_type": "video/mp4"
+          },
+          "bytes": 1693,
+          "seconds": 0.701248
+        }
+      ]
+    },
+    {
+      "platform": "tumblr",
+      "name": "fxtumblr",
+      "host": "https://tpmblr.com/",
+      "repo": "https://github.com/knuxify/fxtumblr",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://tpmblr.com/",
+          "http": 200,
+          "final_url": "https://tpmblr.com/",
+          "ip": "2a0d:eb00:8006:acab:212:fdff:fe7e:7e7e",
+          "curl_exit": 0,
+          "error": "",
+          "title": "fxtumblr",
+          "meta": {},
+          "bytes": 2429,
+          "seconds": 0.51098
+        },
+        {
+          "url": "https://tpmblr.com/neil-gaiman/717171481634078720",
+          "http": 404,
+          "final_url": "https://tpmblr.com/neil-gaiman/717171481634078720",
+          "ip": "2a0d:eb00:8006:acab:212:fdff:fe7e:7e7e",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:site_name": "fxtumblr",
+            "og:title": "An error has occured",
+            "og:description": "Post not found."
+          },
+          "bytes": 942,
+          "seconds": 0.68765
+        }
+      ]
+    },
+    {
+      "platform": "tumblr",
+      "name": "TxTumblr",
+      "host": "https://txtumblr.com",
+      "repo": "https://github.com/MarkSuckerberg/txtumblr",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://txtumblr.com/",
+          "http": 200,
+          "final_url": "https://github.com/MarkSuckerberg/txtumblr",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - MarkSuckerberg/txtumblr: Cloudflare worker powering better tumblr embeds · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/d17d48c10c8be32551614f321d263faee48d924fa5dec595fbf89530af6c5b13/MarkSuckerberg/txtumblr",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - MarkSuckerberg/txtumblr: Cloudflare worker powering better tumblr embeds",
+            "twitter:description": "Cloudflare worker powering better tumblr embeds. Contribute to MarkSuckerberg/txtumblr development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/d17d48c10c8be32551614f321d263faee48d924fa5dec595fbf89530af6c5b13/MarkSuckerberg/txtumblr",
+            "og:image:alt": "Cloudflare worker powering better tumblr embeds. Contribute to MarkSuckerberg/txtumblr development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - MarkSuckerberg/txtumblr: Cloudflare worker powering better tumblr embeds",
+            "og:url": "https://github.com/MarkSuckerberg/txtumblr",
+            "og:description": "Cloudflare worker powering better tumblr embeds. Contribute to MarkSuckerberg/txtumblr development by creating an account on GitHub."
+          },
+          "bytes": 238568,
+          "seconds": 1.602757
+        },
+        {
+          "url": "https://txtumblr.com/neil-gaiman/717171481634078720",
+          "http": 404,
+          "final_url": "https://txtumblr.com/neil-gaiman/717171481634078720",
+          "ip": "2606:4700:3035::ac43:965b",
+          "curl_exit": 0,
+          "error": "",
+          "title": "txTumblr",
+          "meta": {
+            "og:type": "website",
+            "og:title": "txTumblr",
+            "og:url": "https://www.tumblr.com/neil-gaiman/717171481634078720",
+            "og:description": "Unable to retrieve post from this link.\n\nError:\nNot Found: Tumblr API: Internet strangeness. Try again.",
+            "twitter:card": "summary",
+            "twitter:domain": "tumblr.com",
+            "twitter:title": "txTumblr",
+            "twitter:url": "https://www.tumblr.com/neil-gaiman/717171481634078720",
+            "twitter:description": "Unable to retrieve post from this link.\n\nError:\nNot Found: Tumblr API: Internet strangeness. Try again."
+          },
+          "bytes": 1867,
+          "seconds": 0.619068
+        }
+      ]
+    },
+    {
+      "platform": "twitch",
+      "name": "fxtwitch",
+      "host": "https://fxtwitch.seria.moe",
+      "repo": "https://github.com/seriaati/fxtwitch",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fxtwitch.seria.moe/",
+          "http": 200,
+          "final_url": "https://github.com/seriaati/fxtwitch",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - seriaati/fxtwitch: Fix Twitch clip embeds on Discord. · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/6a9e26083f19f7f8a13fe200a347efd68bc94d931e7976279a4bce71a5ff1e6c/seriaati/fxtwitch",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - seriaati/fxtwitch: Fix Twitch clip embeds on Discord.",
+            "twitter:description": "Fix Twitch clip embeds on Discord. Contribute to seriaati/fxtwitch development by creating an account on GitHub.",
+            "og:image": "https://opengraph.githubassets.com/6a9e26083f19f7f8a13fe200a347efd68bc94d931e7976279a4bce71a5ff1e6c/seriaati/fxtwitch",
+            "og:image:alt": "Fix Twitch clip embeds on Discord. Contribute to seriaati/fxtwitch development by creating an account on GitHub.",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - seriaati/fxtwitch: Fix Twitch clip embeds on Discord.",
+            "og:url": "https://github.com/seriaati/fxtwitch",
+            "og:description": "Fix Twitch clip embeds on Discord. Contribute to seriaati/fxtwitch development by creating an account on GitHub."
+          },
+          "bytes": 210832,
+          "seconds": 1.126062
+        }
+      ]
+    },
+    {
+      "platform": "twitch",
+      "name": "FxTwitch",
+      "host": "https://fxtwitch.tv",
+      "repo": null,
+      "already_disabled": true,
+      "checks": [
+        {
+          "url": "https://fxtwitch.tv/",
+          "http": 0,
+          "final_url": "https://fxtwitch.tv/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: fxtwitch.tv",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.325883
+        }
+      ]
+    },
+    {
+      "platform": "twitch",
+      "name": "Txitch",
+      "host": "https://txitch.tv/",
+      "repo": null,
+      "already_disabled": true,
+      "checks": [
+        {
+          "url": "https://txitch.tv/",
+          "http": 0,
+          "final_url": "https://txitch.tv/",
+          "ip": "",
+          "curl_exit": 6,
+          "error": "curl: (6) Could not resolve host: txitch.tv",
+          "title": "",
+          "meta": {},
+          "bytes": 0,
+          "seconds": 0.284367
+        }
+      ]
+    },
+    {
+      "platform": "weibo",
+      "name": "WeiboEZ",
+      "host": "https://weiboez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://weiboez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 0.927832
+        },
+        {
+          "url": "https://weiboez.com/2803301701/5024029016829739",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://weibo.com/2803301701/5024029016829739",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Failed to Get Post | EmbedEZ",
+          "meta": {},
+          "bytes": 971,
+          "seconds": 3.12085
+        }
+      ]
+    },
+    {
+      "platform": "x",
+      "name": "BetterTwitFix",
+      "host": "https://fixvx.com",
+      "repo": "https://github.com/dylanpdx/BetterTwitFix",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixvx.com/",
+          "http": 200,
+          "final_url": "https://github.com/dylanpdx/BetterTwitFix",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - dylanpdx/BetterTwitFix: Fix Twitter video embeds in Discord (and Telegram!) · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/d8c99bffe165c8335a7105f59f73305fe728746ff96790449a6b7d1a60f43253/dylanpdx/BetterTwitFix",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - dylanpdx/BetterTwitFix: Fix Twitter video embeds in Discord (and Telegram!)",
+            "twitter:description": "Fix Twitter video embeds in Discord (and Telegram!) - dylanpdx/BetterTwitFix",
+            "og:image": "https://opengraph.githubassets.com/d8c99bffe165c8335a7105f59f73305fe728746ff96790449a6b7d1a60f43253/dylanpdx/BetterTwitFix",
+            "og:image:alt": "Fix Twitter video embeds in Discord (and Telegram!) - dylanpdx/BetterTwitFix",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - dylanpdx/BetterTwitFix: Fix Twitter video embeds in Discord (and Telegram!)",
+            "og:url": "https://github.com/dylanpdx/BetterTwitFix",
+            "og:description": "Fix Twitter video embeds in Discord (and Telegram!) - dylanpdx/BetterTwitFix"
+          },
+          "bytes": 333541,
+          "seconds": 1.363428
+        },
+        {
+          "url": "https://fixvx.com/makkahregion/status/1902619525532512361",
+          "http": 200,
+          "final_url": "https://vxtwitter.com/makkahregion/status/1902619525532512361",
+          "ip": "2606:4700:20::ac43:46b8",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {},
+          "bytes": 410,
+          "seconds": 0.53672
+        }
+      ]
+    },
+    {
+      "platform": "x",
+      "name": "FxEmbed",
+      "host": "https://fixupx.com",
+      "repo": "https://github.com/FxEmbed/FxEmbed",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://fixupx.com/",
+          "http": 200,
+          "final_url": "https://github.com/FxEmbed/FxEmbed",
+          "ip": "20.233.83.145",
+          "curl_exit": 0,
+          "error": "",
+          "title": "GitHub - FxEmbed/FxEmbed: Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others · GitHub",
+          "meta": {
+            "twitter:image": "https://opengraph.githubassets.com/9a7f8a16cb974c7d858de10d72257524d689ac484a76236ae65ea0c378e183d0/FxEmbed/FxEmbed",
+            "twitter:site": "@github",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "GitHub - FxEmbed/FxEmbed: Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others",
+            "twitter:description": "Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others - FxEmbed/FxEmbed",
+            "og:image": "https://opengraph.githubassets.com/9a7f8a16cb974c7d858de10d72257524d689ac484a76236ae65ea0c378e183d0/FxEmbed/FxEmbed",
+            "og:image:alt": "Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others - FxEmbed/FxEmbed",
+            "og:image:width": "1200",
+            "og:image:height": "600",
+            "og:site_name": "GitHub",
+            "og:type": "object",
+            "og:title": "GitHub - FxEmbed/FxEmbed: Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others",
+            "og:url": "https://github.com/FxEmbed/FxEmbed",
+            "og:description": "Fix X/Twitter and Bluesky embeds! Use multiple images, videos, polls, translations and more on Discord, Telegram and others - FxEmbed/FxEmbed"
+          },
+          "bytes": 310436,
+          "seconds": 1.270968
+        },
+        {
+          "url": "https://fixupx.com/makkahregion/status/1902619525532512361",
+          "http": 200,
+          "final_url": "https://fixupx.com/makkahregion/status/1902619525532512361",
+          "ip": "2606:4700:3035::ac43:9cbb",
+          "curl_exit": 0,
+          "error": "",
+          "title": "",
+          "meta": {
+            "og:url": "https://x.com/makkahregion/status/1902619525532512361",
+            "twitter:site": "@makkahregion",
+            "twitter:creator": "@makkahregion",
+            "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+            "twitter:card": "player",
+            "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+            "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+            "og:site_name": "FixupX"
+          },
+          "bytes": 2898,
+          "seconds": 0.513489
+        }
+      ]
+    },
+    {
+      "platform": "x",
+      "name": "TwitterEZ",
+      "host": "https://twitterez.com",
+      "repo": null,
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://twitterez.com/",
+          "http": 200,
+          "final_url": "https://embedez.com/?ref=twitter",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ: Fix TikTok & Twitter Embeds in Discord & Telegram",
+          "meta": {},
+          "bytes": 228607,
+          "seconds": 1.167989
+        },
+        {
+          "url": "https://twitterez.com/makkahregion/status/1902619525532512361",
+          "http": 200,
+          "final_url": "https://embedez.com/download?q=https://twitter.com/makkahregion/status/1902619525532512361",
+          "ip": "2606:4700:3034::ac43:8ec1",
+          "curl_exit": 0,
+          "error": "",
+          "title": "EmbedEZ",
+          "meta": {
+            "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+            "og:description": "#فيديو\nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+            "og:url": "https://embedez.com/embed/search_6afbec31755298b2e3ebcc23",
+            "og:site_name": "EmbedEZ • 1 - 1 of 1",
+            "og:video": "https://embedez.com/api/v2/redirect/search_6afbec31755298b2e3ebcc23?path=content.media.0.source",
+            "og:video:width": "1080",
+            "og:video:height": "1920",
+            "og:video:type": "video/mp4",
+            "og:type": "video.other",
+            "twitter:card": "player",
+            "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+            "twitter:description": "#فيديو\nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+            "twitter:image": "https://embedez.com/api/v2/redirect/search_6afbec31755298b2e3ebcc23?path=content.media.0.thumbnail&pv=2",
+            "twitter:player": "https://embedez.com/watch/search_6afbec31755298b2e3ebcc23",
+            "twitter:player:stream": "https://embedez.com/api/v2/redirect/search_6afbec31755298b2e3ebcc23?path=content.media.0.source",
+            "twitter:player:width": "1080",
+            "twitter:player:height": "1920"
+          },
+          "bytes": 2626,
+          "seconds": 0.890108
+        }
+      ]
+    },
+    {
+      "platform": "youtube",
+      "name": "Koutube",
+      "host": "https://koutube.com",
+      "repo": "https://github.com/iGerman00/koutube",
+      "already_disabled": false,
+      "checks": [
+        {
+          "url": "https://koutube.com/",
+          "http": 200,
+          "final_url": "https://koutube.com/",
+          "ip": "104.21.44.194",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Koutube cache",
+          "meta": {},
+          "bytes": 29604,
+          "seconds": 0.58856
+        },
+        {
+          "url": "https://koutube.com/watch?v=dQw4w9WgXcQ",
+          "http": 200,
+          "final_url": "https://koutube.com/watch?v=dQw4w9WgXcQ",
+          "ip": "2606:4700:3035::6815:2cc2",
+          "curl_exit": 0,
+          "error": "",
+          "title": "Koutube - use s/y/k",
+          "meta": {
+            "og:site_name": "Koutube - use s/y/k\nUploaded 17 years ago\n👁︎ 1,836,254,782 👍︎ 19,501,120 👎︎ 521,783 👥︎ 4.56M",
+            "twitter:card": "player",
+            "twitter:title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+            "twitter:player:width": "640",
+            "twitter:player:height": "360",
+            "twitter:player:stream": "https://iv.igerman.cc/latest_version?id=dQw4w9WgXcQ&itag=18&local=true",
+            "twitter:player:stream:content_type": "video/mp4",
+            "og:video": "https://iv.igerman.cc/latest_version?id=dQw4w9WgXcQ&itag=18&local=true",
+            "og:video:secure_url": "https://iv.igerman.cc/latest_version?id=dQw4w9WgXcQ&itag=18&local=true",
+            "og:video:type": "video/mp4",
+            "og:video:width": "640",
+            "og:video:height": "360",
+            "twitter:image": "https://iv.igerman.cc/vi/dQw4w9WgXcQ/maxres.jpg",
+            "og:url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "og:image": "https://iv.igerman.cc/vi/dQw4w9WgXcQ/maxres.jpg",
+            "og:description": "The official video for “Never Gonna Give You Up” by Rick Astley. \n\nNever: The Autobiography 📚 OUT NOW! \nFollow this link to get your copy a..."
+          },
+          "bytes": 3880,
+          "seconds": 0.295044
+        }
+      ]
+    }
+  ],
+  "dns_confirmation": [
+    {
+      "host": "bilibliez.com",
+      "google": {
+        "status": 3,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 3,
+        "answers": []
+      }
+    },
+    {
+      "host": "cbsky.app",
+      "google": {
+        "status": 3,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 3,
+        "answers": []
+      }
+    },
+    {
+      "host": "ddinstagram.com",
+      "google": {
+        "status": 3,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 3,
+        "answers": []
+      }
+    },
+    {
+      "host": "fxstagram.com",
+      "google": {
+        "status": 3,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 3,
+        "answers": []
+      }
+    },
+    {
+      "host": "kkinstagram.com",
+      "google": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "kkinstagram.com.",
+            "type": 5,
+            "TTL": 1733,
+            "data": "kkapi-l9b5g.ondigitalocean.app."
+          },
+          {
+            "name": "kkapi-l9b5g.ondigitalocean.app.",
+            "type": 1,
+            "TTL": 300,
+            "data": "172.66.0.96"
+          },
+          {
+            "name": "kkapi-l9b5g.ondigitalocean.app.",
+            "type": 1,
+            "TTL": 300,
+            "data": "162.159.140.98"
+          }
+        ]
+      },
+      "cloudflare": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "kkinstagram.com",
+            "type": 5,
+            "TTL": 3600,
+            "data": "kkapi-l9b5g.ondigitalocean.app."
+          },
+          {
+            "name": "kkapi-l9b5g.ondigitalocean.app",
+            "type": 1,
+            "TTL": 300,
+            "data": "162.159.140.98"
+          },
+          {
+            "name": "kkapi-l9b5g.ondigitalocean.app",
+            "type": 1,
+            "TTL": 300,
+            "data": "172.66.0.96"
+          }
+        ]
+      }
+    },
+    {
+      "host": "zzinstagram.com",
+      "google": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "zzinstagram.com.",
+            "type": 1,
+            "TTL": 3600,
+            "data": "149.202.35.66"
+          }
+        ]
+      },
+      "cloudflare": {
+        "status": 0,
+        "answers": [
+          {
+            "name": "zzinstagram.com",
+            "type": 1,
+            "TTL": 3600,
+            "data": "149.202.35.66"
+          }
+        ]
+      }
+    },
+    {
+      "host": "fxtwitch.tv",
+      "google": {
+        "status": 0,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 0,
+        "answers": []
+      }
+    },
+    {
+      "host": "txitch.tv",
+      "google": {
+        "status": 0,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 0,
+        "answers": []
+      }
+    },
+    {
+      "host": "fx.dissonant.dev",
+      "google": {
+        "status": 3,
+        "answers": []
+      },
+      "cloudflare": {
+        "status": 3,
+        "answers": []
+      }
+    }
+  ],
+  "rechecks": [
+    {
+      "url": "https://bskx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://bskx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "ip": "2606:4700:3035::ac43:afe0",
+      "curl_exit": 0,
+      "error": "",
+      "title": "舟 (@nkjrs12.bsky.social)",
+      "meta": {
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "og:site_name": "VixBluesky",
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:card": "undefined",
+        "twitter:image": "0"
+      },
+      "bytes": 1621,
+      "seconds": 1.024067
+    },
+    {
+      "url": "https://bskx.app/profile/bsky.app/post/3n27yge3hys24",
+      "http": 200,
+      "final_url": "https://bskx.app/profile/bsky.app/post/3n27yge3hys24",
+      "ip": "2606:4700:3035::ac43:afe0",
+      "curl_exit": 0,
+      "error": "",
+      "title": "Bluesky (@bsky.app)",
+      "meta": {
+        "og:url": "https://bsky.app/profile/bsky.app/post/3n27yge3hys24",
+        "og:site_name": "VixBluesky",
+        "og:title": "Bluesky (@bsky.app)",
+        "twitter:title": "Bluesky (@bsky.app)",
+        "og:description": "I heard Bluesky gets all its breaking news from Flavor Flav\n\nQuoting FLAVOR FLAV ⏰ (@flavorflav.bsky.social)\n➥  Nationwide ground stop on all flights in the US.",
+        "twitter:card": "undefined",
+        "twitter:image": "0"
+      },
+      "bytes": 1722,
+      "seconds": 0.876424
+    },
+    {
+      "url": "https://bsyy.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://bsyy.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "ip": "2606:4700:3037::ac43:dcd6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "FixBluesky",
+        "twitter:creator": "@nkjrs12.bsky.social",
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:card": "summary_large_image",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a"
+      },
+      "bytes": 1529,
+      "seconds": 1.140275
+    },
+    {
+      "url": "https://bsyy.app/profile/bsky.app/post/3n27yge3hys24",
+      "http": 200,
+      "final_url": "https://bsyy.app/profile/bsky.app/post/3n27yge3hys24",
+      "ip": "172.67.220.214",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "FixBluesky",
+        "twitter:creator": "@bsky.app",
+        "og:description": "I heard Bluesky gets all its breaking news from Flavor Flav\n\nQuoting @flavorflav.bsky.social\n➥  Nationwide ground stop on all flights in the US.",
+        "og:title": "Bluesky (@bsky.app)",
+        "twitter:card": "summary_large_image"
+      },
+      "bytes": 1463,
+      "seconds": 1.204195
+    },
+    {
+      "url": "https://bskye.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://bskye.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "ip": "172.67.204.8",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "og:site_name": "bskye",
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "twitter:card": "summary_large_image",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "og:image:secure_url": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "og:image:type": "image/jpeg",
+        "og:image:width": "0",
+        "og:image:height": "0"
+      },
+      "bytes": 2199,
+      "seconds": 0.479395
+    },
+    {
+      "url": "https://bskye.app/profile/bsky.app/post/3n27yge3hys24",
+      "http": 200,
+      "final_url": "https://bskye.app/profile/bsky.app/post/3n27yge3hys24",
+      "ip": "2606:4700:3036::6815:3a7b",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:title": "Bluesky (@bsky.app)",
+        "og:site_name": "bskye",
+        "og:url": "https://bsky.app/profile/bsky.app/post/3n27yge3hys24",
+        "og:description": "I heard Bluesky gets all its breaking news from Flavor Flav\n\n🗨️Quoting: FLAVOR FLAV ⏰ (@flavorflav.bsky.social)\nNationwide ground stop on all flights in the US."
+      },
+      "bytes": 1483,
+      "seconds": 0.756044
+    },
+    {
+      "url": "https://vxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://vxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "ip": "2a06:98c1:3120::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "summary_large_image",
+        "og:site_name": "vxBsky\n💖 785 🔁 246",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "twitter:creator": "@舟"
+      },
+      "bytes": 1595,
+      "seconds": 1.395403
+    },
+    {
+      "url": "https://vxbsky.app/profile/bsky.app/post/3n27yge3hys24",
+      "http": 200,
+      "final_url": "https://vxbsky.app/profile/bsky.app/post/3n27yge3hys24",
+      "ip": "2a06:98c1:3120::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "tweet",
+        "og:site_name": "vxBsky\n💖 7499 🔁 669",
+        "twitter:title": "Bluesky (@bsky.app)",
+        "twitter:image": "https://cdn.bsky.app/img/avatar/plain/did:plc:z72i7hdynmk6r22z27h6tvur/bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka",
+        "twitter:creator": "@",
+        "og:description": "I heard Bluesky gets all its breaking news from Flavor Flav\n\n【Quoting FLAVOR FLAV ⏰ (@flavorflav.bsky.social):】\n\nNationwide ground stop on all flights in the US."
+      },
+      "bytes": 1740,
+      "seconds": 1.140837
+    },
+    {
+      "url": "https://fxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://fxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:card": "summary_large_image",
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "og:site_name": "FxBluesky"
+      },
+      "bytes": 2684,
+      "seconds": 0.465189
+    },
+    {
+      "url": "https://fxbsky.app/profile/bsky.app/post/3n27yge3hys24",
+      "http": 200,
+      "final_url": "https://fxbsky.app/profile/bsky.app/post/3n27yge3hys24",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://bsky.app/profile/bsky.app/post/3n27yge3hys24",
+        "twitter:title": "Bluesky (@bsky.app)",
+        "og:image": "https://cdn.bsky.app/img/avatar/plain/did:plc:z72i7hdynmk6r22z27h6tvur/bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka",
+        "twitter:image": "0",
+        "twitter:card": "tweet",
+        "og:title": "Bluesky (@bsky.app)",
+        "og:description": "I heard Bluesky gets all its breaking news from Flavor Flav\n\nQuoting FLAVOR FLAV ⏰ (@flavorflav.bsky.social) \n\nNationwide ground stop on all flights in the US.",
+        "og:site_name": "FxBluesky"
+      },
+      "bytes": 2963,
+      "seconds": 0.759498
+    },
+    {
+      "url": "https://xbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://xbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x/",
+      "ip": "2606:4700:3030::6815:1989",
+      "curl_exit": 0,
+      "error": "",
+      "title": "xbsky.app",
+      "meta": {
+        "og:site_name": "xbsky.app",
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:site": "@nkjrs12.bsky.social",
+        "twitter:creator": "@nkjrs12.bsky.social",
+        "twitter:card": "summary_large_image",
+        "og:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "og:image:width": "1748",
+        "og:image:height": "2480",
+        "twitter:image": "https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:3qumd3ybg2all63zrs675ewu/bafkreia5f2o5ore3zasuhcyfuz5ncgnmzia7arahof2trbca6vj3llmh7a",
+        "twitter:image:width": "1748",
+        "twitter:image:height": "2480"
+      },
+      "bytes": 2701,
+      "seconds": 1.489336
+    },
+    {
+      "url": "https://xbsky.app/profile/bsky.app/post/3n27yge3hys24",
+      "http": 200,
+      "final_url": "https://xbsky.app/profile/bsky.app/post/3n27yge3hys24/",
+      "ip": "2606:4700:3030::6815:1989",
+      "curl_exit": 0,
+      "error": "",
+      "title": "xbsky.app",
+      "meta": {
+        "og:site_name": "xbsky.app",
+        "og:title": "Bluesky (@bsky.app)",
+        "og:url": "https://bsky.app/profile/bsky.app/post/3n27yge3hys24",
+        "twitter:title": "Bluesky (@bsky.app)",
+        "twitter:site": "@bsky.app",
+        "twitter:creator": "@bsky.app",
+        "og:description": "I heard Bluesky gets all its breaking news from Flavor Flav\n\n📝 Quoting FLAVOR FLAV ⏰ (@flavorflav.bsky.social):\nNationwide ground stop on all flights in the US.",
+        "twitter:card": "summary",
+        "og:image": "https://cdn.bsky.app/img/avatar/plain/did:plc:z72i7hdynmk6r22z27h6tvur/bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka",
+        "twitter:image": "https://cdn.bsky.app/img/avatar/plain/did:plc:z72i7hdynmk6r22z27h6tvur/bafkreihwihm6kpd6zuwhhlro75p5qks5qtrcu55jp3gddbfjsieiv7wuka"
+      },
+      "bytes": 2473,
+      "seconds": 1.203968
+    },
+    {
+      "url": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "ip": "107.175.251.20",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vxinstagram",
+      "meta": {
+        "og:type": "video.other",
+        "og:video": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "og:video:secure_url": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "720",
+        "og:video:height": "1280",
+        "twitter:card": "player",
+        "twitter:player:stream": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "twitter:player:stream:content_type": "video/mp4",
+        "twitter:player:width": "720",
+        "twitter:player:height": "1280",
+        "twitter:player": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:site_name": "vxinstagram",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 spacewalk, increasing the station’s available power by up to 30%.",
+        "twitter:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "twitter:site": "nasajohnson",
+        "twitter:creator": "nasajohnson"
+      },
+      "bytes": 8783,
+      "seconds": 0.868799
+    },
+    {
+      "url": "https://vxinstagram.com/reel/Dd1gQBsCWE8/",
+      "http": 200,
+      "final_url": "https://vxinstagram.com/reel/Dd1gQBsCWE8/",
+      "ip": "107.175.251.20",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vxinstagram",
+      "meta": {
+        "og:type": "video.other",
+        "og:video": "https://vxinstagram.com/offload/Dd1gQBsCWE8/0.mp4",
+        "og:video:secure_url": "https://vxinstagram.com/offload/Dd1gQBsCWE8/0.mp4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "608",
+        "og:video:height": "1080",
+        "twitter:card": "player",
+        "twitter:player:stream": "https://vxinstagram.com/offload/Dd1gQBsCWE8/0.mp4",
+        "twitter:player:stream:content_type": "video/mp4",
+        "twitter:player:width": "608",
+        "twitter:player:height": "1080",
+        "twitter:player": "https://instagram.com/reel/Dd1gQBsCWE8/",
+        "og:site_name": "vxinstagram",
+        "og:url": "https://instagram.com/reel/Dd1gQBsCWE8/",
+        "og:title": "NASA (@nasa)",
+        "og:description": "What happens when we detect an asteroid that could pose a threat to Earth?\n\nIn early 2025, NASA joined scientists around the world in tracking asteroid 2024 YR4, which had a small chance of impacting Earth in 2032. As the international community studied it more closely, it was ultimately found to pose no threat to Earth — but the asteroid still provided a real-world test of the systems designed to protect our planets.\n\nWe have the behind-the-scenes story. Tune in and watch Planetary Defenders: This Is Not an Exercise, our newest documentary, now streaming on NASA+. Check our link in bio for de",
+        "twitter:title": "NASA (@nasa)",
+        "twitter:site": "nasa",
+        "twitter:creator": "nasa"
+      },
+      "bytes": 9796,
+      "seconds": 0.890254
+    },
+    {
+      "url": "https://eeinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://eeinstagram.com/reel/DfF3eqGSKKc/",
+      "ip": "2606:4700:3030::ac43:cbd5",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "player",
+        "twitter:title": "@nasajohnson",
+        "twitter:player:width": "0",
+        "twitter:player:height": "0",
+        "twitter:player:stream": "/videos/DfF3eqGSKKc/1?audio=1",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:site_name": "fix instagram embeds",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 s...",
+        "og:video": "/videos/DfF3eqGSKKc/1?audio=1",
+        "og:video:secure_url": "/videos/DfF3eqGSKKc/1?audio=1",
+        "og:video:type": "video/mp4",
+        "og:video:width": "0",
+        "og:video:height": "0"
+      },
+      "bytes": 2189,
+      "seconds": 1.919964
+    },
+    {
+      "url": "https://eeinstagram.com/reel/Dd1gQBsCWE8/",
+      "http": 200,
+      "final_url": "https://eeinstagram.com/reel/Dd1gQBsCWE8/",
+      "ip": "2606:4700:3030::ac43:cbd5",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "player",
+        "twitter:title": "@nasa",
+        "twitter:player:width": "0",
+        "twitter:player:height": "0",
+        "twitter:player:stream": "/videos/Dd1gQBsCWE8/1?audio=1",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:site_name": "fix instagram embeds",
+        "og:url": "https://instagram.com/reel/Dd1gQBsCWE8/",
+        "og:description": "What happens when we detect an asteroid that could pose a threat to Earth?\n\nIn early 2025, NASA joined scientists around the world in tracking asteroid 2024 YR4, which had a small chance of impacting Earth in 2032. As the international community stud...",
+        "og:video": "/videos/Dd1gQBsCWE8/1?audio=1",
+        "og:video:secure_url": "/videos/Dd1gQBsCWE8/1?audio=1",
+        "og:video:type": "video/mp4",
+        "og:video:width": "0",
+        "og:video:height": "0"
+      },
+      "bytes": 2164,
+      "seconds": 0.70498
+    },
+    {
+      "url": "https://uuinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://uuinstagram.com/reel/DfF3eqGSKKc/",
+      "ip": "2a06:98c1:3120::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "player",
+        "twitter:title": "@nasajohnson",
+        "twitter:player:width": "0",
+        "twitter:player:height": "0",
+        "twitter:player:stream": "/videos/DfF3eqGSKKc/1",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:site_name": "InstaFix",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 s...",
+        "og:video": "/videos/DfF3eqGSKKc/1",
+        "og:video:secure_url": "/videos/DfF3eqGSKKc/1",
+        "og:video:type": "video/mp4",
+        "og:video:width": "0",
+        "og:video:height": "0"
+      },
+      "bytes": 3267,
+      "seconds": 1.964166
+    },
+    {
+      "url": "https://uuinstagram.com/reel/Dd1gQBsCWE8/",
+      "http": 200,
+      "final_url": "https://uuinstagram.com/reel/Dd1gQBsCWE8/",
+      "ip": "2a06:98c1:3120::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "player",
+        "twitter:title": "@nasa",
+        "twitter:player:width": "0",
+        "twitter:player:height": "0",
+        "twitter:player:stream": "/videos/Dd1gQBsCWE8/1",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:site_name": "InstaFix",
+        "og:url": "https://instagram.com/reel/Dd1gQBsCWE8/",
+        "og:description": "What happens when we detect an asteroid that could pose a threat to Earth?\n\nIn early 2025, NASA joined scientists around the world in tracking asteroid 2024 YR4, which had a small chance of impacting Earth in 2032. As the international community stud...",
+        "og:video": "/videos/Dd1gQBsCWE8/1",
+        "og:video:secure_url": "/videos/Dd1gQBsCWE8/1",
+        "og:video:type": "video/mp4",
+        "og:video:width": "0",
+        "og:video:height": "0"
+      },
+      "bytes": 3242,
+      "seconds": 0.797012
+    },
+    {
+      "url": "https://kkinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://instagram.frec44-1.fna.fbcdn.net/o1/v/t2/f2/m86/AQMgO65IBSO4D1Fg1v8qWRLjCR7N-LaX4H_sPQeyoyjFQE149o094RWHdy1qn9GBy1VHAND2Io7UoTGpUBgIXE-YSbD4UnaCrO694xk.mp4",
+      "ip": "45.4.56.224",
+      "curl_exit": 63,
+      "error": "curl: (63) Maximum file size exceeded",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 7.009878,
+      "dns_override": [
+        "--resolve",
+        "kkinstagram.com:443:172.66.0.96"
+      ]
+    },
+    {
+      "url": "https://kkinstagram.com/reel/Dd1gQBsCWE8/",
+      "http": 200,
+      "final_url": "https://instagram.fios3-1.fna.fbcdn.net/o1/v/t2/f2/m86/AQOuHqPy8zAIe_zxT0betsc1P_MC0UbWr9RpQE1PXpLte2vJMirWZm53iFkG3HLLgYNA-UawzHs1ios2466gYPqEI3p8QO1APW0nZtQ.mp4",
+      "ip": "128.201.99.225",
+      "curl_exit": 63,
+      "error": "curl: (63) Maximum file size exceeded",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 4.384681,
+      "dns_override": [
+        "--resolve",
+        "kkinstagram.com:443:172.66.0.96"
+      ]
+    },
+    {
+      "url": "https://zzinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://zzinstagram.com/reel/DfF3eqGSKKc/",
+      "ip": "149.202.35.66",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://www.instagram.com/reel/DfF3eqGSKKc/",
+        "og:locale": "en_US",
+        "og:site_name": "OGInstagram",
+        "og:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "twitter:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "twitter:card": "summary_large_image",
+        "twitter:image": "https://g.oginstagram.com/offload/DfF3eqGSKKc/1?thumbnail=1&v=2&kid=vultr1&exp=1797483600&sig=KCxBIXPfedntZ9aQbnjINpowj5d7U-HBDIfLCUgR-b4",
+        "og:image": "https://g.oginstagram.com/offload/DfF3eqGSKKc/1?thumbnail=1&v=2&kid=vultr1&exp=1797483600&sig=KCxBIXPfedntZ9aQbnjINpowj5d7U-HBDIfLCUgR-b4",
+        "og:image:secure_url": "https://g.oginstagram.com/offload/DfF3eqGSKKc/1?thumbnail=1&v=2&kid=vultr1&exp=1797483600&sig=KCxBIXPfedntZ9aQbnjINpowj5d7U-HBDIfLCUgR-b4",
+        "twitter:creator": "@nasajohnson",
+        "og:type": "article",
+        "og:image:width": "720",
+        "og:image:height": "1280",
+        "og:pubdate": "2026-10-29T20:35:35Z",
+        "og:video": "https://g.oginstagram.com/offload/DfF3eqGSKKc/1?v=2&kid=vultr1&exp=1797483600&sig=KCxBIXPfedntZ9aQbnjINpowj5d7U-HBDIfLCUgR-b4",
+        "og:video:secure_url": "https://g.oginstagram.com/offload/DfF3eqGSKKc/1?v=2&kid=vultr1&exp=1797483600&sig=KCxBIXPfedntZ9aQbnjINpowj5d7U-HBDIfLCUgR-b4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "720",
+        "og:video:height": "1280"
+      },
+      "bytes": 4938,
+      "seconds": 0.610755,
+      "dns_override": [
+        "--resolve",
+        "zzinstagram.com:443:149.202.35.66"
+      ]
+    },
+    {
+      "url": "https://zzinstagram.com/reel/Dd1gQBsCWE8/",
+      "http": 200,
+      "final_url": "https://zzinstagram.com/reel/Dd1gQBsCWE8/",
+      "ip": "149.202.35.66",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://www.instagram.com/reel/Dd1gQBsCWE8/",
+        "og:locale": "en_US",
+        "og:site_name": "OGInstagram",
+        "og:title": "NASA (@nasa)",
+        "twitter:title": "NASA (@nasa)",
+        "twitter:card": "summary_large_image",
+        "twitter:image": "https://g.oginstagram.com/offload/Dd1gQBsCWE8/1?thumbnail=1&v=2&kid=vultr1&exp=1797483600&sig=Cd1NtwkFjKn7b8wAOT8-L7RV4YCGaR5vnjstbXozEgQ",
+        "og:image": "https://g.oginstagram.com/offload/Dd1gQBsCWE8/1?thumbnail=1&v=2&kid=vultr1&exp=1797483600&sig=Cd1NtwkFjKn7b8wAOT8-L7RV4YCGaR5vnjstbXozEgQ",
+        "og:image:secure_url": "https://g.oginstagram.com/offload/Dd1gQBsCWE8/1?thumbnail=1&v=2&kid=vultr1&exp=1797483600&sig=Cd1NtwkFjKn7b8wAOT8-L7RV4YCGaR5vnjstbXozEgQ",
+        "twitter:creator": "@nasa",
+        "og:type": "article",
+        "og:image:width": "608",
+        "og:image:height": "1080",
+        "og:pubdate": "2026-09-28T15:27:08Z",
+        "og:video": "https://g.oginstagram.com/offload/Dd1gQBsCWE8/1?v=2&kid=vultr1&exp=1797483600&sig=Cd1NtwkFjKn7b8wAOT8-L7RV4YCGaR5vnjstbXozEgQ",
+        "og:video:secure_url": "https://g.oginstagram.com/offload/Dd1gQBsCWE8/1?v=2&kid=vultr1&exp=1797483600&sig=Cd1NtwkFjKn7b8wAOT8-L7RV4YCGaR5vnjstbXozEgQ",
+        "og:video:type": "video/mp4",
+        "og:video:width": "608",
+        "og:video:height": "1080"
+      },
+      "bytes": 4820,
+      "seconds": 0.575198,
+      "dns_override": [
+        "--resolve",
+        "zzinstagram.com:443:149.202.35.66"
+      ]
+    },
+    {
+      "url": "https://vxbilibili.com/video/BV1SMaJ6nETt",
+      "http": 200,
+      "final_url": "https://vxbilibili.com/video/BV1SMaJ6nETt",
+      "ip": "2606:4700:3031::ac43:bb95",
+      "curl_exit": 0,
+      "error": "",
+      "title": "【華為Mate 90系列】致敬踏光向前的篤定",
+      "meta": {
+        "og:site_name": "BiliFix / vxbilibili.com\n📺205.9萬 👍2.1萬 🪙4650 ⭐2541 📤3453",
+        "og:url": "https://www.bilibili.com/video/BV1SMaJ6nETt?p=1",
+        "og:title": "【華為Mate 90系列】致敬踏光向前的篤定",
+        "og:description": "#華為Mate90#系列，致敬踏光向前的篤定。10月1日10:00釋出，12:08開售，敬請期待！",
+        "og:image": "https://i2.hdslb.com/bfs/archive/27247902dae89a585bed41bb8750c43c24efc0be.jpg@1200w.webp",
+        "og:image:secure_url": "https://i2.hdslb.com/bfs/archive/27247902dae89a585bed41bb8750c43c24efc0be.jpg@1200w.webp",
+        "og:type": "video.other",
+        "og:video": "https://media.vxbilibili.com/video/BV1SMaJ6nETt/1?_=O4XG",
+        "og:video:secure_url": "https://media.vxbilibili.com/video/BV1SMaJ6nETt/1?_=O4XG",
+        "og:video:type": "video/mp4",
+        "og:video:width": "3840",
+        "og:video:height": "2160",
+        "twitter:card": "player",
+        "twitter:title": "【華為Mate 90系列】致敬踏光向前的篤定",
+        "twitter:description": "#華為Mate90#系列，致敬踏光向前的篤定。10月1日10:00釋出，12:08開售，敬請期待！",
+        "twitter:image": "https://i2.hdslb.com/bfs/archive/27247902dae89a585bed41bb8750c43c24efc0be.jpg@1200w.webp",
+        "twitter:player": "https://player.bilibili.com/player.html?aid=117351525652714&bvid=BV1SMaJ6nETt&cid=42285140823&page=1&high_quality=1&danmaku=0",
+        "twitter:player:width": "3840",
+        "twitter:player:height": "2160",
+        "twitter:player:stream": "https://media.vxbilibili.com/video/BV1SMaJ6nETt/1?_=O4XG",
+        "twitter:player:stream:content_type": "video/mp4"
+      },
+      "bytes": 3170,
+      "seconds": 0.656643
+    },
+    {
+      "url": "https://vxbilibili.com/video/BV1xx411c7mD",
+      "http": 200,
+      "final_url": "https://vxbilibili.com/video/BV1xx411c7mD",
+      "ip": "2606:4700:3031::ac43:bb95",
+      "curl_exit": 0,
+      "error": "",
+      "title": "字幕君交流場所",
+      "meta": {
+        "og:site_name": "BiliFix / vxbilibili.com\n📺562.5萬 👍27.9萬 🪙4.1萬 ⭐12.9萬 📤2.9萬",
+        "og:url": "https://www.bilibili.com/video/BV1xx411c7mD?p=1",
+        "og:title": "字幕君交流場所",
+        "og:description": "www",
+        "og:image": "https://i0.hdslb.com/bfs/archive/transparent.png@1200w.webp",
+        "og:image:secure_url": "https://i0.hdslb.com/bfs/archive/transparent.png@1200w.webp",
+        "og:type": "video.other",
+        "og:video": "https://media.vxbilibili.com/video/BV1xx411c7mD/1?_=MN49",
+        "og:video:secure_url": "https://media.vxbilibili.com/video/BV1xx411c7mD/1?_=MN49",
+        "og:video:type": "video/mp4",
+        "og:video:width": "480",
+        "og:video:height": "360",
+        "twitter:card": "player",
+        "twitter:title": "字幕君交流場所",
+        "twitter:description": "www",
+        "twitter:image": "https://i0.hdslb.com/bfs/archive/transparent.png@1200w.webp",
+        "twitter:player": "https://player.bilibili.com/player.html?aid=2&bvid=BV1xx411c7mD&cid=62131&page=1&high_quality=1&danmaku=0",
+        "twitter:player:width": "480",
+        "twitter:player:height": "360",
+        "twitter:player:stream": "https://media.vxbilibili.com/video/BV1xx411c7mD/1?_=MN49",
+        "twitter:player:stream:content_type": "video/mp4"
+      },
+      "bytes": 2909,
+      "seconds": 0.4965
+    },
+    {
+      "url": "https://fxbilibili.seria.moe/video/BV1SMaJ6nETt",
+      "http": 200,
+      "final_url": "https://fxbilibili.seria.moe/video/BV1SMaJ6nETt",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "【华为Mate 90系列】致敬踏光向前的笃定",
+      "meta": {
+        "og:title": "华为终端 - 【华为Mate 90系列】致敬踏光向前的笃定",
+        "og:type": "video",
+        "og:site_name": "👁️ 2,059,439 👍 20,696 🪙 4,650 ⭐ 2,541",
+        "og:url": "http://fxbilibili.seria.moe/video/BV1SMaJ6nETt",
+        "og:video": "https://upos-hz-mirrorakam.akamaized.net/upgcxcode/23/08/42285140823/42285140823-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&os=akam&og=hw&deadline=1794902291&nbs=1&uipk=5&platform=html5&trid=d8dcc810af3842dba2d6e2a792903b6h&mid=0&oi=2892146917&gen=playurlv3&upsig=b9891262c324f620c3fb8c4e9971ebfe&uparams=e,os,og,deadline,nbs,uipk,platform,trid,mid,oi,gen&hdnts=exp=1794902291~hmac=a4ee938b08b607e292269a9561eb1bff934227b3f23a17f66c9d714b9710e090&bvc=vod&nettype=0&bw=362106&lrs=0&V=v3.1.1&agrr=0&buvid=&build=0&dl=0&f=h_0_0&orderid=0,1",
+        "og:video:secure_url": "https://upos-hz-mirrorakam.akamaized.net/upgcxcode/23/08/42285140823/42285140823-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&os=akam&og=hw&deadline=1794902291&nbs=1&uipk=5&platform=html5&trid=d8dcc810af3842dba2d6e2a792903b6h&mid=0&oi=2892146917&gen=playurlv3&upsig=b9891262c324f620c3fb8c4e9971ebfe&uparams=e,os,og,deadline,nbs,uipk,platform,trid,mid,oi,gen&hdnts=exp=1794902291~hmac=a4ee938b08b607e292269a9561eb1bff934227b3f23a17f66c9d714b9710e090&bvc=vod&nettype=0&bw=362106&lrs=0&V=v3.1.1&agrr=0&buvid=&build=0&dl=0&f=h_0_0&orderid=0,1",
+        "og:video:type": "video/mp4",
+        "og:video:width": "3840",
+        "og:video:height": "2160",
+        "og:image": "https://i2.hdslb.com/bfs/storyff/_00002pnqg3yzxmtnn2optnf4hvils7b_firsti.jpg",
+        "twitter:card": "player",
+        "twitter:title": "【华为Mate 90系列】致敬踏光向前的笃定",
+        "twitter:description": "#华为Mate90#系列，致敬踏光向前的笃定。10月1日10:00发布，12:08开售，敬请期待！",
+        "twitter:image": "https://i2.hdslb.com/bfs/storyff/_00002pnqg3yzxmtnn2optnf4hvils7b_firsti.jpg",
+        "twitter:player": "http://fxbilibili.seria.moe/video/BV1SMaJ6nETt",
+        "twitter:player:width": "3840",
+        "twitter:player:height": "2160"
+      },
+      "bytes": 4704,
+      "seconds": 1.567573
+    },
+    {
+      "url": "https://fxbilibili.seria.moe/video/BV1xx411c7mD",
+      "http": 200,
+      "final_url": "https://fxbilibili.seria.moe/video/BV1xx411c7mD",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "字幕君交流场所",
+      "meta": {
+        "og:title": "碧诗 - 字幕君交流场所",
+        "og:type": "video",
+        "og:site_name": "👁️ 5,625,054 👍 278,818 🪙 41,049 ⭐ 128,591",
+        "og:url": "http://fxbilibili.seria.moe/video/BV1xx411c7mD",
+        "og:video": "https://fxbilibili.seria.moe/clip/BV1xx411c7mD/62131.mp4",
+        "og:video:secure_url": "https://fxbilibili.seria.moe/clip/BV1xx411c7mD/62131.mp4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "480",
+        "og:video:height": "360",
+        "og:image": "https://i0.hdslb.com/bfs/archive/transparent.png",
+        "twitter:card": "player",
+        "twitter:title": "字幕君交流场所",
+        "twitter:description": "www",
+        "twitter:image": "https://i0.hdslb.com/bfs/archive/transparent.png",
+        "twitter:player": "http://fxbilibili.seria.moe/video/BV1xx411c7mD",
+        "twitter:player:width": "480",
+        "twitter:player:height": "360"
+      },
+      "bytes": 2561,
+      "seconds": 1.848025
+    },
+    {
+      "url": "https://phixiv.net/en/artworks/124748386",
+      "http": 200,
+      "final_url": "https://phixiv.net/en/artworks/124748386",
+      "ip": "194.127.178.29",
+      "curl_exit": 0,
+      "error": "",
+      "title": "DONALD DUCK",
+      "meta": {
+        "og:site_name": "https://github.com/thelaao/phixiv",
+        "og:type": "article",
+        "og:title": "DONALD DUCK by (@Mika Pikazo)",
+        "og:description": "ドナルドからイメージした女の子ちゃんです。\nポップアップ＆展示イベント＆グッズなど...\n「Disney Collection by Mika Pikazo」盛りだくさんです！\n\nPOP-UP STORE\n●開催期間：2024/12/7(土)〜12/31(火)\n●10:00〜21:00(入場無料)\nSHIBUYA TSUTAYA B1F\n#ディズニーコレクションbyMikaPikazo\nhttps://prtimes.jp/main/html/rd/p/000000187.000085936.html\n#original, #disney, #Donald Duck, #original 10000+ bookmarks, #ディズニー10000users入り",
+        "og:url": "https://www.pixiv.net/en/artworks/124748386",
+        "og:image": "https://phixiv.net/i/img-master/img/2024/11/30/00/00/47/124748386_p0_master1200.jpg",
+        "og:image:alt": "#original, #disney, #Donald Duck, #original 10000+ bookmarks, #ディズニー10000users入り",
+        "twitter:card": "summary_large_image"
+      },
+      "bytes": 1690,
+      "seconds": 0.285984
+    },
+    {
+      "url": "https://phixiv.net/artworks/142030918",
+      "http": 500,
+      "final_url": "https://phixiv.net/artworks/142030918",
+      "ip": "194.127.178.29",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 190,
+      "seconds": 0.549039
+    },
+    {
+      "url": "https://fixdeviantart.com/arcipello/art/Arci-ID-4659791",
+      "http": 200,
+      "final_url": "https://fixdeviantart.com/arcipello/art/Arci-ID-4659791",
+      "ip": "2606:4700:3033::6815:678",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:title": "Arci ID",
+        "og:site_name": "DeviantArt",
+        "og:image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a95baf23-aa57-4ccd-bae2-711b8fc993e1/d2rvin-ca9e3a29-e5cc-4cc3-9703-3a99ef2e0615.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9hOTViYWYyMy1hYTU3LTRjY2QtYmFlMi03MTFiOGZjOTkzZTEvZDJydmluLWNhOWUzYTI5LWU1Y2MtNGNjMy05NzAzLTNhOTllZjJlMDYxNS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.QYKZH9YPypC3masKMZ_L8ovIgpn88KpYAz7tzGdA28k",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "Arci ID",
+        "twitter:image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a95baf23-aa57-4ccd-bae2-711b8fc993e1/d2rvin-ca9e3a29-e5cc-4cc3-9703-3a99ef2e0615.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiIvZi9hOTViYWYyMy1hYTU3LTRjY2QtYmFlMi03MTFiOGZjOTkzZTEvZDJydmluLWNhOWUzYTI5LWU1Y2MtNGNjMy05NzAzLTNhOTllZjJlMDYxNS5qcGcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.QYKZH9YPypC3masKMZ_L8ovIgpn88KpYAz7tzGdA28k"
+      },
+      "bytes": 2317,
+      "seconds": 0.739677
+    },
+    {
+      "url": "https://rxddit.com/r/catsareliquid/comments/104f55s/the_aussie_summer_has_melted_miss_sari/",
+      "http": 502,
+      "final_url": "https://rxddit.com/r/catsareliquid/comments/104f55s/the_aussie_summer_has_melted_miss_sari/",
+      "ip": "2606:4700:3037::ac43:b581",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 10,
+      "seconds": 0.455643
+    },
+    {
+      "url": "https://rxddit.com/r/pics/comments/92dd8/",
+      "http": 502,
+      "final_url": "https://rxddit.com/r/pics/comments/92dd8/",
+      "ip": "2606:4700:3037::ac43:b581",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 10,
+      "seconds": 0.433164
+    },
+    {
+      "url": "https://rxyddit.com/r/catsareliquid/comments/104f55s/the_aussie_summer_has_melted_miss_sari/",
+      "http": 403,
+      "final_url": "https://rxyddit.com/r/catsareliquid/comments/104f55s/the_aussie_summer_has_melted_miss_sari/",
+      "ip": "2606:4700:3033::6815:9ca",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 190515,
+      "seconds": 0.557192
+    },
+    {
+      "url": "https://rxyddit.com/r/pics/comments/92dd8/",
+      "http": 404,
+      "final_url": "https://rxyddit.com/r/pics/comments/92dd8/",
+      "ip": "172.67.189.143",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 249,
+      "seconds": 0.220941
+    },
+    {
+      "url": "https://vxreddit.com/r/catsareliquid/comments/104f55s/the_aussie_summer_has_melted_miss_sari/",
+      "http": 200,
+      "final_url": "https://vxreddit.com/r/catsareliquid/comments/104f55s/the_aussie_summer_has_melted_miss_sari/",
+      "ip": "2606:4700:3037::ac43:d36e",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "u/[deleted] on r/catsareliquid - ⬆️ 2149 | 💬 14",
+        "og:url": "https://www.reddit.com/comments/104f55s",
+        "og:title": "[deleted by user]",
+        "og:description": "[removed]",
+        "og:type": "website",
+        "twitter:card": "summary"
+      },
+      "bytes": 2021,
+      "seconds": 0.94744
+    },
+    {
+      "url": "https://vxreddit.com/r/pics/comments/92dd8/",
+      "http": 200,
+      "final_url": "https://vxreddit.com/r/pics/comments/92dd8/",
+      "ip": "2606:4700:3037::ac43:d36e",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "u/qgyh2 on r/pics - ⬆️ 21872 | 💬 2134",
+        "og:url": "https://www.reddit.com/comments/92dd8",
+        "og:title": "vxReddit",
+        "og:description": "test post please ignore",
+        "og:type": "website",
+        "twitter:card": "summary"
+      },
+      "bytes": 1958,
+      "seconds": 3.618328
+    },
+    {
+      "url": "https://fxfb.seria.moe/",
+      "http": 502,
+      "final_url": "https://fxfb.seria.moe/",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 16,
+      "seconds": 0.305509
+    },
+    {
+      "url": "https://fxfb.seria.moe/NASA/posts/10157054997941772",
+      "http": 502,
+      "final_url": "https://fxfb.seria.moe/NASA/posts/10157054997941772",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 16,
+      "seconds": 0.34649
+    },
+    {
+      "url": "https://fixthreads.net/",
+      "http": 0,
+      "final_url": "https://fixthreads.net/",
+      "ip": "2a01:7e01::f03c:95ff:feed:783e",
+      "curl_exit": 60,
+      "error": "curl: (60) SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the webpage mentioned above.",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 0.170797
+    },
+    {
+      "url": "https://fixthreads.net/@zuck/post/DTa3-B1EbTp",
+      "http": 0,
+      "final_url": "https://fixthreads.net/@zuck/post/DTa3-B1EbTp",
+      "ip": "2a01:7e01::f03c:95ff:feed:783e",
+      "curl_exit": 60,
+      "error": "curl: (60) SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the webpage mentioned above.",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 0.162392
+    },
+    {
+      "url": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "http": 200,
+      "final_url": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "ip": "2606:4700:3036::ac43:dded",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "FixThreads - Consistent Embedding of Metadata for Threads",
+        "og:description": "Today we're establishing a new top-level initiative called Meta Compute. \n\nMeta is planning to build tens of gigawatts this decade, and hundreds of gigawatts or more over time. How we engineer, invest, and partner to build this infrastructure will become a strategic advantage.\n\nThis effort will be led by Santosh Janardhan and Daniel Gross.",
+        "og:title": "@zuck on Threads",
+        "twitter:card": "summary",
+        "og:image": "https://scontent-fra5-1.cdninstagram.com/v/t51.82787-19/825322135_17989325280103224_1252773933700107438_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ig_cache_key=GJdqMTE4yxEvMuk-AK5MEFZBv2IRbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=43db74&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=YYg-rELoaqsQ7kNvwGvaToK&_nc_oc=AdoRbJZjdl0xTMwGD9N_HE4cULDFQUHECje3zEX9KPI-of6kqmYJdmJLEtIZIJ7XUTQ&_nc_zt=24&_nc_ht=scontent-fra5-1.cdninstagram.com&_nc_gid=ce5fNWf14Zs9KwCDVLL5lg&_nc_ss=7022e&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQQKM3HC7kwjut3Jw0yu3TiGpb3pBk4jS6qiutDO7YN2Xw"
+      },
+      "bytes": 3336,
+      "seconds": 6.790011
+    },
+    {
+      "url": "https://fixthreads.seria.moe/@zuck/post/DcwLjJYGgXM",
+      "http": 200,
+      "final_url": "https://fixthreads.seria.moe/@zuck/post/DcwLjJYGgXM",
+      "ip": "2606:4700:3036::ac43:dded",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "FixThreads - Consistent Embedding of Metadata for Threads",
+        "og:description": "⤴️ Replying to @zuck\n\nIt holds up on messy, real audio too -- trained across 70+ languages (with 25 validated at launch), handles mid-sentence code-switching, and manages hour-long sessions with 20+ speakers. You can bias it toward names and domain terms as well.",
+        "og:title": "@zuck on Threads",
+        "twitter:card": "summary",
+        "og:image": "https://scontent-fra5-1.cdninstagram.com/v/t51.82787-19/825322135_17989325280103224_1252773933700107438_n.jpg?stp=dst-jpg_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=scontent-fra5-1.cdninstagram.com&_nc_cat=100&_nc_oc=Q6cZ2gGw-Vrfi_gMBXccP-PY-ubeLk-_cUziH7qofedmIDsJ6vTIlk_19K1cTYrmnmvhAoI&_nc_ohc=SKwCbyRfXeIQ7kNvwGQG05T&_nc_gid=ADnsH8IK-LTjJYxAVEYITQ&edm=APs17CUBAAAA&ccb=7-5&_nc_ct=RQAsPBUCFQIAAAA&oh=00_AQSwmBuTobKo6ZD7KT4OFKh7CEkEiK7RjF5vT6cRi6G9aQ&oe=6B01CA6B&_nc_sid=10d13b"
+      },
+      "bytes": 3303,
+      "seconds": 1.075414
+    },
+    {
+      "url": "https://vxthreads.net/",
+      "http": 0,
+      "final_url": "https://vxthreads.net/",
+      "ip": "",
+      "curl_exit": 28,
+      "error": "curl: (28) Connection timed out after 5001 milliseconds",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 5.001692
+    },
+    {
+      "url": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "http": 0,
+      "final_url": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "ip": "",
+      "curl_exit": 28,
+      "error": "curl: (28) Connection timed out after 5001 milliseconds",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 5.001548
+    },
+    {
+      "url": "https://tfxktok.com/@zachking/video/6768504823336815877",
+      "http": 500,
+      "final_url": "https://tfxktok.com/@zachking/video/6768504823336815877",
+      "ip": "2606:4700:3034::ac43:a54d",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 21,
+      "seconds": 0.340208
+    },
+    {
+      "url": "https://fixspotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+      "http": 404,
+      "final_url": "https://fixspotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+      "ip": "2606:4700:3034::6815:5f3a",
+      "curl_exit": 0,
+      "error": "",
+      "title": "fixSpotify | error",
+      "meta": {
+        "og:site_name": "fixSpotify",
+        "og:title": "Whoops!",
+        "og:description": "We couldn't find that one, sorry!"
+      },
+      "bytes": 2751,
+      "seconds": 0.324185
+    },
+    {
+      "url": "https://fixspotify.com/album/35s58BRTGAEWztPo9WqCIs",
+      "http": 404,
+      "final_url": "https://fixspotify.com/album/35s58BRTGAEWztPo9WqCIs",
+      "ip": "2606:4700:3034::6815:5f3a",
+      "curl_exit": 0,
+      "error": "",
+      "title": "fixSpotify | error",
+      "meta": {
+        "og:site_name": "fixSpotify",
+        "og:title": "Whoops!",
+        "og:description": "We couldn't find that one, sorry!"
+      },
+      "bytes": 2751,
+      "seconds": 0.385387
+    },
+    {
+      "url": "https://fixroblox.com/users/1/profile",
+      "http": 200,
+      "final_url": "https://www.fixroblox.com/users/1/profile",
+      "ip": "216.150.16.65",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vortex",
+      "meta": {},
+      "bytes": 2799,
+      "seconds": 0.527512
+    },
+    {
+      "url": "https://fixroblox.com/games/920587237/Adopt-Me",
+      "http": 200,
+      "final_url": "https://www.fixroblox.com/games/920587237/Adopt-Me",
+      "ip": "216.150.16.65",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vortex",
+      "meta": {},
+      "bytes": 2799,
+      "seconds": 0.661032
+    },
+    {
+      "url": "https://vxtiktok.com/@zachking/video/6768504823336815877",
+      "http": 200,
+      "final_url": "https://vxtiktok.com/@zachking/video/6768504823336815877",
+      "ip": "2a06:98c1:3121::6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:title": "Notice",
+        "og:description": "Due to a legal request, this service is no longer available."
+      },
+      "bytes": 883,
+      "seconds": 0.298116
+    },
+    {
+      "url": "https://instagramez.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://www.effectivegatecpm.com/nf52nwk7?key=bd2c457b75ed50c2925807e89c0ac161",
+      "ip": "15.197.172.60",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 151,
+      "seconds": 0.477533
+    },
+    {
+      "url": "https://fixvx.com/jack/status/20",
+      "http": 200,
+      "final_url": "https://vxtwitter.com/jack/status/20",
+      "ip": "2606:4700:20::ac43:46b8",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 343,
+      "seconds": 0.589108
+    },
+    {
+      "url": "https://fixvx.com/NASA/status/1643214128602439680",
+      "http": 200,
+      "final_url": "https://vxtwitter.com/NASA/status/1643214128602439680",
+      "ip": "2606:4700:20::ac43:46b8",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 394,
+      "seconds": 0.581535
+    },
+    {
+      "url": "https://fixupx.com/jack/status/20",
+      "http": 200,
+      "final_url": "https://fixupx.com/jack/status/20",
+      "ip": "2606:4700:3035::ac43:9cbb",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://x.com/jack/status/20",
+        "twitter:site": "@jack",
+        "twitter:creator": "@jack",
+        "twitter:title": "jack (@jack)",
+        "og:image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_200x200.jpg",
+        "twitter:image": "0",
+        "twitter:card": "summary",
+        "og:title": "jack (@jack)",
+        "og:description": "just setting up my twttr",
+        "og:site_name": "FixupX"
+      },
+      "bytes": 2647,
+      "seconds": 0.447055
+    },
+    {
+      "url": "https://fxtwitch.seria.moe/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "http": 200,
+      "final_url": "https://clips.twitch.tv/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "ip": "151.101.194.167",
+      "curl_exit": 0,
+      "error": "",
+      "title": "First time checking this game out! - forsen on Twitch",
+      "meta": {
+        "og:description": "Watch forsen's Deadlock clip titled \"First time checking this game out!\" on Twitch.",
+        "og:video:width": "620",
+        "twitter:description": "Watch forsen's Deadlock clip titled \"First time checking this game out!\" on Twitch.",
+        "twitter:player:width": "640",
+        "og:type": "video.other",
+        "og:video:height": "378",
+        "og:video:type": "text/html",
+        "twitter:player:height": "360",
+        "og:video:release_date": "2024-08-24T19:27:18Z",
+        "twitter:image:partner_badge:src": "https://clips-media-assets2.twitch.tv/img/twitch-white-rgb.png",
+        "twitter:player": "https://clips.twitch.tv/embed?clip=ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v&parent=meta.tag",
+        "og:image": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/c7d2d0a4-e6f9-4f6e-8892-9488b1370da1/landscape/thumb/thumb-0000000000-1920x1080.jpg",
+        "twitter:card": "player",
+        "twitter:image": "https://static-cdn.jtvnw.net/twitch-video-assets/twitch-vap-video-assets-prod-us-west-2/c7d2d0a4-e6f9-4f6e-8892-9488b1370da1/landscape/thumb/thumb-0000000000-1920x1080.jpg",
+        "twitter:site": "@twitch",
+        "og:site_name": "Twitch",
+        "twitter:title": "First time checking this game out! - forsen on Twitch",
+        "og:video:secure_url": "https://clips.twitch.tv/embed?clip=ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v&parent=meta.tag",
+        "og:video": "https://clips.twitch.tv/embed?clip=ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v&parent=meta.tag",
+        "og:url": "https://clips.twitch.tv/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+        "og:title": "First time checking this game out! - forsen on Twitch",
+        "og:video:duration": "26"
+      },
+      "bytes": 211725,
+      "seconds": 2.746096
+    },
+    {
+      "url": "https://open.fixspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "http": 503,
+      "final_url": "https://open.fixspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "ip": "172.67.143.86",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 40,
+      "seconds": 0.599743
+    },
+    {
+      "url": "https://open.fixspotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+      "http": 503,
+      "final_url": "https://open.fixspotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+      "ip": "2606:4700:3034::6815:5f3a",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 40,
+      "seconds": 0.912301
+    },
+    {
+      "url": "https://rxyddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 403,
+      "final_url": "https://rxyddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "ip": "104.21.9.202",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 190515,
+      "seconds": 0.576709
+    },
+    {
+      "url": "https://rxddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 502,
+      "final_url": "https://rxddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "ip": "172.67.181.129",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 10,
+      "seconds": 0.45296
+    },
+    {
+      "url": "https://fixthreads.net/@zuck/post/DcwLjJYGgXM",
+      "http": 0,
+      "final_url": "https://fixthreads.net/@zuck/post/DcwLjJYGgXM",
+      "ip": "2a01:7e01::f03c:95ff:feed:783e",
+      "curl_exit": 60,
+      "error": "curl: (60) SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the webpage mentioned above.",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 0.158623
+    }
+  ],
+  "discord_rechecks": [
+    {
+      "url": "https://fixvx.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "final_url": "https://vxtwitter.com/makkahregion/status/1902619525532512361",
+      "ip": "2606:4700:20::ac43:46b8",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "player",
+        "og:site_name": "vxTwitter / fixvx\n💖 1.34K 🔁 563",
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "twitter:player:width": "1080",
+        "twitter:player:height": "1920",
+        "twitter:player:stream": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:video": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "og:video:secure_url": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "1080",
+        "og:video:height": "1920",
+        "og:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+        "og:type": "video.other"
+      },
+      "bytes": 2937,
+      "seconds": 0.670314,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fixvx.com/jack/status/20",
+      "http": 200,
+      "final_url": "https://vxtwitter.com/jack/status/20",
+      "ip": "2606:4700:20::ac43:46b8",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "tweet",
+        "og:site_name": "vxTwitter / fixvx",
+        "og:title": "jack (@jack)",
+        "twitter:image": "https://pbs.twimg.com/profile_images/1661201415899951105/azNjKOSH_normal.jpg",
+        "twitter:creator": "@",
+        "og:description": "just setting up my twttr"
+      },
+      "bytes": 1662,
+      "seconds": 0.582771,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://rxddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 502,
+      "final_url": "https://rxddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "ip": "2606:4700:3033::6815:1256",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 10,
+      "seconds": 0.445044,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://rxddit.com/r/pics/comments/92dd8/",
+      "http": 502,
+      "final_url": "https://rxddit.com/r/pics/comments/92dd8/",
+      "ip": "172.67.181.129",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 10,
+      "seconds": 0.412023,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://rxyddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 403,
+      "final_url": "https://rxyddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "ip": "2606:4700:3030::ac43:bd8f",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 190515,
+      "seconds": 1.98683,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fxfb.seria.moe/",
+      "http": 502,
+      "final_url": "https://fxfb.seria.moe/",
+      "ip": "104.21.54.6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 16,
+      "seconds": 0.540003,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fxfb.seria.moe/NASA/posts/10157054997941772",
+      "http": 502,
+      "final_url": "https://fxfb.seria.moe/NASA/posts/10157054997941772",
+      "ip": "2606:4700:3035::6815:3606",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 16,
+      "seconds": 0.353223,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://tfxktok.com/@scout2015/video/6718335390845095173",
+      "http": 500,
+      "final_url": "https://tfxktok.com/@scout2015/video/6718335390845095173",
+      "ip": "172.67.165.77",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 21,
+      "seconds": 0.775505,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://tfxktok.com/@zachking/video/6768504823336815877",
+      "http": 500,
+      "final_url": "https://tfxktok.com/@zachking/video/6768504823336815877",
+      "ip": "2606:4700:3034::ac43:a54d",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 21,
+      "seconds": 0.710875,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://open.fixspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "http": 503,
+      "final_url": "https://open.fixspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "ip": "2606:4700:3034::6815:5f3a",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 40,
+      "seconds": 0.362843,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://open.fixspotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+      "http": 503,
+      "final_url": "https://open.fixspotify.com/track/7GhIk7Il098yCjg4BQjzvb",
+      "ip": "2606:4700:3034::6815:5f3a",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 40,
+      "seconds": 0.346302,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fixroblox.com/games/920587237/Adopt-Me",
+      "http": 200,
+      "final_url": "https://www.fixroblox.com/games/920587237/Adopt-Me",
+      "ip": "216.150.1.1",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vortex",
+      "meta": {},
+      "bytes": 2799,
+      "seconds": 1.192621,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fixroblox.com/users/1/profile",
+      "http": 200,
+      "final_url": "https://www.fixroblox.com/users/1/profile",
+      "ip": "216.150.1.1",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vortex",
+      "meta": {},
+      "bytes": 2799,
+      "seconds": 0.806998,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://vxtiktok.com/@scout2015/video/6718335390845095173",
+      "http": 200,
+      "final_url": "https://vxtiktok.com/@scout2015/video/6718335390845095173",
+      "ip": "188.114.96.6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:title": "Notice",
+        "og:description": "Due to a legal request, this service is no longer available."
+      },
+      "bytes": 883,
+      "seconds": 0.285172,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://instagramez.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://www.effectivegatecpm.com/nf52nwk7?key=bd2c457b75ed50c2925807e89c0ac161",
+      "ip": "15.197.172.60",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {},
+      "bytes": 151,
+      "seconds": 0.676546,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fixthreads.net/@zuck/post/DTa3-B1EbTp",
+      "http": 0,
+      "final_url": "https://fixthreads.net/@zuck/post/DTa3-B1EbTp",
+      "ip": "172.104.203.186",
+      "curl_exit": 60,
+      "error": "curl: (60) SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)\nMore details here: https://curl.se/docs/sslcerts.html\n\ncurl failed to verify the legitimacy of the server and therefore could not\nestablish a secure connection to it. To learn more about this situation and\nhow to fix it, please visit the webpage mentioned above.",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 0.176205,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "http": 0,
+      "final_url": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "ip": "",
+      "curl_exit": 28,
+      "error": "curl: (28) Connection timed out after 5000 milliseconds",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 5.000616,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "http": 200,
+      "final_url": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "ip": "107.175.251.20",
+      "curl_exit": 0,
+      "error": "",
+      "title": "vxinstagram",
+      "meta": {
+        "og:type": "video.other",
+        "og:video": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "og:video:secure_url": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "720",
+        "og:video:height": "1280",
+        "twitter:card": "player",
+        "twitter:player:stream": "https://vxinstagram.com/offload/DfF3eqGSKKc/0.mp4",
+        "twitter:player:stream:content_type": "video/mp4",
+        "twitter:player:width": "720",
+        "twitter:player:height": "1280",
+        "twitter:player": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:site_name": "vxinstagram",
+        "og:url": "https://instagram.com/reel/DfF3eqGSKKc/",
+        "og:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "og:description": "More power loading. 🔋\n\nToday, NASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk conducted a spacewalk to install the 7th of 8 new roll out solar arrays. The final new array is slated to be installed during the Nov. 5 spacewalk, increasing the station’s available power by up to 30%.",
+        "twitter:title": "NASA’s Johnson Space Center (@nasajohnson)",
+        "twitter:site": "nasajohnson",
+        "twitter:creator": "nasajohnson"
+      },
+      "bytes": 8783,
+      "seconds": 0.294725,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://vxreddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "http": 200,
+      "final_url": "https://vxreddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "ip": "2606:4700:3037::ac43:d36e",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "u/JapKumintang1991 on r/flags - ⬆️ 1 | 💬 1",
+        "og:url": "https://www.reddit.com/comments/1hqed7c",
+        "og:title": "Flag of Seychelles",
+        "og:type": "website",
+        "twitter:card": "summary_large_image",
+        "og:image": "https://i.redd.it/ovdeih1p4b681.png",
+        "twitter:image": "https://i.redd.it/ovdeih1p4b681.png"
+      },
+      "bytes": 2158,
+      "seconds": 0.973775,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    },
+    {
+      "url": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "http": 200,
+      "final_url": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "ip": "188.114.96.6",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:site_name": "FixThreads - Consistent Embedding of Metadata for Threads",
+        "og:description": "Today we're establishing a new top-level initiative called Meta Compute. \n\nMeta is planning to build tens of gigawatts this decade, and hundreds of gigawatts or more over time. How we engineer, invest, and partner to build this infrastructure will become a strategic advantage.\n\nThis effort will be led by Santosh Janardhan and Daniel Gross.",
+        "og:title": "@zuck on Threads",
+        "twitter:card": "summary",
+        "og:image": "https://scontent-fra5-1.cdninstagram.com/v/t51.82787-19/825322135_17989325280103224_1252773933700107438_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ig_cache_key=GJdqMTE4yxEvMuk-AK5MEFZBv2IRbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=43db74&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=YYg-rELoaqsQ7kNvwGvaToK&_nc_oc=AdoRbJZjdl0xTMwGD9N_HE4cULDFQUHECje3zEX9KPI-of6kqmYJdmJLEtIZIJ7XUTQ&_nc_zt=24&_nc_ht=scontent-fra5-1.cdninstagram.com&_nc_gid=lO1TmxcyrFj9Ua_rCrDJfQ&_nc_ss=7022e&_nc_ct=RQosPBUCFQIAAAA&oh=00_AQTs67CofK9cQcg6pzdnV6uxGrkRQXw0nW-fSmdtfK3-pg"
+      },
+      "bytes": 3336,
+      "seconds": 3.040129,
+      "user_agent": "Mozilla/5.0 (compatible; Discordbot/2.0; +https://discordapp.com)"
+    }
+  ],
+  "removed": [
+    {
+      "platform": "bilibili",
+      "host": "bilibliez.com",
+      "reason": "NXDOMAIN confirmed by Google and Cloudflare DNS",
+      "was_active": true
+    },
+    {
+      "platform": "bluesky",
+      "host": "cbsky.app",
+      "reason": "NXDOMAIN confirmed by Google and Cloudflare DNS",
+      "was_active": true
+    },
+    {
+      "platform": "facebook",
+      "host": "fxfb.seria.moe",
+      "reason": "Repeated HTTP 502 on homepage and post requests",
+      "was_active": true
+    },
+    {
+      "platform": "instagram",
+      "host": "ddinstagram.com",
+      "reason": "NXDOMAIN confirmed by Google and Cloudflare DNS",
+      "was_active": true
+    },
+    {
+      "platform": "instagram",
+      "host": "instagramez.com",
+      "reason": "Redirects every request to an unrelated advertising host",
+      "was_active": true
+    },
+    {
+      "platform": "instagram",
+      "host": "fxstagram.com",
+      "reason": "NXDOMAIN confirmed by Google and Cloudflare DNS",
+      "was_active": true
+    },
+    {
+      "platform": "reddit",
+      "host": "rxddit.com",
+      "reason": "Repeated HTTP 502 for several public Reddit post URLs",
+      "was_active": true
+    },
+    {
+      "platform": "reddit",
+      "host": "rxyddit.com",
+      "reason": "Correct public post returns HTTP 403 and a JSON upstream scraping error instead of embed metadata",
+      "was_active": true
+    },
+    {
+      "platform": "roblox",
+      "host": "fixroblox.com",
+      "reason": "Homepage, game and profile URLs serve the same unrelated vortex app without preview metadata",
+      "was_active": true
+    },
+    {
+      "platform": "spotify",
+      "host": "fixspotify.com",
+      "reason": "Configured host returns 404; maintainer-documented open.fixspotify.com returns repeated 503",
+      "was_active": true
+    },
+    {
+      "platform": "threads",
+      "host": "fixthreads.net",
+      "reason": "TLS validation fails repeatedly; maintainer has retired the original service",
+      "was_active": true
+    },
+    {
+      "platform": "tiktok",
+      "host": "tfxktok.com",
+      "reason": "Repeated HTTP 500 for two posts successfully rendered by other services",
+      "was_active": true
+    },
+    {
+      "platform": "tiktok",
+      "host": "vxtiktok.com",
+      "reason": "All post URLs return a service shutdown notice",
+      "was_active": true
+    },
+    {
+      "platform": "twitch",
+      "host": "fxtwitch.tv",
+      "reason": "Already disabled since 2024; no DNS address records",
+      "was_active": false
+    },
+    {
+      "platform": "twitch",
+      "host": "txitch.tv",
+      "reason": "Already disabled since 2024; no DNS address records",
+      "was_active": false
+    }
+  ],
+  "replacements": {
+    "instagram": "https://vxinstagram.com",
+    "reddit": "https://vxreddit.com",
+    "threads": "https://fixthreads.seria.moe"
+  },
+  "remaining_service_count": 37,
+  "alias_checks": [
+    {
+      "url": "https://vxb23.tv/",
+      "http": 200,
+      "final_url": "https://www.vxbilibili.com/",
+      "ip": "172.67.187.149",
+      "curl_exit": 0,
+      "error": "",
+      "title": "BiliFix — Embed Bilibili Links",
+      "meta": {
+        "og:title": "BiliFix — Embed Bilibili Links",
+        "og:description": "Fix Bilibili link previews! Inline video playback on Discord & Telegram, rich cards, translation & AI dubbing. Just add \"vx\" to any Bilibili link.",
+        "og:site_name": "BiliFix",
+        "og:type": "website",
+        "og:url": "https://www.vxbilibili.com/en-US"
+      },
+      "bytes": 129319,
+      "seconds": 1.391667
+    },
+    {
+      "url": "https://bskyx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "http": 200,
+      "final_url": "https://bskyx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "ip": "104.21.56.68",
+      "curl_exit": 0,
+      "error": "",
+      "title": "舟 (@nkjrs12.bsky.social)",
+      "meta": {
+        "og:url": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+        "og:site_name": "VixBluesky",
+        "og:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:title": "舟 (@nkjrs12.bsky.social)",
+        "twitter:card": "undefined",
+        "twitter:image": "0"
+      },
+      "bytes": 1623,
+      "seconds": 1.74119
+    },
+    {
+      "url": "https://ppxiv.net/artworks/124748386",
+      "http": 200,
+      "final_url": "https://ppxiv.net/artworks/124748386",
+      "ip": "194.127.178.29",
+      "curl_exit": 0,
+      "error": "",
+      "title": "DONALD DUCK",
+      "meta": {
+        "og:site_name": "https://github.com/thelaao/phixiv",
+        "og:type": "article",
+        "og:title": "DONALD DUCK by (@Mika Pikazo)",
+        "og:description": "ドナルドからイメージした女の子ちゃんです。\nポップアップ＆展示イベント＆グッズなど...\n「Disney Collection by Mika Pikazo」盛りだくさんです！\n\nPOP-UP STORE\n●開催期間：2024/12/7(土)〜12/31(火)\n●10:00〜21:00(入場無料)\nSHIBUYA TSUTAYA B1F\n#ディズニーコレクションbyMikaPikazo\nhttps://prtimes.jp/main/html/rd/p/000000187.000085936.html\n#オリジナル, #ディズニー, #ドナルドダック, #オリジナル10000users入り, #ディズニー10000users入り",
+        "og:url": "https://www.pixiv.net/en/artworks/124748386",
+        "og:image": "https://ppxiv.net/i/img-master/img/2024/11/30/00/00/47/124748386_p0_master1200.jpg",
+        "og:image:alt": "#オリジナル, #ディズニー, #ドナルドダック, #オリジナル10000users入り, #ディズニー10000users入り",
+        "twitter:card": "summary_large_image"
+      },
+      "bytes": 1651,
+      "seconds": 0.961646
+    },
+    {
+      "url": "https://fx.dissonant.dev/",
+      "http": 0,
+      "final_url": "https://fx.dissonant.dev/",
+      "ip": "",
+      "curl_exit": 6,
+      "error": "curl: (6) Could not resolve host: fx.dissonant.dev",
+      "title": "",
+      "meta": {},
+      "bytes": 0,
+      "seconds": 0.333596
+    },
+    {
+      "url": "https://vxtwitter.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "final_url": "https://vxtwitter.com/makkahregion/status/1902619525532512361",
+      "ip": "2606:4700:20::ac43:46b8",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "twitter:card": "player",
+        "og:site_name": "vxTwitter / fixvx\n💖 1.34K 🔁 563",
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "twitter:player:width": "1080",
+        "twitter:player:height": "1920",
+        "twitter:player:stream": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:video": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "og:video:secure_url": "https://video.twimg.com/amplify_video/1902618671450849280/vid/avc1/1080x1920/ZbSMdiF3RCiOKz5T.mp4",
+        "og:video:type": "video/mp4",
+        "og:video:width": "1080",
+        "og:video:height": "1920",
+        "og:image": "https://pbs.twimg.com/amplify_video_thumb/1902618671450849280/img/rQEj7seB2bIj6mKS.jpg",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+        "og:type": "video.other"
+      },
+      "bytes": 2937,
+      "seconds": 0.315151
+    },
+    {
+      "url": "https://fxtwitter.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "final_url": "https://fxtwitter.com/makkahregion/status/1902619525532512361",
+      "ip": "104.21.87.14",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://x.com/makkahregion/status/1902619525532512361",
+        "twitter:site": "@makkahregion",
+        "twitter:creator": "@makkahregion",
+        "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:card": "player",
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+        "og:site_name": "FxTwitter"
+      },
+      "bytes": 2925,
+      "seconds": 0.865973
+    },
+    {
+      "url": "https://twittpr.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "final_url": "https://twittpr.com/makkahregion/status/1902619525532512361",
+      "ip": "172.67.130.246",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://x.com/makkahregion/status/1902619525532512361",
+        "twitter:site": "@makkahregion",
+        "twitter:creator": "@makkahregion",
+        "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:card": "player",
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+        "og:site_name": "FxTwitter"
+      },
+      "bytes": 2923,
+      "seconds": 0.856474
+    },
+    {
+      "url": "https://xfixup.com/makkahregion/status/1902619525532512361",
+      "http": 200,
+      "final_url": "https://xfixup.com/makkahregion/status/1902619525532512361",
+      "ip": "2606:4700:3034::6815:41a3",
+      "curl_exit": 0,
+      "error": "",
+      "title": "",
+      "meta": {
+        "og:url": "https://x.com/makkahregion/status/1902619525532512361",
+        "twitter:site": "@makkahregion",
+        "twitter:creator": "@makkahregion",
+        "twitter:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "twitter:card": "player",
+        "og:title": "إمارة منطقة مكة المكرمة (@makkahregion)",
+        "og:description": "#فيديو \nأمطار #الحرم_المكي 🌧️🕋\n🎥..رائد العفيفي",
+        "og:site_name": "FixupX"
+      },
+      "bytes": 2898,
+      "seconds": 0.857046
+    },
+    {
+      "url": "https://koutu.be/dQw4w9WgXcQ",
+      "http": 200,
+      "final_url": "https://koutu.be/dQw4w9WgXcQ",
+      "ip": "104.21.66.151",
+      "curl_exit": 0,
+      "error": "",
+      "title": "Koutube - use s/y/k",
+      "meta": {
+        "og:site_name": "Koutube - use s/y/k\nUploaded 17 years ago\n👁︎ 1,838,053,154 👍︎ 19,508,700 👎︎ 521,982 👥︎ 4.56M",
+        "twitter:card": "player",
+        "twitter:title": "Rick Astley - Never Gonna Give You Up (Official Video) (4K Remaster)",
+        "twitter:player:width": "640",
+        "twitter:player:height": "360",
+        "twitter:player:stream": "https://iv.igerman.cc/latest_version?id=dQw4w9WgXcQ&itag=18&local=true",
+        "twitter:player:stream:content_type": "video/mp4",
+        "og:video": "https://iv.igerman.cc/latest_version?id=dQw4w9WgXcQ&itag=18&local=true",
+        "og:video:secure_url": "https://iv.igerman.cc/latest_version?id=dQw4w9WgXcQ&itag=18&local=true",
+        "og:video:type": "video/mp4",
+        "og:video:width": "640",
+        "og:video:height": "360",
+        "twitter:image": "https://iv.igerman.cc/vi/dQw4w9WgXcQ/maxres.jpg",
+        "og:url": "https://youtu.be/dQw4w9WgXcQ",
+        "og:image": "https://iv.igerman.cc/vi/dQw4w9WgXcQ/maxres.jpg",
+        "og:description": "The official video for “Never Gonna Give You Up” by Rick Astley. \n\nNever: The Autobiography 📚 OUT NOW! \nFollow this link to get your copy a..."
+      },
+      "bytes": 3832,
+      "seconds": 0.656616
+    }
+  ],
+  "removed_aliases": [
+    {
+      "platform": "tumblr",
+      "host": "fx.dissonant.dev",
+      "reason": "NXDOMAIN confirmed independently by Google and Cloudflare DNS; primary tpmblr.com retained"
+    }
+  ],
+  "validation": {
+    "command": ":shared:testAndroidHostTest",
+    "tests": 88,
+    "failures": 0,
+    "errors": 0
+  }
+}

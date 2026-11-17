@@ -1,9 +1,12 @@
 package app.fukaha.web
 
+import app.fukaha.EmbedCatalog
 import app.fukaha.EmbedHealthProgress
 import app.fukaha.EmbedHealthStatus
+import app.fukaha.EmbedPreviewOutcome
 import kotlinx.browser.document
 import kotlinx.browser.localStorage
+import kotlinx.browser.window
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.promise
@@ -11,6 +14,7 @@ import org.w3c.dom.Element
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.events.Event
+import kotlin.js.Promise
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -23,10 +27,16 @@ import kotlin.test.assertTrue
 
 class WebDomTest {
     private lateinit var root: HTMLElement
+    private var realFetch: dynamic = null
 
     @BeforeTest
     fun setUp() {
+        realFetch = window.asDynamic().fetch
+        // DOM tests never contact external providers, including automatic preview loads.
+        window.asDynamic().fetch = { _: dynamic, _: dynamic -> Promise.resolve<dynamic>(js("({type:'opaque',status:0})")) }
         localStorage.removeItem("fukaha_settings")
+        localStorage.removeItem("fukaha_source_preferences")
+        localStorage.removeItem("fukaha_embed_health")
         root = document.createElement("div") as HTMLElement
         root.id = "test-app"
         document.body!!.appendChild(root)
@@ -34,11 +44,301 @@ class WebDomTest {
 
     @AfterTest
     fun tearDown() {
+        window.asDynamic().fetch = realFetch
         root.remove()
         localStorage.removeItem("fukaha_settings")
+        localStorage.removeItem("fukaha_source_preferences")
+        localStorage.removeItem("fukaha_embed_health")
         document.documentElement?.setAttribute("lang", "en")
         document.documentElement?.setAttribute("dir", "ltr")
         document.documentElement?.removeAttribute("data-theme")
+    }
+
+    @Test
+    fun changedUrlPartsAreColoredAndCopyKeepsTheExactUrl() = MainScope().promise {
+        val clipboard = window.navigator.asDynamic().clipboard
+        val originalWrite = clipboard.writeText
+        var copied = ""
+        clipboard.writeText = { text: String -> copied = text; Promise.resolve(Unit) }
+        try {
+            val app = App(root)
+            app.start(null)
+            delay(30)
+            val original = "https://www.instagram.com/reel/abc/?utm_source=share&keep=a%2Fb"
+            app.prepare(original)
+            delay(50)
+            val urls = root.querySelectorAll(".share-url")
+            assertEquals(original, urls.item(0)!!.textContent)
+            assertEquals(app.prepared!!.detected.cleanedUrl, urls.item(1)!!.textContent)
+            assertEquals(app.prepared!!.embedUrl, urls.item(2)!!.textContent)
+            assertTrue(root.querySelector(".url-diff-removed")!!.parentElement!!.textContent!!.contains("utm_source"))
+            assertTrue(root.querySelector(".url-diff-added")!!.parentElement!!.textContent!!.contains("instagram"))
+            val buttons = root.querySelectorAll(".share-copy")
+            (buttons.item(0) as HTMLElement).click()
+            assertEquals(original, copied)
+            (buttons.item(2) as HTMLElement).click()
+            assertEquals(app.prepared!!.embedUrl, copied)
+        } finally { clipboard.writeText = originalWrite }
+    }
+
+    @Test
+    fun disablingMediaPreviewsPersistsAndPreventsPreviewRequests() = MainScope().promise {
+        val originalFetch = window.asDynamic().fetch
+        val app = App(root)
+        try {
+            app.start(null)
+            delay(30)
+            app.show(View.Settings)
+            (root.querySelector("#media-previews") as HTMLElement).click()
+            delay(50)
+            assertFalse(WebSettingsStore().get().previewsEnabled)
+            app.prepare("https://x.com/example/status/123")
+            delay(50)
+            assertNotNull(app.prepared?.embedUrl, "Turning off previews must keep embed link sharing")
+            assertNull(root.querySelector("#preview-check"))
+            assertNull(root.querySelector("#inline-media-preview"))
+            var requests = 0
+            window.asDynamic().fetch = { _: dynamic, _: dynamic -> requests++; Promise.reject(Throwable("Must not load previews")) }
+            app.checkPreview()
+            delay(30)
+            assertEquals(0, requests)
+            app.show(View.Settings)
+            delay(220)
+            (root.querySelector("#media-previews") as HTMLElement).click()
+            delay(50)
+            app.prepare("https://x.com/example/status/123")
+            delay(50)
+            assertTrue(WebSettingsStore().get().previewsEnabled)
+            assertNotNull(root.querySelector("#preview-check"))
+        } finally { window.asDynamic().fetch = originalFetch }
+    }
+
+    @Test
+    fun previewAppearsAutomaticallyWithoutFetchingVideoAndIsReleasedWhenClosed() = MainScope().promise {
+        val originalFetch = window.asDynamic().fetch
+        val app = App(root)
+        try {
+            app.start(null)
+            delay(30)
+            val requests = mutableListOf<String>()
+            val body = """<head><meta property="og:title" content="Inline video">
+                <meta property="og:url" content="https://x.com/example/status/123">
+                <meta property="og:video:type" content="video/mp4">
+                <meta property="og:video" content="https://media.example/clip.mp4"></head>"""
+            val response: dynamic = js("(function(body,url){var r=new Response(body,{status:200,headers:{'Content-Type':'text/html'}});Object.defineProperty(r,'url',{value:url});return r;})")
+            window.asDynamic().fetch = { url: dynamic, _: dynamic ->
+                requests.add(url as String)
+                Promise.resolve<dynamic>(response(body, url))
+            }
+            app.prepare("https://x.com/example/status/123")
+            delay(50)
+            assertEquals(listOf(app.prepared!!.embedUrl), requests)
+            val frame = assertNotNull(root.querySelector(".shell-share #inline-media-preview"))
+            assertEquals("allow-scripts", frame.getAttribute("sandbox"))
+            val html = frame.getAttribute("srcdoc").orEmpty()
+            assertTrue("preload=\"none\"" in html)
+            assertTrue("data-src=\"https://media.example/clip.mp4\"" in html)
+            assertFalse("<video src=" in html)
+            assertNull(frame.getAttribute("src"))
+            (root.querySelector("#preview-close") as HTMLElement).click()
+            assertNull(root.querySelector("#inline-media-preview"))
+            assertNull(app.previewResult)
+            delay(30)
+            assertNull(root.querySelector("#inline-media-preview"), "Closing must not immediately reload the same preview")
+            app.show(View.Settings)
+            delay(220)
+            app.show(View.Share)
+            delay(50)
+            assertNotNull(root.querySelector("#inline-media-preview"), "Reopening the share window loads the preview again")
+            assertEquals(2, requests.size)
+        } finally { window.asDynamic().fetch = originalFetch }
+    }
+
+    @Test
+    fun everyCatalogSourceCanBePickedPersistedAndCopied(): Promise<Unit> = MainScope().promise {
+        val originalMatchMedia = window.asDynamic().matchMedia
+        val reducedMotion: dynamic = js("(function(original) { return function(query) { if (query === '(prefers-reduced-motion: reduce)') return {matches:true,media:query}; return original.call(window, query); }; })")
+        val clipboard = window.navigator.asDynamic().clipboard
+        val originalWrite = clipboard.writeText
+        var copied = ""
+        window.asDynamic().matchMedia = reducedMotion(originalMatchMedia)
+        clipboard.writeText = { text: String -> copied = text; Promise.resolve(Unit) }
+        try {
+            val app = App(root)
+            app.start(null)
+            delay(30)
+            app.show(View.Settings)
+            for (platform in app.catalogPlatformKeys()) {
+                val original = "${EmbedCatalog.bundled().platform(platform)!!.href}/catalog-validation/123"
+                for (service in app.servicesFor(platform)) {
+                    val host = service.normalizedHost()
+                    app.toggleFixerPicker(platform)
+                    val button = root.querySelector("[data-source-host='$host'] .fixer-option") as? HTMLElement
+                    assertNotNull(button, "Missing source option: $platform $host")
+                    button.click()
+                    delay(10)
+                    assertEquals(host, WebSettingsStore().get().preferredFixers[platform])
+                    app.prepare(original)
+                    delay(10)
+                    val expected = "$host/catalog-validation/123"
+                    assertEquals(expected, app.prepared?.embedUrl)
+                    val copyButtons = root.querySelectorAll(".share-copy")
+                    (copyButtons.item(copyButtons.length - 1) as HTMLElement).click()
+                    assertEquals(expected, copied, "Copied source: $platform $host")
+                    app.show(View.Settings)
+                }
+            }
+        } finally {
+            window.asDynamic().matchMedia = originalMatchMedia
+            clipboard.writeText = originalWrite
+        }
+    }
+
+    @Test
+    fun siteEmbeddingAndOfficialShorteningControlsUpdatePreparedLinks() = MainScope().promise {
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.prepare("https://youtube.com/watch?v=dQw4w9WgXcQ&t=42&si=tracking")
+        delay(50)
+        assertNotNull(app.prepared?.embedUrl)
+        app.show(View.Settings)
+        delay(220) // Wait for the share-sheet exit transition before inspecting Settings.
+        (root.querySelector("#embed-enabled-youtube") as HTMLElement).click()
+        delay(50)
+        assertNull(app.prepared?.embedUrl)
+        assertTrue("youtube" in WebSettingsStore().get().disabledEmbedPlatforms)
+        (root.querySelector("#official-short-links") as HTMLElement).click()
+        delay(50)
+        assertEquals("https://youtu.be/dQw4w9WgXcQ?t=42", app.prepared?.detected?.cleanedUrl)
+        assertTrue(WebSettingsStore().get().useOfficialShortLinks)
+        (root.querySelector("#embed-enabled-youtube") as HTMLElement).click()
+        delay(50)
+        assertNotNull(app.prepared?.embedUrl)
+        assertTrue(WebSettingsStore().get().disabledEmbedPlatforms.isEmpty())
+    }
+
+    @Test
+    fun automaticPreviewRejectsStaleResultsWhenLinkChanges() = MainScope().promise {
+        val originalFetch = window.asDynamic().fetch
+        val app = App(root)
+        try {
+            app.start(null)
+            delay(30)
+            var firstFinish: ((dynamic) -> Unit)? = null
+            var nextFinish: ((dynamic) -> Unit)? = null
+            val signals = mutableListOf<dynamic>()
+            window.asDynamic().fetch = { url: dynamic, options: dynamic ->
+                if (url == "/api/preview") Promise.resolve<dynamic>(js("({type:'opaque',status:0})"))
+                else {
+                    signals.add(options.signal)
+                    Promise<dynamic> { resolve, _ ->
+                        if ((url as String).endsWith("/123")) firstFinish = resolve else nextFinish = resolve
+                    }
+                }
+            }
+            app.prepare("https://x.com/example/status/123")
+            delay(30)
+            assertTrue(app.previewChecking)
+            assertTrue((root.querySelector("#preview-check") as HTMLButtonElement).disabled)
+            val originalRow = root.querySelector(".share-url")
+            val oldSignal = signals.first()
+
+            app.prepare("https://x.com/example/status/999")
+            delay(30)
+            assertTrue(oldSignal.aborted as Boolean)
+            assertTrue(app.previewChecking, "The new link starts its own automatic preview")
+            assertNull(app.previewResult)
+            firstFinish!!(js("({type:'opaque',status:0})"))
+            delay(30)
+            assertNull(app.previewResult)
+            val currentRow = root.querySelector(".share-url")
+            assertFalse(originalRow === currentRow)
+            nextFinish!!(js("({type:'opaque',status:0})"))
+            delay(30)
+            assertEquals(EmbedPreviewOutcome.NetworkError, app.previewResult?.outcome)
+            assertSame(currentRow, root.querySelector(".share-url"), "Preview completion must not replace URL rows")
+            assertTrue(root.textContent.orEmpty().contains(app.strings.previewNetworkError))
+            assertFalse((root.querySelector("#preview-check") as HTMLButtonElement).disabled)
+            app.show(View.Home)
+            delay(220)
+            assertNull(app.previewResult)
+        } finally { window.asDynamic().fetch = originalFetch }
+    }
+
+    @Test
+    fun failedStorageWriteLeavesSelectionAndPickerIntact() = MainScope().promise {
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.show(View.Settings)
+        app.toggleFixerPicker("x")
+        val original = app.effectiveFixer("x")
+        val storagePrototype: dynamic = js("Storage.prototype")
+        val originalSet = storagePrototype.setItem
+        try {
+            storagePrototype.setItem = { _: dynamic, _: dynamic -> throw IllegalStateException("Storage denied") }
+            (root.querySelectorAll(".fixer-option").item(1) as HTMLElement).click()
+            delay(30)
+            assertEquals(original, app.effectiveFixer("x"))
+            assertEquals("x", app.openFixerPlatform)
+            assertEquals(app.strings.storageUnavailable, app.status)
+            val star = root.querySelector("[data-source-favorite]") as HTMLElement
+            star.click()
+            assertEquals("false", star.getAttribute("aria-pressed"))
+            assertTrue(app.sourcePreferences.favorites.isEmpty())
+        } finally {
+            storagePrototype.setItem = originalSet
+        }
+    }
+
+    @Test
+    fun favoritesAndReorderingAreIndependentOfSelectionAndPersist() = MainScope().promise {
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.show(View.Settings)
+        app.toggleFixerPicker("x")
+        val original = app.effectiveFixer("x")
+        val services = app.servicesFor("x")
+        val a = services[1].normalizedHost()
+        val b = services[2].normalizedHost()
+        (root.querySelector("[data-source-favorite='$a']") as HTMLElement).click()
+        (root.querySelector("[data-source-favorite='$b']") as HTMLElement).click()
+        assertEquals(original, app.effectiveFixer("x"))
+        assertEquals("x", app.openFixerPlatform)
+        (root.querySelector("#source-order-toggle") as HTMLElement).click()
+        val row = root.querySelector("[data-source-host='$b']")!!
+        (row.querySelector(".source-move") as HTMLElement).click()
+        assertEquals(b, root.querySelector("[data-source-host]")?.getAttribute("data-source-host"))
+        assertEquals(original, app.effectiveFixer("x"))
+        assertEquals("true", root.querySelector("[data-source-favorite='$b']")?.getAttribute("aria-pressed"))
+        assertEquals(root.querySelector("[data-source-favorite='$b']"), document.activeElement)
+        // A fresh app instance models reloading the document with the same localStorage.
+        val reloaded = App(root)
+        reloaded.start(null)
+        delay(30)
+        reloaded.show(View.Settings)
+        reloaded.toggleFixerPicker("x")
+        assertEquals(b, root.querySelector("[data-source-host]")?.getAttribute("data-source-host"))
+        assertEquals(original, reloaded.effectiveFixer("x"))
+        (root.querySelector("[data-source-host='$b'] .fixer-option") as HTMLElement).click()
+        delay(220)
+        assertEquals(b, reloaded.effectiveFixer("x")?.normalizedHost())
+        assertEquals(b, WebSettingsStore().get().preferredFixers["x"])
+    }
+
+    @Test
+    fun unsuccessfulCheckIsVisibleAfterReload() = MainScope().promise {
+        WebHealthStore().save(emptyMap(), 1234)
+        val app = App(root)
+        app.start(null)
+        delay(30)
+        app.show(View.Settings)
+        val summary = root.querySelector("#$EMBED_HEALTH_SUMMARY_ID")!!.textContent.orEmpty()
+        assertTrue(summary.contains(app.strings.embedHealthLastAttempt))
+        assertTrue(summary.contains(app.strings.embedHealthOffline))
+        assertFalse(summary.contains(app.strings.embedHealthNever))
     }
 
     @Test
@@ -104,9 +404,9 @@ class WebDomTest {
         val row = root.querySelector(".version-row") as HTMLElement
         val value = row.querySelector("[data-app-version]") as HTMLElement
 
-        assertEquals("${app.strings.version}: $WEB_APP_VERSION", row.getAttribute("aria-label"))
-        assertEquals(WEB_APP_VERSION, value.textContent)
-        assertEquals(WEB_APP_VERSION, value.getAttribute("data-app-version"))
+        assertEquals("${app.strings.version}: $WEB_DISPLAY_VERSION", row.getAttribute("aria-label"))
+        assertEquals(WEB_DISPLAY_VERSION, value.textContent)
+        assertEquals(WEB_DISPLAY_VERSION, value.getAttribute("data-app-version"))
         assertEquals("ltr", value.dir)
         assertNull(row.getAttribute("href"))
         assertNull(row.getAttribute("role"))

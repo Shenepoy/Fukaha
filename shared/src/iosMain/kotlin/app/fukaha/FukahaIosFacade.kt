@@ -3,6 +3,9 @@ package app.fukaha
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 /**
@@ -23,16 +26,48 @@ class FukahaIosFacade {
 
     fun defaultFixer(platformKey: String): String? = bridge.defaultFixer(platformKey)
 
+    /** Use the same catalog resolution for the picker and the generated link. */
+    fun selectedFixer(platformKey: String, preferredHost: String?): String? =
+        bridge.effectiveService(platformKey, preferredHost)?.normalizedHost()
+
     fun platformKeys(): List<String> = bridge.platformKeys()
 
     fun serviceNames(platformKey: String): List<String> =
         bridge.servicesFor(platformKey).map { "${it.name}\t${it.normalizedHost()}" }
 
+    /** Returns only our player HTML. The bounded metadata request never downloads the video. */
+    fun loadPreview(
+        originalUrl: String,
+        embedUrl: String,
+        playLabel: String,
+        errorLabel: String,
+        onResult: (document: String?) -> Unit,
+    ) {
+        scope.launch {
+            val checker = EmbedPreviewChecker()
+            try {
+                val result = checker.load(originalUrl, embedUrl)
+                ensureActive()
+                onResult(result.preview?.let { EmbedPreviewDocument.render(it, playLabel, errorLabel) })
+            } finally { checker.close() }
+        }
+    }
+
     fun prepare(
         text: String,
         cobaltBaseUrl: String,
         resolveShortLinks: Boolean,
-        preferredFixerHost: String?,
+        preferredFixers: Map<String, String>,
+        onResult: (String?, String?, String?, String?) -> Unit,
+    ) = prepareWithPreferences(text, cobaltBaseUrl, resolveShortLinks, preferredFixers, emptyList(), false, onResult)
+
+    fun prepareWithPreferences(
+        text: String,
+        cobaltBaseUrl: String,
+        resolveShortLinks: Boolean,
+        preferredFixers: Map<String, String>,
+        disabledEmbedPlatforms: List<String>,
+        useOfficialShortLinks: Boolean,
         onResult: (cleanUrl: String?, embedUrl: String?, platform: String?, error: String?) -> Unit,
     ) {
         scope.launch {
@@ -40,12 +75,12 @@ class FukahaIosFacade {
                 val settings = FukahaSettings(
                     cobaltBaseUrl = cobaltBaseUrl,
                     resolveShortLinks = resolveShortLinks,
-                    preferredFixers = preferredFixerHost?.let { host ->
-                        bridge.detectPlatform(UrlCleaner.extractFirstUrl(text) ?: text)
-                            ?.let { key -> mapOf(key to host) }
-                    } ?: emptyMap(),
+                    preferredFixers = preferredFixers,
+                    disabledEmbedPlatforms = disabledEmbedPlatforms.toSet(),
+                    useOfficialShortLinks = useOfficialShortLinks,
                 )
                 val prepared = bridge.prepare(text, settings)
+                ensureActive()
                 if (prepared == null) {
                     onResult(null, null, null, "No link found")
                 } else {
@@ -56,7 +91,10 @@ class FukahaIosFacade {
                         null,
                     )
                 }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
             } catch (t: Throwable) {
+                ensureActive()
                 onResult(null, null, null, t.message ?: "Prepare failed")
             }
         }
@@ -75,19 +113,25 @@ class FukahaIosFacade {
                     cobaltBaseUrl = cobaltBaseUrl,
                     cobaltApiKey = cobaltApiKey,
                 )
-                when (val result = bridge.download(url, settings, cacheDirPath)) {
+                val result = bridge.download(url, settings, cacheDirPath)
+                ensureActive()
+                when (result) {
                     is MediaDownloadResult.Success ->
                         onResult(result.filePath, result.mimeType, null)
                     is MediaDownloadResult.Failure ->
                         onResult(null, null, result.message)
                 }
+            } catch (cancelled: CancellationException) {
+                throw cancelled
             } catch (t: Throwable) {
+                ensureActive()
                 onResult(null, null, t.message ?: "Download failed")
             }
         }
     }
 
     fun close() {
+        scope.cancel()
         bridge.close()
     }
 }

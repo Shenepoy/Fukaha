@@ -11,6 +11,7 @@ on:
       - "gradle.properties"
       - "VERSION"
       - "scripts/ci/**"
+      - "functions/**"
       - "firebase.json"
       - ".firebaserc"
       - ".github/workflows/deploy-web.yml"
@@ -23,6 +24,7 @@ on:
       - "gradle.properties"
       - "VERSION"
       - "scripts/ci/**"
+      - "functions/**"
       - "firebase.json"
       - ".firebaserc"
       - ".github/workflows/deploy-web.yml"
@@ -44,7 +46,7 @@ env:
 jobs:
   deploy-preview:
     name: Preview (PR)
-    if: github.event_name == 'pull_request'
+    if: github.repository == 'Shenepoy/Fukaha' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -61,8 +63,11 @@ jobs:
         with:
           cache-read-only: true
 
+      - name: Validate preview metadata endpoint
+        run: node --test functions/preview.test.mjs
+
       - name: Build web distribution
-        run: ./gradlew :webApp:jsBrowserDistribution --stacktrace
+        run: ./gradlew :webApp:jsBrowserTest :webApp:pwaStaticTest :webApp:jsBrowserDistribution --stacktrace
 
       - name: Deploy preview channel
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -74,8 +79,8 @@ jobs:
   deploy-live:
     name: Deploy (live)
     if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && github.ref == 'refs/heads/main')
+      github.repository == 'Shenepoy/Fukaha' && github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' || github.event_name == 'push')
     runs-on: ubuntu-latest
     environment: production
     steps:
@@ -93,8 +98,23 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
+      - name: Validate preview metadata endpoint
+        run: node --test functions/preview.test.mjs
+
       - name: Build web distribution
-        run: ./gradlew :webApp:jsBrowserDistribution --stacktrace
+        run: ./gradlew :webApp:jsBrowserTest :webApp:pwaStaticTest :webApp:jsBrowserDistribution --stacktrace
+
+      - name: Deploy preview metadata endpoint
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          set -euo pipefail
+          npm ci --prefix functions
+          credential_file="$RUNNER_TEMP/fukaha-preview-deploy.json"
+          trap 'rm -f "$credential_file"' EXIT
+          export GOOGLE_APPLICATION_CREDENTIALS="$credential_file"
+          node --input-type=module -e 'import {writeFileSync} from "node:fs"; writeFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, process.env.FIREBASE_SERVICE_ACCOUNT_JSON, {mode:0o600});'
+          npx --yes firebase-tools@15.36.0 deploy --only functions:preview:previewMetadata --project fukaha-shenepoy --non-interactive
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

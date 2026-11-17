@@ -1,0 +1,57 @@
+{
+  "origin": "http://127.0.0.1:18769",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "results": [
+    {
+      "platform": "weibo",
+      "name": "WeiboEZ",
+      "host": "https://weiboez.com",
+      "original": "https://weibo.com/6389423278/RrFnnA9r1",
+      "embed": "https://weiboez.com/6389423278/RrFnnA9r1",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tumblr",
+      "name": "tpmblr.com",
+      "host": "https://tpmblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://tpmblr.com/staff/768250886787039233",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tumblr",
+      "name": "txtumblr.com",
+      "host": "https://txtumblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://txtumblr.com/staff/768250886787039233",
+      "error": "TypeError: Failed to fetch"
+    }
+  ],
+  "browserFailures": [
+    {
+      "url": "https://weiboez.com/6389423278/RrFnnA9r1",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://tpmblr.com/staff/768250886787039233",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://txtumblr.com/staff/768250886787039233",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    }
+  ],
+  "checkedAt": "2026-11-17T09:37:51.063Z"
+}

@@ -38,6 +38,42 @@ class LinkProcessorTest {
     }
 
     @Test
+    fun platformWithoutEmbedSourcesFallsBackToCleanOfficialLink() = runTest {
+        val emptyCatalog = EmbedCatalog.fromJson(
+            """{"roblox":{"href":"https://roblox.com","name":"Roblox","services":[]}}""",
+        )
+        val processor = LinkProcessor(emptyCatalog)
+        try {
+            val prepared = processor.prepare(
+                "https://www.roblox.com/games/920587237/Adopt-Me?utm_source=share",
+                FukahaSettings(preferredFixers = mapOf("roblox" to "https://fixroblox.com")),
+            )
+            assertNotNull(prepared)
+            assertEquals("roblox", prepared.detected.platformKey)
+            assertNull(prepared.embedUrl)
+            assertEquals("https://roblox.com/games/920587237/Adopt-Me", prepared.textUrlFor(ShareAction.Embed))
+        } finally {
+            processor.close()
+        }
+    }
+
+    @Test
+    fun retiredRobloxPreferenceUsesNewProvider() = runTest {
+        val processor = LinkProcessor(catalog)
+        try {
+            val prepared = processor.prepare(
+                "https://www.roblox.com/games/920587237/Adopt-Me?utm_source=share",
+                FukahaSettings(preferredFixers = mapOf("roblox" to "https://fixroblox.com")),
+            )
+            assertNotNull(prepared)
+            assertEquals("https://www.fxroblox.com/games/920587237/Adopt-Me", prepared.embedUrl)
+            assertEquals(prepared.embedUrl, prepared.textUrlFor(ShareAction.Embed))
+        } finally {
+            processor.close()
+        }
+    }
+
+    @Test
     fun prepareCleansAndRewritesWithoutHittingTheNetwork() = runTest {
         val processor = LinkProcessor(catalog)
         try {
@@ -72,8 +108,8 @@ class LinkProcessorTest {
                 health = health,
             )
             assertNotNull(prepared)
-            assertEquals("https://twitterez.com/foo/status/99", prepared.embedUrl)
-            assertEquals(EmbedHealthStatus.Alive, prepared.embedHealth)
+            assertEquals("https://fixvx.com/foo/status/99", prepared.embedUrl)
+            assertEquals(EmbedHealthStatus.Dead, prepared.embedHealth)
         } finally {
             processor.close()
         }
@@ -90,7 +126,7 @@ class LinkProcessorTest {
             assertNotNull(prepared)
             assertEquals("instagram", prepared.detected.platformKey)
             assertEquals("https://instagram.com/reel/ABC123", prepared.detected.cleanedUrl)
-            assertEquals("https://ddinstagram.com/reel/ABC123", prepared.embedUrl)
+            assertEquals("https://vxinstagram.com/reel/ABC123", prepared.embedUrl)
         } finally {
             bridge.close()
         }

@@ -13,6 +13,10 @@ class IosSettingsStore(
         } ?: ShareAction.Ask
         return FukahaSettings(
             defaultAction = action,
+            disabledEmbedPlatforms = defaults.arrayForKey(IosSettingsKeys.DISABLED_EMBED_PLATFORMS)?.filterIsInstance<String>()?.toSet().orEmpty(),
+            useOfficialShortLinks = defaults.boolForKey(IosSettingsKeys.OFFICIAL_SHORT_LINKS),
+            previewsEnabled = if (defaults.objectForKey(IosSettingsKeys.PREVIEWS_ENABLED) == null) true
+                else defaults.boolForKey(IosSettingsKeys.PREVIEWS_ENABLED),
             preferredFixers = parseFixers(defaults.stringForKey(KEY_PREFERRED_FIXERS)),
             cobaltBaseUrl = defaults.stringForKey(KEY_COBALT)
                 ?: FukahaSettings.DEFAULT_COBALT_BASE_URL,
@@ -49,6 +53,9 @@ class IosSettingsStore(
     override suspend fun update(transform: (FukahaSettings) -> FukahaSettings) {
         val next = transform(get()).withDownloadClamped()
         defaults.setObject(next.defaultAction.name, KEY_DEFAULT_ACTION)
+        defaults.setObject(next.disabledEmbedPlatforms.toList(), IosSettingsKeys.DISABLED_EMBED_PLATFORMS)
+        defaults.setBool(next.useOfficialShortLinks, IosSettingsKeys.OFFICIAL_SHORT_LINKS)
+        defaults.setBool(next.previewsEnabled, IosSettingsKeys.PREVIEWS_ENABLED)
         defaults.setObject(serializeFixers(next.preferredFixers), KEY_PREFERRED_FIXERS)
         defaults.setObject(next.cobaltBaseUrl, KEY_COBALT)
         defaults.setObject(next.cobaltApiKey, KEY_COBALT_API_KEY)
@@ -92,7 +99,7 @@ class IosSettingsStore(
     }
 
     companion object {
-        const val APP_GROUP = "group.app.fukaha"
+        const val APP_GROUP = "group.com.shenepoy.fukaha"
         private const val KEY_DEFAULT_ACTION = "default_action"
         private const val KEY_PREFERRED_FIXERS = "preferred_fixers"
         private const val KEY_COBALT = "cobalt_base_url"

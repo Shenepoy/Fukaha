@@ -20,16 +20,23 @@ class ApkInstallActivity : Activity() {
     }
 
     private fun handle(intent: Intent) {
+        val sessionId = intent.getIntExtra(ApkUpdater.EXTRA_SESSION_ID, -1)
         when (intent.getIntExtra(PackageInstaller.EXTRA_STATUS, PackageInstaller.STATUS_FAILURE)) {
             PackageInstaller.STATUS_PENDING_USER_ACTION -> {
-                val confirm = confirmIntent(intent) ?: return
-                startActivity(confirm)
+                val failure = runCatching {
+                    val confirm = confirmIntent(intent) ?: error(getString(R.string.update_failed))
+                    startActivity(confirm)
+                }.exceptionOrNull()
+                if (failure != null) {
+                    ApkUpdater.completeInstall(sessionId, failure.message ?: getString(R.string.update_failed))
+                }
             }
-            PackageInstaller.STATUS_SUCCESS -> Unit
+            PackageInstaller.STATUS_SUCCESS -> ApkUpdater.completeInstall(sessionId, null)
             else -> {
                 val message = intent.getStringExtra(PackageInstaller.EXTRA_STATUS_MESSAGE)
                     ?.takeIf { it.isNotBlank() }
                     ?: getString(R.string.update_failed)
+                ApkUpdater.completeInstall(sessionId, message)
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
         }

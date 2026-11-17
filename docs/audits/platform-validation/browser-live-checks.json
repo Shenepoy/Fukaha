@@ -1,0 +1,808 @@
+{
+  "origin": "http://127.0.0.1:18769",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "results": [
+    {
+      "platform": "bilibili",
+      "name": "fxBilibili",
+      "host": "https://fxbilibili.seria.moe",
+      "original": "https://bilibili.com/video/BV1xx411c7mD",
+      "embed": "https://fxbilibili.seria.moe/video/BV1xx411c7mD",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bilibili",
+      "name": "BiliFix",
+      "host": "https://vxbilibili.com",
+      "original": "https://bilibili.com/video/BV1xx411c7mD",
+      "embed": "https://vxbilibili.com/video/BV1xx411c7mD",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "bskye",
+      "host": "https://bskye.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bskye.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "FxBluesky",
+      "host": "https://fxbsky.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://fxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "VixBluesky",
+      "host": "https://bskx.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bskx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "xbsky",
+      "host": "https://xbsky.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://xbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "embeds.now",
+      "host": "https://bs.embeds.now",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bs.embeds.now/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "FixBluesky",
+      "host": "https://bsyy.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://bsyy.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "facebook",
+      "name": "Facecot",
+      "host": "https://facecot.com",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://facecot.com/share/r/19xGa5YKiR",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "deviantart",
+      "name": "fixDeviantArt",
+      "host": "https://fixdeviantart.com",
+      "original": "https://deviantart.com/arcipello/art/Arci-ID-4659791",
+      "embed": "https://fixdeviantart.com/arcipello/art/Arci-ID-4659791",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "facebook",
+      "name": "embeds.now",
+      "host": "https://fb.embeds.now",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://fb.embeds.now/share/r/19xGa5YKiR",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "bluesky",
+      "name": "vxBsky",
+      "host": "https://vxbsky.app",
+      "original": "https://bsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "embed": "https://vxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "imgur",
+      "name": "ImgurEZ",
+      "host": "https://imgurez.com",
+      "original": "https://imgur.com/gallery/UXCBWlW",
+      "embed": "https://imgurez.com/gallery/UXCBWlW",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "uuinstagram",
+      "host": "https://uuinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://uuinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "InstagramEmbed",
+      "host": "https://vxinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "eeinstagram",
+      "host": "https://eeinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://eeinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "kkScript",
+      "host": "https://kkinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://kkinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "zzinstagram",
+      "host": "https://zzinstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://zzinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "embeds.now",
+      "host": "https://ig.embeds.now",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://ig.embeds.now/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "pinterest",
+      "name": "PinterestEZ",
+      "host": "https://pinterestez.com",
+      "original": "https://pinterest.com/pin/99360735500167749/",
+      "embed": "https://pinterestez.com/pin/99360735500167749/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "pinterest",
+      "name": "embeds.now",
+      "host": "https://pi.embeds.now",
+      "original": "https://pinterest.com/pin/99360735500167749/",
+      "embed": "https://pi.embeds.now/pin/99360735500167749/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "instagram",
+      "name": "OGInstagram",
+      "host": "https://oginstagram.com",
+      "original": "https://instagram.com/reel/DfF3eqGSKKc/",
+      "embed": "https://oginstagram.com/reel/DfF3eqGSKKc/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "pixiv",
+      "name": "phixiv",
+      "host": "https://phixiv.net",
+      "original": "https://pixiv.net/en/artworks/124748386",
+      "embed": "https://phixiv.net/en/artworks/124748386",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "reddit",
+      "name": "RedditEZ",
+      "host": "https://redditez.com",
+      "original": "https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "embed": "https://redditez.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "reddit",
+      "name": "vxreddit",
+      "host": "https://vxreddit.com",
+      "original": "https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "embed": "https://vxreddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "roblox",
+      "name": "FxRoblox",
+      "host": "https://www.fxroblox.com",
+      "original": "https://roblox.com/games/920587237/Adopt-Me",
+      "embed": "https://www.fxroblox.com/games/920587237/Adopt-Me",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "reddit",
+      "name": "embeds.now",
+      "host": "https://r.embeds.now",
+      "original": "https://reddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "embed": "https://r.embeds.now/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "snapchat",
+      "name": "SnapchatEZ",
+      "host": "https://snapchatez.com",
+      "original": "https://snapchat.com/@mr_rajj91319306/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYYWFlZHZpZmpsAZ4S19eiAZ4S19eEAAAAAQ",
+      "embed": "https://snapchatez.com/@mr_rajj91319306/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYYWFlZHZpZmpsAZ4S19eiAZ4S19eEAAAAAQ",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "spotify",
+      "name": "embeds.now",
+      "host": "https://sp.embeds.now",
+      "original": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "embed": "https://sp.embeds.now/track/4cOdK2wGLETKBW3PvgPWqT",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "spotify",
+      "name": "fxspotify",
+      "host": "https://fxspotify.com",
+      "original": "https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "embed": "https://fxspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "facebook",
+      "name": "facebed (seria)",
+      "host": "https://facebed.seria.moe",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://facebed.seria.moe/share/r/19xGa5YKiR",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "threads",
+      "name": "embeds.now",
+      "host": "https://th.embeds.now",
+      "original": "https://threads.net/@zuck/post/DTa3-B1EbTp",
+      "embed": "https://th.embeds.now/@zuck/post/DTa3-B1EbTp",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tiktok",
+      "name": "fxTikTok",
+      "host": "https://tnktok.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tnktok.com/@scout2015/video/6718335390845095173",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tiktok",
+      "name": "TikTokEZ",
+      "host": "https://tiktokez.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tiktokez.com/@scout2015/video/6718335390845095173",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tiktok",
+      "name": "tiktxk",
+      "host": "https://tiktxk.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tiktxk.com/@scout2015/video/6718335390845095173",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tiktok",
+      "name": "kkScript",
+      "host": "https://kktiktok.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://kktiktok.com/@scout2015/video/6718335390845095173",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tiktok",
+      "name": "embeds.now",
+      "host": "https://tt.embeds.now",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://tt.embeds.now/@scout2015/video/6718335390845095173",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tiktok",
+      "name": "FixTikTok",
+      "host": "https://fixtiktok.com",
+      "original": "https://tiktok.com/@scout2015/video/6718335390845095173",
+      "embed": "https://fixtiktok.com/@scout2015/video/6718335390845095173",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tumblr",
+      "name": "tpmblr.com",
+      "host": "https://tpmblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://tpmblr.com/staff/768250886787039233",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "tumblr",
+      "name": "txtumblr.com",
+      "host": "https://txtumblr.com",
+      "original": "https://www.tumblr.com/staff/768250886787039233",
+      "embed": "https://txtumblr.com/staff/768250886787039233",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "twitch",
+      "name": "fxtwitch",
+      "host": "https://fxtwitch.seria.moe",
+      "original": "https://twitch.tv/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "embed": "https://fxtwitch.seria.moe/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "weibo",
+      "name": "WeiboEZ",
+      "host": "https://weiboez.com",
+      "original": "https://weibo.com/6389423278/RrFnnA9r1",
+      "embed": "https://weiboez.com/6389423278/RrFnnA9r1",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "x",
+      "name": "BetterTwitFix",
+      "host": "https://fixvx.com",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://fixvx.com/makkahregion/status/1902619525532512361",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "threads",
+      "name": "fixthreads (seria)",
+      "host": "https://fixthreads.seria.moe",
+      "original": "https://threads.net/@zuck/post/DTa3-B1EbTp",
+      "embed": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "status": 200,
+      "type": "cors",
+      "url": "https://fixthreads.seria.moe/@zuck/post/DTa3-B1EbTp",
+      "contentType": "text/html; charset=utf-8",
+      "title": "@zuck on Threads",
+      "hasMedia": true
+    },
+    {
+      "platform": "facebook",
+      "name": "facebed",
+      "host": "https://facebed.com",
+      "original": "https://facebook.com/share/r/19xGa5YKiR",
+      "embed": "https://facebed.com/share/r/19xGa5YKiR",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "x",
+      "name": "FxEmbed",
+      "host": "https://fixupx.com",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://fixupx.com/makkahregion/status/1902619525532512361",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "x",
+      "name": "embeds.now",
+      "host": "https://x.embeds.now",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://x.embeds.now/makkahregion/status/1902619525532512361",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "x",
+      "name": "TwitterEZ",
+      "host": "https://twitterez.com",
+      "original": "https://x.com/makkahregion/status/1902619525532512361",
+      "embed": "https://twitterez.com/makkahregion/status/1902619525532512361",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "youtube",
+      "name": "Koutube",
+      "host": "https://koutube.com",
+      "original": "https://youtube.com/watch?v=dQw4w9WgXcQ",
+      "embed": "https://koutube.com/watch?v=dQw4w9WgXcQ",
+      "error": "TypeError: Failed to fetch"
+    },
+    {
+      "platform": "threads",
+      "name": "vxThreads",
+      "host": "https://vxthreads.net",
+      "original": "https://threads.net/@zuck/post/DTa3-B1EbTp",
+      "embed": "https://vxthreads.net/@zuck/post/DTa3-B1EbTp",
+      "error": "AbortError: signal is aborted without reason"
+    }
+  ],
+  "browserFailures": [
+    {
+      "url": "https://fxbilibili.seria.moe/video/BV1xx411c7mD",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://vxbilibili.com/video/BV1xx411c7mD",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://bskye.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://bskx.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://xbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://bs.embeds.now/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://bsyy.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://facecot.com/share/r/19xGa5YKiR",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fixdeviantart.com/arcipello/art/Arci-ID-4659791",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fb.embeds.now/share/r/19xGa5YKiR",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://vxbsky.app/profile/nkjrs12.bsky.social/post/3mywz7y4up22x",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://imgurez.com/gallery/UXCBWlW",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://uuinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://vxinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://eeinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://kkinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_NAME_NOT_RESOLVED"
+    },
+    {
+      "url": "https://zzinstagram.com/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_NAME_NOT_RESOLVED"
+    },
+    {
+      "url": "https://ig.embeds.now/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://pinterestez.com/pin/99360735500167749/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://pi.embeds.now/pin/99360735500167749/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://oginstagram.com/reel/DfF3eqGSKKc/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://phixiv.net/en/artworks/124748386",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://redditez.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://vxreddit.com/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "url": "https://www.fxroblox.com/games/920587237/Adopt-Me",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://r.embeds.now/r/flags/comments/1hqed7c/flag_of_seychelles/",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://snapchatez.com/@mr_rajj91319306/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYYWFlZHZpZmpsAZ4S19eiAZ4S19eEAAAAAQ",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://sp.embeds.now/track/4cOdK2wGLETKBW3PvgPWqT",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fxspotify.com/track/4cOdK2wGLETKBW3PvgPWqT",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://facebed.seria.moe/share/r/19xGa5YKiR",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://th.embeds.now/@zuck/post/DTa3-B1EbTp",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://tnktok.com/@scout2015/video/6718335390845095173",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://tiktokez.com/@scout2015/video/6718335390845095173",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://tiktxk.com/@scout2015/video/6718335390845095173",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://kktiktok.com/@scout2015/video/6718335390845095173",
+      "error": "net::ERR_FAILED"
+    },
+    {
+      "url": "https://tt.embeds.now/@scout2015/video/6718335390845095173",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fixtiktok.com/@scout2015/video/6718335390845095173",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://tpmblr.com/neil-gaiman/717171481634078720",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://txtumblr.com/neil-gaiman/717171481634078720",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fxtwitch.seria.moe/clip/ColdbloodedPowerfulDurianPupper-zS2syJ91CNRIqC4v",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://weiboez.com/2803301701/5024029016829739",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fixvx.com/makkahregion/status/1902619525532512361",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://facebed.com/share/r/19xGa5YKiR",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://fixupx.com/makkahregion/status/1902619525532512361",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://x.embeds.now/makkahregion/status/1902619525532512361",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://twitterez.com/makkahregion/status/1902619525532512361",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://koutube.com/watch?v=dQw4w9WgXcQ",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://weiboez.com/6389423278/RrFnnA9r1",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://tpmblr.com/staff/768250886787039233",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    },
+    {
+      "url": "https://txtumblr.com/staff/768250886787039233",
+      "error": "net::ERR_FAILED",
+      "cors": {
+        "corsError": "MissingAllowOriginHeader",
+        "failedParameter": ""
+      }
+    }
+  ],
+  "checkedAt": "2026-11-17T09:30:39.216Z",
+  "supplementalCheckedAt": "2026-11-17T09:37:51.063Z",
+  "note": "Initial Tumblr/Weibo samples replaced with fresh samples; supplemental transport evidence retained separately. browserFailures includes both passes."
+}

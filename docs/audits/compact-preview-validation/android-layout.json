@@ -1,0 +1,16 @@
+{
+  "viewport": {
+    "width": 408,
+    "height": 229
+  },
+  "bodyHeight": 229,
+  "button": {
+    "x": 172,
+    "y": 82.5,
+    "width": 64,
+    "height": 64
+  },
+  "bodyText": "▶\n▶",
+  "activeSource": false,
+  "videoHidden": true
+}
