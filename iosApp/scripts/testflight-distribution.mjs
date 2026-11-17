@@ -65,9 +65,9 @@ async function main() {
   const notes = readFileSync(new URL('../testflight/what-to-test.en.txt', import.meta.url), 'utf8');
   const localizations = await list(`/v1/builds/${build.id}/betaBuildLocalizations?limit=200`);
   const existing = localizations.find(item => item.attributes.locale === 'en-US');
-  const data = { type: 'betaBuildLocalizations', attributes: { locale: 'en-US', whatToTest: notes } };
+  const data = { type: 'betaBuildLocalizations', attributes: { whatsNew: notes } };
   if (existing) { data.id = existing.id; await api(`/v1/betaBuildLocalizations/${existing.id}`, 'PATCH', { data }); }
-  else { data.relationships = { build: { data: { type: 'builds', id: build.id } } }; await api('/v1/betaBuildLocalizations', 'POST', { data }); }
+  else { data.attributes.locale = 'en-US'; data.relationships = { build: { data: { type: 'builds', id: build.id } } }; await api('/v1/betaBuildLocalizations', 'POST', { data }); }
   let detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
   if (detail.attributes.externalBuildState === 'READY_FOR_BETA_SUBMISSION') await api('/v1/betaAppReviewSubmissions', 'POST', { data: { type: 'betaAppReviewSubmissions', relationships: { build: { data: { type: 'builds', id: build.id } } } } });
   else if (!['WAITING_FOR_BETA_REVIEW', 'IN_BETA_REVIEW', 'BETA_APPROVED', 'READY_FOR_BETA_TESTING', 'IN_BETA_TESTING'].includes(detail.attributes.externalBuildState)) throw new Error(`Build cannot distribute: ${detail.attributes.externalBuildState}`);
