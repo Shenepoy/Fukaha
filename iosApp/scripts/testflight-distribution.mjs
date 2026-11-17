@@ -23,7 +23,11 @@ async function main() {
       const response = await fetch(url, { method, headers: { Authorization: `Bearer ${token(process.env)}`, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(30000) });
       if ((response.status === 429 || response.status >= 500) && attempt < 3) { await new Promise(resolve => setTimeout(resolve, 5000 * (attempt + 1))); continue; }
       const result = response.status === 204 ? {} : await response.json();
-      if (!response.ok) throw new Error(`ASC ${method} ${url.pathname} ${response.status}: ${(result.errors || []).map(error => `${error.code}: ${error.title}`).join('; ')}`);
+      if (!response.ok) {
+        const error = new Error(`ASC ${method} ${url.pathname} ${response.status}: ${(result.errors || []).map(error => `${error.code}: ${error.title}${url.pathname === '/v1/betaAppReviewSubmissions' ? ` (${error.detail || ''})` : ''}`).join('; ')}`);
+        error.status = response.status;
+        throw error;
+      }
       return result;
     }
   };
@@ -69,9 +73,22 @@ async function main() {
   if (existing) { data.id = existing.id; await api(`/v1/betaBuildLocalizations/${existing.id}`, 'PATCH', { data }); }
   else { data.attributes.locale = 'en-US'; data.relationships = { build: { data: { type: 'builds', id: build.id } } }; await api('/v1/betaBuildLocalizations', 'POST', { data }); }
   let detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
-  if (detail.attributes.externalBuildState === 'READY_FOR_BETA_SUBMISSION') await api('/v1/betaAppReviewSubmissions', 'POST', { data: { type: 'betaAppReviewSubmissions', relationships: { build: { data: { type: 'builds', id: build.id } } } } });
+  let reviewError;
+  if (detail.attributes.externalBuildState === 'READY_FOR_BETA_SUBMISSION') {
+    try { await api('/v1/betaAppReviewSubmissions', 'POST', { data: { type: 'betaAppReviewSubmissions', relationships: { build: { data: { type: 'builds', id: build.id } } } } }); }
+    catch (error) {
+      if (error.status !== 403) throw error;
+      reviewError = error;
+      console.error(error.message);
+    }
+  }
   else if (!['WAITING_FOR_BETA_REVIEW', 'IN_BETA_REVIEW', 'BETA_APPROVED', 'READY_FOR_BETA_TESTING', 'IN_BETA_TESTING'].includes(detail.attributes.externalBuildState)) throw new Error(`Build cannot distribute: ${detail.attributes.externalBuildState}`);
-  await api(`/v1/builds/${build.id}/relationships/betaGroups`, 'POST', { data: [{ type: 'betaGroups', id: group.id }] });
+  try { await api(`/v1/builds/${build.id}/relationships/betaGroups`, 'POST', { data: [{ type: 'betaGroups', id: group.id }] }); }
+  catch (error) {
+    Object.assign(report, { version, buildNumber, build: build.id, externalGroup: group.attributes.name, externalGroupId: group.id, externalState: detail.attributes.externalBuildState, groupAssignmentVerified: false, error: error.message, reviewError: reviewError?.message });
+    writeFileSync('testflight-distribution.json', JSON.stringify(report, null, 2));
+    throw error;
+  }
   let confirmed = false;
   for (let attempt = 0; attempt < 10; attempt++) {
     const assigned = await list(`/v1/builds/${build.id}/betaGroups?limit=200`);
@@ -80,8 +97,9 @@ async function main() {
   }
   if (!confirmed) throw new Error('External group assignment verification failed');
   detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
-  Object.assign(report, { version, buildNumber, build: build.id, externalGroup: group.attributes.name, externalGroupId: group.id, externalState: detail.attributes.externalBuildState });
+  Object.assign(report, { version, buildNumber, build: build.id, externalGroup: group.attributes.name, externalGroupId: group.id, externalState: detail.attributes.externalBuildState, groupAssignmentVerified: true, reviewError: reviewError?.message });
   console.log(JSON.stringify(report, null, 2));
   writeFileSync('testflight-distribution.json', JSON.stringify(report, null, 2));
+  if (reviewError) throw reviewError;
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) main().catch(error => { console.error(error.message); process.exitCode = 1; });
