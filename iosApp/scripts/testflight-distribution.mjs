@@ -38,7 +38,12 @@ async function main() {
   const groups = await list(`/v1/betaGroups?filter[app]=${app.id}&limit=200`);
   const report = { app: app.id, appName: app.attributes.name, bundleId: app.attributes.bundleId, groups: groups.map(group => ({ id: group.id, name: group.attributes.name, internal: group.attributes.isInternalGroup })) };
   console.log(JSON.stringify(report, null, 2));
-  if (process.argv[2] === 'inspect') return;
+  if (process.argv[2] === 'inspect') {
+    const detail = (await api(`/v1/apps/${app.id}/betaAppReviewDetail`)).data;
+    const localizations = await list(`/v1/apps/${app.id}/betaAppLocalizations?limit=200`);
+    console.log(JSON.stringify({ reviewContactMissing: ['contactFirstName', 'contactLastName', 'contactPhone', 'contactEmail'].filter(field => !detail?.attributes[field]), betaDescriptions: localizations.map(item => ({ locale: item.attributes.locale, hasDescription: Boolean(item.attributes.description), hasFeedbackEmail: Boolean(item.attributes.feedbackEmail) })) }, null, 2));
+    return;
+  }
   if (process.argv[2] !== 'distribute') throw new Error('Usage: testflight-distribution.mjs inspect|distribute');
   const group = selectGroup(groups, process.env.TESTFLIGHT_EXTERNAL_GROUP);
   const version = readFileSync(new URL('../../VERSION', import.meta.url), 'utf8').trim();
