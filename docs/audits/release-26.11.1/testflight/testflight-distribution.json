@@ -1,0 +1,26 @@
+{
+  "app": "6828659011",
+  "appName": "Fukaha",
+  "bundleId": "com.shenepoy.fukaha",
+  "groups": [
+    {
+      "id": "4ca41a0e-b56f-4925-9965-c2314417a2f5",
+      "name": "Fukaha Internal",
+      "internal": true
+    },
+    {
+      "id": "ab38edaf-baa7-4acc-ab6c-1b813a723307",
+      "name": "AppTesters",
+      "internal": false
+    }
+  ],
+  "version": "26.11.1",
+  "buildNumber": "1003.1",
+  "build": "9a22b53f-eb27-4997-a784-b675fb47f13f",
+  "externalGroup": "AppTesters",
+  "externalGroupId": "ab38edaf-baa7-4acc-ab6c-1b813a723307",
+  "externalState": "READY_FOR_BETA_SUBMISSION",
+  "groupAssignmentVerified": false,
+  "error": "ASC POST /v1/builds/9a22b53f-eb27-4997-a784-b675fb47f13f/relationships/betaGroups 403: FORBIDDEN_ERROR: This request is forbidden for security reasons",
+  "reviewError": "ASC POST /v1/betaAppReviewSubmissions 403: FORBIDDEN_ERROR: This request is forbidden for security reasons (The API key in use does not allow this request)"
+}

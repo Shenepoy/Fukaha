@@ -66,9 +66,12 @@ unsigned IPA workflow is not a TestFlight distribution path.
    key as a password-protected `.p12`. Create three **App Store Connect**
    distribution provisioning profiles, one per identifier, using that certificate.
    Each profile must include the App Group. Development/ad-hoc profiles are rejected.
-4. For automated upload, create an App Store Connect **team API key** with
-   Developer access in **Users and Access → Integrations → App Store Connect API**.
-   Developer access is sufficient for this workflow’s build validation and upload.
+4. For automated external TestFlight distribution, create an App Store Connect
+   **team API key** with App Manager access in
+   **Users and Access → Integrations → App Store Connect API**.
+   Developer access supports validation/upload, but cannot submit external beta
+   review or attach builds to external groups. You can retain a Developer key
+   for upload and complete external distribution in App Store Connect manually.
    Team keys apply across all apps in the account; they cannot be restricted to Fukaha.
    Save the downloaded `.p8` privately, along with its Key ID and Issuer ID.
 
@@ -80,14 +83,15 @@ iOS-Setup), preferably in its GitHub **testflight** environment:
 | Setting | Type | Value |
 |---|---|---|
 | `APPLE_TEAM_ID` | Variable | Ten-character Apple Developer Team ID |
+| `TESTFLIGHT_EXTERNAL_GROUP` | Variable | Existing external group ID or exact name; required if several external groups exist |
 | `IOS_DISTRIBUTION_P12_BASE64` | Secret | Base64 of the exported distribution certificate/private key |
 | `IOS_DISTRIBUTION_P12_PASSWORD` | Secret | Password protecting that `.p12` |
 | `IOS_APP_PROFILE_BASE64` | Secret | Base64 of the `com.shenepoy.fukaha` profile |
 | `IOS_SHARE_PROFILE_BASE64` | Secret | Base64 of the `com.shenepoy.fukaha.share` profile |
 | `IOS_ACTION_PROFILE_BASE64` | Secret | Base64 of the `com.shenepoy.fukaha.action` profile |
-| `ASC_KEY_ID` | Secret | App Store Connect team API Key ID; upload only |
-| `ASC_ISSUER_ID` | Secret | App Store Connect Issuer ID; upload only |
-| `ASC_PRIVATE_KEY_BASE64` | Secret | Base64 of the `.p8` file; upload only |
+| `ASC_KEY_ID` | Secret | App Store Connect team API Key ID; upload and external distribution |
+| `ASC_ISSUER_ID` | Secret | App Store Connect Issuer ID; upload and external distribution |
+| `ASC_PRIVATE_KEY_BASE64` | Secret | Base64 of the `.p8` file; upload and external distribution |
 
 Use the GitHub environment's secret editor or pipe file contents to `gh secret set`;
 do not put private keys in chat or source control. For example, with your actual
@@ -267,3 +271,24 @@ $(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)
 ```
 
 Media downloads use the App Group cache shared by all three targets, so the app can clear extension downloads. A working `group.com.shenepoy.fukaha` entitlement is required for this storage. Cobalt endpoints must use HTTPS.
+
+### Verify and retry external distribution
+
+The workflow waits for the exact marketing version/build to finish processing,
+updates English test notes, submits beta review, attaches the configured existing
+external group and verifies the relationship. It never creates groups, adds
+individual testers, or changes public links. A successful upload is separate from
+successful external distribution; review may remain pending with Apple.
+
+Use the workflow's `inspect_only` input to list existing groups without building.
+After correcting credentials, use `distribute_only: true` and the uploaded
+`build_number` to finish distribution without building or uploading again:
+
+```sh
+gh workflow run ios-testflight.yml --repo Shenepoy/iOS-Setup --ref main \
+  -f distribute_only=true -f build_number=1003.1
+```
+
+The distribution artifact records the exact build, group, verification result,
+and external review state. A permissions failure exits unsuccessfully even when
+the signed IPA was already uploaded successfully.
