@@ -22,6 +22,8 @@ struct ContentView: View {
     @State private var updateMessage: String?
     @State private var quickShareText: String?
     @State private var quickShareDetent: PresentationDetent = .medium
+    @State private var updateChannel: IosUpdateChannel?
+    @Environment(\.openURL) private var openURL
     private let facade = FukahaIosFacade()
 
     private var isArabic: Bool {
@@ -37,17 +39,21 @@ struct ContentView: View {
         FukahaSettingsScreen(
             settings: $settings,
             onClearCache: clearCache,
-            onCheckUpdates: { runUpdateCheck(manual: true) },
+            onCheckUpdates: { Task { await runUpdateCheck(manual: true) } },
             onOpenQuickLink: {
                 quickShareDetent = .medium
                 quickShareText = $0
             },
             updateChecking: updateChecking,
+            updateChannel: updateChannel,
         )
         .environment(\.layoutDirection, isArabic ? .rightToLeft : .leftToRight)
         .preferredColorScheme(preferredColorScheme)
         .tint(Color.fukahaPrimary)
-        .task { runUpdateCheck(manual: false) }
+        .task {
+            updateChannel = await IosUpdateChannel.current()
+            await runUpdateCheck(manual: false)
+        }
         .sheet(item: $pendingUpdate) { update in
             UpdateAvailableView(
                 update: update,
@@ -58,6 +64,14 @@ struct ContentView: View {
                     pendingUpdate = nil
                 },
                 onDismiss: { pendingUpdate = nil },
+                onInstall: {
+                    openURL(update.storeURL) { accepted in
+                        if !accepted {
+                            pendingUpdate = nil
+                            updateMessage = isArabic ? "تعذّر فتح App Store" : "Could not open the App Store"
+                        }
+                    }
+                },
             )
         }
         .sheet(isPresented: Binding(
@@ -103,50 +117,90 @@ struct ContentView: View {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.0.0"
     }
 
-    private func runUpdateCheck(manual: Bool) {
-        if updateChecking { return }
-        if !manual {
-            guard settings.checkUpdatesOnLaunch else { return }
-            let now = Int64(Date().timeIntervalSince1970 * 1000)
-            let interval: Int64 = 24 * 60 * 60 * 1000
-            if settings.lastUpdateCheckEpochMs > 0 && now - settings.lastUpdateCheckEpochMs < interval {
-                return
-            }
-        }
+    @MainActor
+    private func runUpdateCheck(manual: Bool) async {
+        guard !updateChecking else { return }
         updateChecking = true
-        facade.checkForUpdate(currentVersion: currentVersion()) { status, version, changelog, htmlUrl, _ in
-            DispatchQueue.main.async {
-                settings.lastUpdateCheckEpochMs = Int64(Date().timeIntervalSince1970 * 1000)
-                settings.save()
-                updateChecking = false
-                switch status {
-                case "available":
-                    if manual || version != settings.skippedUpdateVersion {
-                        pendingUpdate = PendingAppUpdate(
-                            version: version,
-                            changelog: changelog,
-                            htmlUrl: htmlUrl,
-                        )
-                    }
-                case "up_to_date":
-                    if manual {
-                        updateMessage = isArabic ? "لديك أحدث إصدار" : "You are on the latest version"
-                    }
-                default:
-                    if manual {
-                        updateMessage = isArabic ? "تعذّر البحث عن تحديثات" : "Could not check for updates"
+        defer { updateChecking = false }
+        if manual && (updateChannel == nil || updateChannel == .unknown) {
+            updateChannel = await IosUpdateChannel.current(allowRefresh: true)
+        }
+        guard !Task.isCancelled, let channel = updateChannel else { return }
+        switch channel {
+        case .unknown:
+            if manual {
+                updateMessage = isArabic
+                    ? "تعذّر تحديد مصدر التثبيت. تحقق من اتصالك وتسجيل الدخول إلى App Store، ثم حاول مجدداً."
+                    : "Could not determine the installation source. Check your connection and App Store sign-in, then try again."
+            }
+            return
+        case .testFlight:
+            if manual {
+                openURL(URL(string: "itms-beta://")!) { accepted in
+                    if !accepted {
+                        updateMessage = isArabic
+                            ? "افتح تطبيق TestFlight لتحديث النسخة التجريبية."
+                            : "Open the TestFlight app to update this beta build."
                     }
                 }
             }
+            return
+        case .localBuild:
+            if manual {
+                updateMessage = isArabic
+                    ? "هذه نسخة مثبتة يدوياً. ثبّت نسخة أحدث من المصدر الذي حصلت عليها منه."
+                    : "This build was installed manually. Install a newer build from the same source."
+            }
+            return
+        case .appStore:
+            break
+        }
+        if !manual {
+            guard settings.checkUpdatesOnLaunch,
+                  IosAppUpdateChecker.isCheckDue(lastCheckEpochMs: settings.lastUpdateCheckEpochMs)
+            else { return }
+        }
+        do {
+            let result = try await IosAppUpdateChecker().check(
+                bundleID: Bundle.main.bundleIdentifier ?? "",
+                currentVersion: currentVersion()
+            )
+            try Task.checkCancellation()
+            // Only successful Apple responses count toward the daily check interval.
+            settings.lastUpdateCheckEpochMs = Int64(Date().timeIntervalSince1970 * 1000)
+            settings.save()
+            switch result {
+            case .available(let update):
+                if manual || update.version != settings.skippedUpdateVersion {
+                    pendingUpdate = update
+                }
+            case .upToDate:
+                if manual {
+                    updateMessage = isArabic ? "لديك أحدث إصدار متاح في App Store" : "You have the latest App Store version"
+                }
+            case .requiresNewerOS(let version):
+                if manual {
+                    updateMessage = isArabic
+                        ? "يتطلب الإصدار الأحدث iOS \(version) أو أحدث."
+                        : "The latest release requires iOS \(version) or later."
+                }
+            case .notListed:
+                if manual {
+                    updateMessage = isArabic
+                        ? "فكها غير متاح حالياً في App Store في منطقتك."
+                        : "Fukaha is not currently listed in the App Store in your region."
+                }
+            }
+        } catch is CancellationError {
+            // A cancelled view task should not display a failure or postpone the next check.
+        } catch {
+            if manual && !Task.isCancelled {
+                updateMessage = isArabic
+                    ? "تعذّر البحث عن تحديثات. تحقق من اتصالك وحاول مجدداً."
+                    : "Could not check for updates. Check your connection and try again."
+            }
         }
     }
-}
-
-struct PendingAppUpdate: Identifiable {
-    let version: String
-    let changelog: String
-    let htmlUrl: String
-    var id: String { version }
 }
 
 struct UpdateAvailableView: View {
@@ -154,6 +208,7 @@ struct UpdateAvailableView: View {
     let isArabic: Bool
     let onSkip: () -> Void
     let onDismiss: () -> Void
+    let onInstall: () -> Void
 
     var body: some View {
         NavigationStack {
@@ -166,9 +221,11 @@ struct UpdateAvailableView: View {
                          : update.changelog)
                         .font(.body)
                         .foregroundStyle(.secondary)
-                    if let url = URL(string: update.htmlUrl) {
-                        Link(isArabic ? "عرض الإصدار" : "View release", destination: url)
-                    }
+                    Text(isArabic ? "يتم تنزيل التحديث وتثبيته عبر App Store." : "Download and install this update through the App Store.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                    Button(isArabic ? "التحديث عبر App Store" : "Update in App Store", action: onInstall)
+                        .buttonStyle(.borderedProminent)
                     Button(isArabic ? "تخطَّ هذا الإصدار" : "Skip this version", action: onSkip)
                         .padding(.top, 8)
                 }
@@ -227,8 +284,8 @@ struct SettingsSnapshot {
         if d.object(forKey: IosSettingsKeys.shared.CHECK_UPDATES) != nil {
             s.checkUpdatesOnLaunch = d.bool(forKey: IosSettingsKeys.shared.CHECK_UPDATES)
         }
-        s.skippedUpdateVersion = d.string(forKey: IosSettingsKeys.shared.SKIPPED_UPDATE) ?? ""
-        if let stored = d.object(forKey: IosSettingsKeys.shared.LAST_UPDATE_CHECK) as? NSNumber {
+        s.skippedUpdateVersion = d.string(forKey: "ios.appStore.skippedVersion") ?? ""
+        if let stored = d.object(forKey: "ios.appStore.lastCheckEpochMs") as? NSNumber {
             s.lastUpdateCheckEpochMs = stored.int64Value
         }
         if let raw = d.string(forKey: IosSettingsKeys.shared.PREFERRED_FIXERS) {
@@ -280,8 +337,8 @@ struct SettingsSnapshot {
         d.set(language, forKey: IosSettingsKeys.shared.LANGUAGE)
         d.set(theme, forKey: IosSettingsKeys.shared.THEME)
         d.set(checkUpdatesOnLaunch, forKey: IosSettingsKeys.shared.CHECK_UPDATES)
-        d.set(skippedUpdateVersion, forKey: IosSettingsKeys.shared.SKIPPED_UPDATE)
-        d.set(NSNumber(value: lastUpdateCheckEpochMs), forKey: IosSettingsKeys.shared.LAST_UPDATE_CHECK)
+        d.set(skippedUpdateVersion, forKey: "ios.appStore.skippedVersion")
+        d.set(NSNumber(value: lastUpdateCheckEpochMs), forKey: "ios.appStore.lastCheckEpochMs")
         let raw = preferredFixers.map { "\($0.key)\t\($0.value)" }.joined(separator: "\n")
         d.set(raw, forKey: IosSettingsKeys.shared.PREFERRED_FIXERS)
     }

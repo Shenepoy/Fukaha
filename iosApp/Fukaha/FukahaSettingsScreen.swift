@@ -61,6 +61,7 @@ struct FukahaSettingsScreen: View {
     let onCheckUpdates: () -> Void
     let onOpenQuickLink: (String) -> Void
     let updateChecking: Bool
+    let updateChannel: IosUpdateChannel?
 
     @State private var linkInput = ""
     @State private var cobaltExpanded = false
@@ -413,8 +414,10 @@ struct FukahaSettingsScreen: View {
                                 .font(.system(size: 23, weight: .medium))
                         }
                     }
-                    .disabled(updateChecking)
-                    .accessibilityLabel(text(en: "Check for updates", ar: "البحث عن تحديثات"))
+                    .disabled(updateChecking || updateChannel == nil)
+                    .accessibilityLabel(updateChannel == .testFlight
+                        ? text(en: "Open TestFlight", ar: "فتح TestFlight")
+                        : text(en: "Check for updates", ar: "البحث عن تحديثات"))
                     .padding(.trailing, 16)
                 }
             }
@@ -456,20 +459,7 @@ struct FukahaSettingsScreen: View {
                     subtitle: "shenepoy.com",
                     url: "https://shenepoy.com",
                 )
-                FukahaDivider()
-                externalLinkRow(
-                    icon: "chevron.left.forwardslash.chevron.right",
-                    title: "GitHub",
-                    subtitle: text(en: "View source and releases", ar: "عرض المصدر والإصدارات"),
-                    url: "https://github.com/Zyzto/Fukaha",
-                )
-                FukahaDivider()
-                externalLinkRow(
-                    icon: "heart",
-                    title: text(en: "Donate", ar: "تبرع"),
-                    subtitle: text(en: "Support the developer on GitHub", ar: "ادعم المطوّر عبر GitHub"),
-                    url: "https://github.com/sponsors/Zyzto",
-                )
+
             }
         }
     }
@@ -499,17 +489,41 @@ struct FukahaSettingsScreen: View {
         }
     }
 
+    private var updateExplanation: String {
+        switch updateChannel {
+        case nil:
+            return text(en: "Checking installation source…", ar: "جارٍ التحقق من مصدر التثبيت…")
+        case .testFlight:
+            return text(en: "Beta updates are managed in TestFlight. Use the button beside Version to open it.", ar: "تُدار تحديثات النسخة التجريبية في TestFlight. افتحه بالزر بجانب الإصدار.")
+        case .localBuild:
+            return text(en: "For manually installed builds, install a newer build from the same source.", ar: "للنسخ المثبتة يدوياً، ثبّت نسخة أحدث من المصدر نفسه.")
+        case .unknown:
+            return text(en: "Could not determine the installation source. Use the button beside Version to retry.", ar: "تعذّر تحديد مصدر التثبيت. أعد المحاولة بالزر بجانب الإصدار.")
+        case .appStore:
+            return ""
+        }
+    }
+
     private var updatesSection: some View {
         FukahaSection(title: text(en: "Updates", ar: "التحديثات")) {
-            toggleRow(
-                icon: "arrow.down.app",
-                title: text(en: "Check for updates on launch", ar: "البحث عن تحديثات عند الفتح"),
-                subtitle: text(
-                    en: "Looks at GitHub Releases about once a day. A found update can install from the dialog.",
-                    ar: "يفحص إصدارات GitHub نحو مرة في اليوم. يمكن تثبيت التحديث من النافذة مباشرة.",
-                ),
-                isOn: $settings.checkUpdatesOnLaunch,
-            )
+            if updateChannel == .appStore {
+                toggleRow(
+                    icon: "arrow.down.app",
+                    title: text(en: "Check for updates on launch", ar: "البحث عن تحديثات عند الفتح"),
+                    subtitle: text(
+                        en: "Checks the App Store about once a day. Updates are installed through the App Store.",
+                        ar: "يفحص App Store نحو مرة في اليوم. تُثبَّت التحديثات عبر App Store.",
+                    ),
+                    isOn: $settings.checkUpdatesOnLaunch,
+                )
+            } else {
+                FukahaListRow(
+                    icon: "arrow.down.app",
+                    title: updateChannel == .testFlight ? "TestFlight" : text(en: "Updates", ar: "التحديثات"),
+                    subtitle: updateExplanation,
+                    trailingIcon: nil,
+                )
+            }
         }
     }
 

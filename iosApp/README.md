@@ -13,6 +13,34 @@ Fukaha’s iOS app, Share Extension, and UI Action Extension compile against the
 
 CI never signs with a certificate. That is intentional until you have a team.
 
+## Updates
+
+iOS uses Apple's distribution channels. App Store installations look up the
+app's bundle identifier in Apple's catalog for the App Store account's region
+(falling back to the device region), compare numeric release versions, and open
+the App Store to install an available update. Releases requiring a newer iOS
+version explain the requirement on manual checks and do not trigger install prompts.
+Automatic checks run at most once a day after a successful response; manual
+checks bypass the interval and skipped-version preference. Failed or cancelled
+checks do not advance the timestamp. An empty listing is reported separately
+from an up-to-date installation.
+
+TestFlight builds open TestFlight from the button beside Version. Debug and
+manually installed builds explain that a newer build must be installed from the
+same source. Distribution is detected with StoreKit's verified app transaction,
+with an existing receipt as an offline fallback. iOS does not query GitHub
+releases. When the source cannot be determined, the Version button retries
+detection instead of assuming the app was installed manually.
+An explicit retry can refresh an unavailable or unverified Apple transaction;
+Apple may ask the user to sign in. Automatic launch checks never request this refresh.
+Its App Store check history and skipped version use separate settings
+keys so old GitHub results cannot suppress an Apple release.
+
+Run `bash iosApp/scripts/test-app-updates.sh` for the native Swift update tests.
+The unsigned Simulator build script also runs these tests before building.
+On macOS, the test script additionally typechecks the StoreKit release path
+against the iOS Simulator SDK, since the host tests exclude iOS-only APIs.
+
 ## Local build (Mac + Xcode, no paid account)
 
 1. Install Xcode, JDK 17, and [XcodeGen](https://github.com/yonaskolb/XcodeGen):

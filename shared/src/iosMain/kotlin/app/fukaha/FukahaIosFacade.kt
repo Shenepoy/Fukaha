@@ -87,43 +87,6 @@ class FukahaIosFacade {
         }
     }
 
-    fun checkForUpdate(
-        currentVersion: String,
-        onResult: (
-            status: String,
-            version: String,
-            changelog: String,
-            htmlUrl: String,
-            error: String?,
-        ) -> Unit,
-    ) {
-        scope.launch {
-            when (val result = AppUpdateChecker().check(currentVersion)) {
-                is UpdateCheckResult.Available -> onResult(
-                    "available",
-                    result.release.version,
-                    result.release.changelog,
-                    result.release.htmlUrl,
-                    null,
-                )
-                is UpdateCheckResult.UpToDate -> onResult(
-                    "up_to_date",
-                    "",
-                    "",
-                    AppUpdateChecker.RELEASES_PAGE_URL,
-                    null,
-                )
-                is UpdateCheckResult.Failed -> onResult(
-                    "failed",
-                    "",
-                    "",
-                    AppUpdateChecker.RELEASES_PAGE_URL,
-                    result.message,
-                )
-            }
-        }
-    }
-
     fun close() {
         bridge.close()
     }
