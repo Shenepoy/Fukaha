@@ -23,7 +23,7 @@ async function main() {
       const response = await fetch(url, { method, headers: { Authorization: `Bearer ${token(process.env)}`, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(30000) });
       if ((response.status === 429 || response.status >= 500) && attempt < 3) { await new Promise(resolve => setTimeout(resolve, 5000 * (attempt + 1))); continue; }
       const result = response.status === 204 ? {} : await response.json();
-      if (!response.ok) throw new Error(`ASC ${response.status}: ${(result.errors || []).map(error => `${error.code}: ${error.title}`).join('; ')}`);
+      if (!response.ok) throw new Error(`ASC ${method} ${url.pathname} ${response.status}: ${(result.errors || []).map(error => `${error.code}: ${error.title}`).join('; ')}`);
       return result;
     }
   };
