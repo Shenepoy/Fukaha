@@ -106,8 +106,16 @@ async function main() {
   else { data.attributes.locale = 'en-US'; data.relationships = { build: { data: { type: 'builds', id: build.id } } }; await api('/v1/betaBuildLocalizations', 'POST', { data }); }
   const assignedGroups = await attachGroups(
     targets,
-    async () => new Set((await list(`/v1/builds/${build.id}/betaGroups?limit=200`)).map(group => group.id)),
-    id => api(`/v1/builds/${build.id}/relationships/betaGroups`, 'POST', { data: [{ type: 'betaGroups', id }] }),
+    async () => {
+      const memberships = await Promise.all(targets.map(async group => {
+        const builds = await list(`/v1/betaGroups/${group.id}/relationships/builds?limit=200`);
+        return builds.some(item => item.id === build.id) ? group.id : null;
+      }));
+      return new Set(memberships.filter(Boolean));
+    },
+    id => api(`/v1/betaGroups/${id}/relationships/builds`, 'POST', {
+      data: [{ type: 'builds', id: build.id }],
+    }),
     () => new Promise(resolve => setTimeout(resolve, 3000)),
   );
   let detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
