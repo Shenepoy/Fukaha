@@ -14,6 +14,38 @@ export function selectGroup(groups, requested) {
   if (matches.length !== 1) throw new Error(`Select exactly one existing external group using TESTFLIGHT_EXTERNAL_GROUP. Available: ${external.map(group => `${group.attributes.name} (${group.id})`).join(', ')}`);
   return matches[0];
 }
+export function selectGroups(groups, requested, allGroups) {
+  if (!allGroups) return [selectGroup(groups, requested)];
+  if (!groups.some(group => group.attributes.isInternalGroup === true) ||
+      !groups.some(group => group.attributes.isInternalGroup === false)) {
+    throw new Error('Expected existing internal and external TestFlight groups');
+  }
+  return groups;
+}
+export async function attachGroups(groups, getAssigned, addGroup, wait) {
+  let assigned = await getAssigned();
+  const hasAccess = group => assigned.has(group.id) || group.attributes.hasAccessToAllBuilds === true;
+  const errors = new Map();
+  for (const group of groups.filter(group => !hasAccess(group))) {
+    try {
+      await addGroup(group.id);
+    } catch (error) {
+      errors.set(group.id, error.message);
+    }
+  }
+  for (let attempt = 0; attempt < 10 && groups.some(group => !hasAccess(group)); attempt++) {
+    if (attempt > 0) await wait();
+    assigned = await getAssigned();
+    if (groups.every(group => hasAccess(group) || errors.has(group.id))) break;
+  }
+  return groups.map(group => ({
+    id: group.id,
+    name: group.attributes.name,
+    internal: group.attributes.isInternalGroup,
+    verified: hasAccess(group),
+    error: hasAccess(group) ? undefined : errors.get(group.id) ?? 'Group assignment not visible',
+  }));
+}
 async function main() {
   for (const name of ['ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_PRIVATE_KEY_BASE64']) if (!process.env[name]) throw new Error(`Missing ${name}`);
   const api = async (path, method = 'GET', body) => {
@@ -49,7 +81,7 @@ async function main() {
     return;
   }
   if (process.argv[2] !== 'distribute') throw new Error('Usage: testflight-distribution.mjs inspect|distribute');
-  const group = selectGroup(groups, process.env.TESTFLIGHT_EXTERNAL_GROUP);
+  const targets = selectGroups(groups, process.env.TESTFLIGHT_EXTERNAL_GROUP, process.env.TESTFLIGHT_ALL_GROUPS === 'true');
   const version = readFileSync(new URL('../../VERSION', import.meta.url), 'utf8').trim();
   const buildNumber = process.env.IOS_BUILD_NUMBER;
   if (!buildNumber) throw new Error('Missing IOS_BUILD_NUMBER');
@@ -72,34 +104,28 @@ async function main() {
   const data = { type: 'betaBuildLocalizations', attributes: { whatsNew: notes } };
   if (existing) { data.id = existing.id; await api(`/v1/betaBuildLocalizations/${existing.id}`, 'PATCH', { data }); }
   else { data.attributes.locale = 'en-US'; data.relationships = { build: { data: { type: 'builds', id: build.id } } }; await api('/v1/betaBuildLocalizations', 'POST', { data }); }
+  const assignedGroups = await attachGroups(
+    targets,
+    async () => new Set((await list(`/v1/builds/${build.id}/betaGroups?limit=200`)).map(group => group.id)),
+    id => api(`/v1/builds/${build.id}/relationships/betaGroups`, 'POST', { data: [{ type: 'betaGroups', id }] }),
+    () => new Promise(resolve => setTimeout(resolve, 3000)),
+  );
   let detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
   let reviewError;
   if (detail.attributes.externalBuildState === 'READY_FOR_BETA_SUBMISSION') {
     try { await api('/v1/betaAppReviewSubmissions', 'POST', { data: { type: 'betaAppReviewSubmissions', relationships: { build: { data: { type: 'builds', id: build.id } } } } }); }
-    catch (error) {
-      if (error.status !== 403) throw error;
-      reviewError = error;
-      console.error(error.message);
-    }
+    catch (error) { reviewError = error; }
   }
-  else if (!['WAITING_FOR_BETA_REVIEW', 'IN_BETA_REVIEW', 'BETA_APPROVED', 'READY_FOR_BETA_TESTING', 'IN_BETA_TESTING'].includes(detail.attributes.externalBuildState)) throw new Error(`Build cannot distribute: ${detail.attributes.externalBuildState}`);
-  try { await api(`/v1/builds/${build.id}/relationships/betaGroups`, 'POST', { data: [{ type: 'betaGroups', id: group.id }] }); }
-  catch (error) {
-    Object.assign(report, { version, buildNumber, build: build.id, externalGroup: group.attributes.name, externalGroupId: group.id, externalState: detail.attributes.externalBuildState, groupAssignmentVerified: false, error: error.message, reviewError: reviewError?.message });
-    writeFileSync('testflight-distribution.json', JSON.stringify(report, null, 2));
-    throw error;
+  else if (!['WAITING_FOR_BETA_REVIEW', 'IN_BETA_REVIEW', 'BETA_APPROVED', 'READY_FOR_BETA_TESTING', 'IN_BETA_TESTING'].includes(detail.attributes.externalBuildState)) {
+    reviewError = new Error(`Build cannot distribute externally: ${detail.attributes.externalBuildState}`);
   }
-  let confirmed = false;
-  for (let attempt = 0; attempt < 10; attempt++) {
-    const assigned = await list(`/v1/builds/${build.id}/betaGroups?limit=200`);
-    if (assigned.some(item => item.id === group.id)) { confirmed = true; break; }
-    await new Promise(resolve => setTimeout(resolve, 3000));
-  }
-  if (!confirmed) throw new Error('External group assignment verification failed');
   detail = (await api(`/v1/builds/${build.id}/buildBetaDetail`)).data;
-  Object.assign(report, { version, buildNumber, build: build.id, externalGroup: group.attributes.name, externalGroupId: group.id, externalState: detail.attributes.externalBuildState, groupAssignmentVerified: true, reviewError: reviewError?.message });
+  const missing = assignedGroups.filter(group => !group.verified);
+  Object.assign(report, { version, buildNumber, build: build.id, externalState: detail.attributes.externalBuildState, groupAssignmentVerified: missing.length === 0, assignments: assignedGroups, reviewError: reviewError?.message });
   console.log(JSON.stringify(report, null, 2));
   writeFileSync('testflight-distribution.json', JSON.stringify(report, null, 2));
-  if (reviewError) throw reviewError;
+  const failures = missing.map(group => `${group.name}: ${group.error}`);
+  if (reviewError) failures.push(reviewError.message);
+  if (failures.length) throw new Error(failures.join('\n'));
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) main().catch(error => { console.error(error.message); process.exitCode = 1; });

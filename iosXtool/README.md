@@ -94,6 +94,12 @@ completing `xtool auth`.
 Refresh the framework artifact when Kotlin code or iOS dependencies in
 `shared` change. Swift-only changes can use the same prepared framework.
 
+For disposable release verification, run both `prepare.sh` and `xtool dev
+build` from a checkout inside `with-temp-build`. Copy any IPA or logs you
+need to keep to a persistent location before the wrapper exits. xtool writes
+its generated files beside the project, so start both steps in the disposable
+checkout.
+
 The two extensions are declared using xtool’s SwiftPM extension format; the
 action extension is the `com.apple.ui-services` target named **Clean with
 Fukaha**. See xtool’s [app extension guide](https://xtool.sh/documentation/xtool/appex/).

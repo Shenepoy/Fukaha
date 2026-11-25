@@ -123,5 +123,6 @@ jobs:
     uses: ./.github/workflows/ios-testflight.yml
     secrets: inherit
     with:
+      all_groups: true
       upload: true
       build_number: ${{ needs.version.outputs.ios_build }}

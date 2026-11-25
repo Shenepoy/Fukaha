@@ -1,5 +1,11 @@
 package app.fukaha
 
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -78,14 +84,61 @@ class LinkProcessorTest {
         val processor = LinkProcessor(catalog)
         try {
             val prepared = processor.prepare(
-                sharedText = "watch https://twitter.com/foo/status/99?utm_source=share please",
+                sharedText = "watch https://twitter.com/foo/status/99?utm_source=share&cxt=timeline&cn=share&lang=en please",
                 settings = FukahaSettings(resolveShortLinks = true),
             )
             assertNotNull(prepared)
             assertEquals("x", prepared.detected.platformKey)
-            assertEquals("https://twitter.com/foo/status/99", prepared.detected.cleanedUrl)
-            assertEquals("https://fixvx.com/foo/status/99", prepared.embedUrl)
+            assertEquals("https://twitter.com/foo/status/99?lang=en", prepared.textUrlFor(ShareAction.Clean))
+            assertEquals("https://fixvx.com/foo/status/99?lang=en", prepared.textUrlFor(ShareAction.Embed))
             assertEquals(EmbedHealthStatus.Unknown, prepared.embedHealth)
+        } finally {
+            processor.close()
+        }
+    }
+
+    @Test
+    fun prepareCleansTheDestinationOfAnXShortLink() = runTest {
+        val shortLink = "https://t.co/example"
+        val destination = "https://x.com/foo/status/99?cxt=timeline&t=tracker&twclid=click&lang=en"
+        val requests = mutableListOf<String>()
+        val processor = LinkProcessor(catalog, HttpClient(MockEngine { request ->
+            val url = request.url.toString()
+            requests.add(url)
+            if (url == shortLink) {
+                respond("", HttpStatusCode.Found, headersOf(HttpHeaders.Location, destination))
+            } else {
+                respond("")
+            }
+        }))
+        try {
+            val prepared = assertNotNull(processor.prepare(shortLink, FukahaSettings()))
+            assertEquals(listOf(shortLink, destination), requests)
+            assertEquals("https://x.com/foo/status/99?lang=en", prepared.textUrlFor(ShareAction.Clean))
+            assertEquals("https://fixvx.com/foo/status/99?lang=en", prepared.textUrlFor(ShareAction.Embed))
+        } finally {
+            processor.close()
+        }
+    }
+
+    @Test
+    fun prepareKeepsAnXShortLinkWhenItCannotBeExpanded() = runTest {
+        val shortLink = "https://t.co/example"
+        var requests = 0
+        val processor = LinkProcessor(catalog, HttpClient(MockEngine {
+            requests++
+            error("Simulated connection failure")
+        }))
+        try {
+            val disabled = assertNotNull(processor.prepare(shortLink, FukahaSettings(resolveShortLinks = false)))
+            assertEquals(0, requests)
+            val unavailable = assertNotNull(processor.prepare(shortLink, FukahaSettings()))
+            assertEquals(1, requests)
+            for (prepared in listOf(disabled, unavailable)) {
+                assertNull(prepared.embedUrl)
+                assertEquals(shortLink, prepared.textUrlFor(ShareAction.Clean))
+                assertEquals(shortLink, prepared.textUrlFor(ShareAction.Embed))
+            }
         } finally {
             processor.close()
         }

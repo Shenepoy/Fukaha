@@ -4,6 +4,16 @@ All notable changes to Fukaha are documented here.
 
 ## [Unreleased]
 
+## [26.11.2] — 2026-11-25
+
+### Fixed
+- Removed additional tracking from X, Facebook, Instagram, TikTok, Reddit, and Spotify share links while preserving parameters such as timestamps and comment IDs.
+- Preserved parameters needed by X redirect links.
+
+### Changed
+- iOS testing releases target all existing internal and external TestFlight groups.
+- Android version code is 19.
+
 ## [26.11.1] — 2026-11-17
 
 ### Added

@@ -3,6 +3,9 @@ name: iOS TestFlight
 on:
   workflow_call:
     inputs:
+      all_groups:
+        type: boolean
+        default: false
       upload:
         type: boolean
         default: false
@@ -11,6 +14,10 @@ on:
         required: true
   workflow_dispatch:
     inputs:
+      all_groups:
+        description: Distribute to all existing internal and external groups
+        type: boolean
+        default: false
       distribute_only:
         description: Distribute an already uploaded build (requires build_number)
         type: boolean
@@ -51,6 +58,7 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_PRIVATE_KEY_BASE64: ${{ secrets.ASC_PRIVATE_KEY_BASE64 }}
           TESTFLIGHT_EXTERNAL_GROUP: ${{ vars.TESTFLIGHT_EXTERNAL_GROUP }}
+          TESTFLIGHT_ALL_GROUPS: ${{ inputs.all_groups }}
           IOS_BUILD_NUMBER: ${{ inputs.build_number }}
           DISTRIBUTE_ONLY: ${{ inputs.distribute_only }}
         run: |
@@ -179,15 +187,16 @@ jobs:
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_PRIVATE_KEY_BASE64: ${{ secrets.ASC_PRIVATE_KEY_BASE64 }}
         run: bash iosApp/scripts/upload-testflight.sh "dist/testflight/$IOS_BUILD_NUMBER/Fukaha.ipa"
-      - name: Distribute to existing external TestFlight group
+      - name: Distribute to existing TestFlight groups
         if: ${{ inputs.upload }}
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
           ASC_PRIVATE_KEY_BASE64: ${{ secrets.ASC_PRIVATE_KEY_BASE64 }}
           TESTFLIGHT_EXTERNAL_GROUP: ${{ vars.TESTFLIGHT_EXTERNAL_GROUP }}
+          TESTFLIGHT_ALL_GROUPS: ${{ inputs.all_groups }}
         run: node iosApp/scripts/testflight-distribution.mjs distribute
-      - name: Save external distribution verification
+      - name: Save distribution verification
         if: ${{ inputs.upload && always() }}
         uses: actions/upload-artifact@v4
         with:

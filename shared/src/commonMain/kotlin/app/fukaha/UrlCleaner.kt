@@ -6,13 +6,18 @@ object UrlCleaner {
     private val urlRegex = Regex("""https?://[^\s<>"]+""", RegexOption.IGNORE_CASE)
 
     private val trackingParams = setOf(
-        "fbclid", "gclid", "dclid", "msclkid", "mc_cid", "mc_eid",
+        "fbclid", "twclid", "gclid", "dclid", "msclkid", "mc_cid", "mc_eid",
         "igshid", "igsh", "share_id", "shareid", "mibextid",
         "cmpid", "campaign_id", "ad_id",
         "xtor", "gbraid", "wbraid", "yclid",
     )
 
     private val trackingPrefixes = listOf("utm_", "ga_", "pk_", "mtm_", "hsa_", "vero_", "icn")
+
+    private val xTrackingParams = setOf("s", "t", "cxt", "cn", "ref_src", "ref_url", "refsrc", "src")
+    private val facebookTrackingParams = setOf("__tn__", "sfnsn", "comment_tracking")
+    private val facebookIndexedTrackingKey = Regex("""__(?:cft|xts)__\[\d+\]""")
+    private val tiktokTrackingParams = setOf("_d", "_t", "_r", "u_code", "share_iid", "share_app_name")
 
     private val shortLinkHosts = setOf(
         "t.co", "bit.ly", "bitly.com", "tinyurl.com", "goo.gl", "ow.ly",
@@ -59,7 +64,7 @@ object UrlCleaner {
         val (pathQuery, fragment) = splitFragment(afterHost)
         val (path, query) = splitQuery(pathQuery)
 
-        val kept = filterQuery(query, hostOf(trimmed).orEmpty())
+        val kept = filterQuery(query, hostOf(trimmed).orEmpty(), path)
         val queryPart = if (kept.isEmpty()) "" else "?" + kept.joinToString("&") { (k, v) ->
             if (v == null) k else "$k=$v"
         }
@@ -95,7 +100,7 @@ object UrlCleaner {
         return if (idx < 0) value to null else value.substring(0, idx) to value.substring(idx + 1)
     }
 
-    private fun filterQuery(query: String?, host: String): List<Pair<String, String?>> {
+    private fun filterQuery(query: String?, host: String, path: String): List<Pair<String, String?>> {
         if (query.isNullOrBlank()) return emptyList()
         return query.split('&')
             .mapNotNull { part ->
@@ -104,16 +109,24 @@ object UrlCleaner {
                 val key = if (eq < 0) part else part.substring(0, eq)
                 val value = if (eq < 0) null else part.substring(eq + 1)
                 val keyLower = runCatching { key.decodeURLQueryComponent() }.getOrDefault(key).lowercase()
-                if (isTracking(keyLower, host)) null else key to value
+                if (isTracking(keyLower, host, path)) null else key to value
             }
     }
 
-    private fun isTracking(key: String, host: String): Boolean {
+    private fun isTracking(key: String, host: String, path: String): Boolean {
         if (key in trackingParams) return true
         fun on(domain: String) = host == domain || host.endsWith(".$domain")
-        if ((on("x.com") || on("twitter.com")) && key in setOf("s", "t", "ref_src", "ref_url")) return true
-        if ((on("youtube.com") || on("youtu.be")) && key in setOf("si", "feature")) return true
-        if (on("instagram.com") && key == "si") return true
-        return trackingPrefixes.any { key.startsWith(it) }
+        return when {
+            // X redirect URLs can require fields that are tracking on ordinary share links.
+            on("x.com") || on("twitter.com") -> path.trimEnd('/') != "/i/redirect" && key in xTrackingParams
+            on("youtube.com") || on("youtu.be") -> key == "si" || key == "feature"
+            on("instagram.com") || on("instagr.am") -> key == "si" || key == "ig_rid"
+            on("facebook.com") || on("fb.com") || on("fb.watch") ->
+                key in facebookTrackingParams || facebookIndexedTrackingKey.matches(key)
+            on("tiktok.com") -> key in tiktokTrackingParams
+            on("reddit.com") -> key == "ref_source" || key == "ref_campaign"
+            host == "open.spotify.com" -> key == "si"
+            else -> false
+        } || trackingPrefixes.any { key.startsWith(it) }
     }
 }

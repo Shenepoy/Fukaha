@@ -1,4 +1,6 @@
 Please test:
+- Share a Twitter/X link with tracking parameters and check both Clean and Embed. Also try opening a t.co link through Fukaha and confirm the destination is cleaned after it resolves.
+- Share Facebook, Instagram, TikTok, Reddit, and Spotify links. Check that tracking is removed and details such as a comment, carousel position, or timestamp still work.
 - Open a shared link and confirm its image/video preview loads automatically. Videos should not load or play until Play is pressed; pausing or closing should release the stream.
 - Disable Media previews in Settings and confirm no preview loads while cleaned/embed link sharing still works.
 - Check colored URL differences: red/strike-through for removed text and green for new text. Copy/share should preserve the exact URL.

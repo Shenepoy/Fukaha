@@ -272,13 +272,12 @@ $(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)
 
 Media downloads use the App Group cache shared by all three targets, so the app can clear extension downloads. A working `group.com.shenepoy.fukaha` entitlement is required for this storage. Cobalt endpoints must use HTTPS.
 
-### Verify and retry external distribution
+### Verify and retry TestFlight distribution
 
-The workflow waits for the exact marketing version/build to finish processing,
-updates English test notes, submits beta review, attaches the configured existing
-external group and verifies the relationship. It never creates groups, adds
-individual testers, or changes public links. A successful upload is separate from
-successful external distribution; review may remain pending with Apple.
+The testing-tag workflow waits for the exact version and build to finish processing,
+updates English test notes, and verifies access for every existing internal and
+external group. It submits external beta review when Apple requires it. Testers in
+external groups may have to wait for Apple to finish the review.
 
 Use the workflow's `inspect_only` input to list existing groups without building.
 After correcting credentials, use `distribute_only: true` and the uploaded
@@ -286,9 +285,9 @@ After correcting credentials, use `distribute_only: true` and the uploaded
 
 ```sh
 gh workflow run ios-testflight.yml --repo Shenepoy/iOS-Setup --ref main \
-  -f distribute_only=true -f build_number=1003.1
+  -f distribute_only=true -f all_groups=true -f build_number=1003.1
 ```
 
-The distribution artifact records the exact build, group, verification result,
-and external review state. A permissions failure exits unsuccessfully even when
-the signed IPA was already uploaded successfully.
+The distribution artifact records the exact build, each targeted group's assignment,
+and the external review state. The workflow reports permission failures after
+attempting each group.
